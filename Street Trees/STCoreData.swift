@@ -9,6 +9,7 @@
 import Foundation
 import BNRCoreDataStack
 import StreetTreesPersistentKit
+import StreetTreesTransportKit
 
 private let STPKPersistentStoreFileName = "streettrees.sqlite"
 
@@ -38,22 +39,27 @@ public class STCoreData: NSObject {
         STPKCoreDataStack.constructStack(url: url, successBlock: successBlock, failureBlock: failureBlock)
     }
     
-    public func insertNewTrees(jsonData: [TreeLocation], completion: STPKCoreDataStackCompletionBlock) {
+    public func insertNewTrees(treesData: [STTKStreetTree], completion: STPKCoreDataStackCompletionBlock) {
         guard let context = self.coreDataStack?.newBackgroundWorkerMOC() else { return }
         let currentTrees = self.fetchTrees()
         
         context.performBlockAndWait { 
             
-            for treeData in jsonData {
+            for treeData in treesData {
                 let containsTree = currentTrees.contains { (tree: STPKTree) -> Bool in
                     tree.order == treeData.order
                 }
                 
                 if !containsTree {
                     let newTree = STPKTree.insertTree(context: context)
-                    newTree.latitude = treeData.latitude
-                    newTree.longitude = treeData.longitude
-                    newTree.speciesName = treeData.title
+                    newTree.order = treeData.order
+                    newTree.carbon = treeData.carbon
+                    newTree.air = treeData.air
+                    newTree.kiloWattHours = treeData.kWh
+                    newTree.savings = NSDecimalNumber(double: treeData.savings)
+                    newTree.stormWater = treeData.stormwater
+                    newTree.therms = treeData.therms
+                    newTree.speciesName = treeData.name
                 }
             }
             
