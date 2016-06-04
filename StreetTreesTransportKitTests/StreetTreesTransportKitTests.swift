@@ -29,6 +29,13 @@ class StreetTreesTransportKitTests: XCTestCase {
         XCTAssertNil(t.test(), "is nil")
     }
     
+    func testDownload() {
+        
+        STTKDownloadManager.fetchAllTrees { (trees) in
+            XCTAssertNotNil(trees, "is not nil")
+        }
+    }
+    
     func testPerformanceExample() {
         // This is an example of a performance test case.
         self.measureBlock {
