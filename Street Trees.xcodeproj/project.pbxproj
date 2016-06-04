@@ -18,7 +18,6 @@
 		D45F07431D0258320025F8F0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45F07421D0258320025F8F0 /* AppDelegate.swift */; };
 		D45F07451D0258320025F8F0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45F07441D0258320025F8F0 /* ViewController.swift */; };
 		D45F07481D0258320025F8F0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D45F07461D0258320025F8F0 /* Main.storyboard */; };
-		D45F074B1D0258320025F8F0 /* Street_Trees.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D45F07491D0258320025F8F0 /* Street_Trees.xcdatamodeld */; };
 		D45F074D1D0258320025F8F0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D45F074C1D0258320025F8F0 /* Assets.xcassets */; };
 		D45F07501D0258320025F8F0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D45F074E1D0258320025F8F0 /* LaunchScreen.storyboard */; };
 		D45F075B1D0258320025F8F0 /* Street_TreesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45F075A1D0258320025F8F0 /* Street_TreesTests.swift */; };
@@ -160,7 +159,6 @@
 		D45F07421D0258320025F8F0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D45F07441D0258320025F8F0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		D45F07471D0258320025F8F0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		D45F074A1D0258320025F8F0 /* Street_Trees.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Street_Trees.xcdatamodel; sourceTree = "<group>"; };
 		D45F074C1D0258320025F8F0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D45F074F1D0258320025F8F0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D45F07511D0258320025F8F0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -332,7 +330,6 @@
 				D45F074C1D0258320025F8F0 /* Assets.xcassets */,
 				D45F074E1D0258320025F8F0 /* LaunchScreen.storyboard */,
 				D45F07511D0258320025F8F0 /* Info.plist */,
-				D45F07491D0258320025F8F0 /* Street_Trees.xcdatamodeld */,
 				52256F531D033548004D8CE2 /* TreeLocation.swift */,
 				5DDC179C1D036AA000AA272B /* TreeApplication.storyboard */,
 				5D4D5EF31D0377D3005B0714 /* TreeApplicationViewController.swift */,
@@ -844,7 +841,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D45F074B1D0258320025F8F0 /* Street_Trees.xcdatamodeld in Sources */,
 				D4B543721D03445B0000CBFF /* STCoreData.swift in Sources */,
 				D45F07451D0258320025F8F0 /* ViewController.swift in Sources */,
 				52256F541D033548004D8CE2 /* TreeLocation.swift in Sources */,
@@ -1444,16 +1440,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		D45F07491D0258320025F8F0 /* Street_Trees.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				D45F074A1D0258320025F8F0 /* Street_Trees.xcdatamodel */,
-			);
-			currentVersion = D45F074A1D0258320025F8F0 /* Street_Trees.xcdatamodel */;
-			path = Street_Trees.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
 		D4B543561D0322BB0000CBFF /* STPKModel.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (

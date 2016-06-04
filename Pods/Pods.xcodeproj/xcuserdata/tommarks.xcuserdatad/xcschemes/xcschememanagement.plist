@@ -14,6 +14,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>FBAnnotationClusteringSwift.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-Street Trees.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -22,6 +27,11 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>423C10F04A172BB11C7A3702F8F09B90</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>698733C4D35F57BFBAEEEF66B2C06C7F</key>
 		<dict>
 			<key>primary</key>
@@ -32,7 +42,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>DEF67A8C357F41D6F37CA93E2FA68DE5</key>
+		<key>C96DA877632774446AC183432D130C56</key>
 		<dict>
 			<key>primary</key>
 			<true/>

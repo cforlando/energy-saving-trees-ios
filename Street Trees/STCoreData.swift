@@ -9,6 +9,7 @@
 import Foundation
 import BNRCoreDataStack
 import StreetTreesPersistentKit
+import StreetTreesTransportKit
 
 private let STPKPersistentStoreFileName = "streettrees.sqlite"
 
@@ -38,19 +39,37 @@ public class STCoreData: NSObject {
         STPKCoreDataStack.constructStack(url: url, successBlock: successBlock, failureBlock: failureBlock)
     }
     
-    public func insertNewTrees(jsonData: [[String: AnyObject]]) {
+    public func insertNewTrees(treesData: [STTKStreetTree], completion: STPKCoreDataStackCompletionBlock) {
         guard let context = self.coreDataStack?.newBackgroundWorkerMOC() else { return }
+        let currentTrees = self.fetchTrees()
         
         context.performBlockAndWait { 
-            for treeData in jsonData {
-                let newTree = STPKTree.insertTree(context: context)
-                //TODO: set data
+            
+            for treeData in treesData {
+                let containsTree = currentTrees.contains { (tree: STPKTree) -> Bool in
+                    tree.order == treeData.order
+                }
+                
+                if !containsTree {
+                    let newTree = STPKTree.insertTree(context: context)
+                    newTree.order = treeData.order
+                    newTree.carbon = treeData.carbon
+                    newTree.air = treeData.air
+                    newTree.kiloWattHours = treeData.kWh
+                    newTree.savings = NSDecimalNumber(double: treeData.savings)
+                    newTree.stormWater = treeData.stormwater
+                    newTree.therms = treeData.therms
+                    newTree.speciesName = treeData.name
+                    newTree.longitude = treeData.long
+                    newTree.latitude = treeData.lat
+                }
             }
             
             do {
                 try context.saveContextAndWait()
+                completion(anError: nil)
             } catch {
-                
+                completion(anError: NSError(domain: "com.codefororlando.streettrees.inserttrees", code: -1, userInfo: nil))
             }
             
         }
@@ -68,6 +87,7 @@ public class STCoreData: NSObject {
         
         return trees
     }
+    
     
     //******************************************************************************************************************
     // MARK: - Private Functions

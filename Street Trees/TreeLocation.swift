@@ -8,24 +8,20 @@
 
 import UIKit
 import MapKit
+import FBAnnotationClusteringSwift
 
-class TreeLocation: NSObject, MKAnnotation {
-  var title: String?
-  var subtitle: String?
-  var latitude: Double
-  var longitude: Double
+public class TreeLocation: FBAnnotation {
+  public var subtitle: String?
+  public let order: Int = 1
   
-  var pinColor: UIColor = MKPinAnnotationView.greenPinColor()
+  public var pinColor: UIColor = MKPinAnnotationView.greenPinColor()
 
-  var coordinate: CLLocationCoordinate2D {
-    return CLLocationCoordinate2D(latitude: self.latitude, longitude: self.longitude)
-  }
   
   init(name: String, type: String, latitude: Double, longitude: Double) {
+    super.init()
     self.title = name
     self.subtitle = type
-    self.latitude = latitude
-    self.longitude = longitude
+    self.coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
     
   }
 }
