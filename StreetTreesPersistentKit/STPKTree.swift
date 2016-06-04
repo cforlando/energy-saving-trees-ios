@@ -22,8 +22,12 @@ public class STPKTree: NSManagedObject {
         return NSEntityDescription.entityForName(self.entityName(), inManagedObjectContext: context)!
     }
     
-    class func tree(withJSON json:[String: AnyObject], inContext context: NSManagedObjectContext) -> STPKTree? {
-        return nil
+    class func tree(withJSON json:[String: AnyObject], inContext context: NSManagedObjectContext) -> STPKTree {
+        let newTree = STPKTree(entity: self.entityDescription(inManagedObjectContext: context), insertIntoManagedObjectContext: context)
+        
+        // TODO: set tree properties
+        
+        return newTree
     }
     
 }

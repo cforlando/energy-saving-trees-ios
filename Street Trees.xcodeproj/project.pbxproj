@@ -413,7 +413,6 @@
 			isa = PBXGroup;
 			children = (
 				D4B543691D032D020000CBFF /* STPKTree+CoreDataProperties.swift */,
-				D4B5436A1D032D020000CBFF /* STPKTree.swift */,
 			);
 			name = Machine;
 			sourceTree = "<group>";
@@ -421,6 +420,7 @@
 		D4B543681D032C820000CBFF /* Human */ = {
 			isa = PBXGroup;
 			children = (
+				D4B5436A1D032D020000CBFF /* STPKTree.swift */,
 			);
 			name = Human;
 			sourceTree = "<group>";
