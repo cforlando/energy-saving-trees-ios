@@ -14,15 +14,21 @@ class ViewController: UIViewController, MKMapViewDelegate {
 
     @IBOutlet weak var mapView: MKMapView!
     let regionRadius: CLLocationDistance = 1000
+    var foundUser = false
   
     override func viewDidLoad() {
         super.viewDidLoad()
         mapView.delegate = self
         // TODO: Remove this location and call current user location, currently located near code for orlando
-        let initialLocation = CLLocation(latitude: 28.5409558, longitude: -81.3834534)
-        // Do any additional setup after loading the view, typically from a nib.
-        centerMapOnLocation(initialLocation)
+        
         loadPinsToMap()
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        self.mapView.showsUserLocation = true
+        self.mapView.showsScale = true
+        self.mapView.showsCompass = true
     }
 
     override func didReceiveMemoryWarning() {
@@ -46,12 +52,16 @@ class ViewController: UIViewController, MKMapViewDelegate {
                 }
                 for tree in STCoreData.sharedInstance.fetchTrees() {
                     let pin = TreeLocation(name: tree.speciesName ?? "", type: "Tuliptree", latitude: tree.latitude?.doubleValue ?? 0.0, longitude: tree.longitude?.doubleValue ?? 0.0)
+                    
                     self.mapView.addAnnotation(pin)
                 }
             }
         }
         
     }
+    
+    //******************************************************************************************************************
+    // MARK: - Map View Delegates
   
     func mapView(mapView: MKMapView,
                             viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
@@ -67,5 +77,14 @@ class ViewController: UIViewController, MKMapViewDelegate {
       }
       return pinView
       
+    }
+    
+    map
+    
+    func mapView(mapView: MKMapView, didUpdateUserLocation userLocation: MKUserLocation) {
+        if !self.foundUser {
+            self.foundUser = true
+            self.centerMapOnLocation(userLocation.location!)
+        }
     }
 }
