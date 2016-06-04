@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		437FA8157393A54623C4AAA6 /* Pods_Street_Trees.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D154145AC64686495A3F5874 /* Pods_Street_Trees.framework */; };
 		D45F07431D0258320025F8F0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45F07421D0258320025F8F0 /* AppDelegate.swift */; };
 		D45F07451D0258320025F8F0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45F07441D0258320025F8F0 /* ViewController.swift */; };
 		D45F07481D0258320025F8F0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D45F07461D0258320025F8F0 /* Main.storyboard */; };
@@ -31,6 +32,14 @@
 		D45F07D91D02614A0025F8F0 /* StreetTreesFoundationKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45F07D81D02614A0025F8F0 /* StreetTreesFoundationKitTests.swift */; };
 		D45F07DD1D02614A0025F8F0 /* StreetTreesFoundationKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D45F07C81D02614A0025F8F0 /* StreetTreesFoundationKit.framework */; };
 		D45F07DE1D02614A0025F8F0 /* StreetTreesFoundationKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D45F07C81D02614A0025F8F0 /* StreetTreesFoundationKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D4B543581D0322BB0000CBFF /* STPKModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D4B543561D0322BB0000CBFF /* STPKModel.xcdatamodeld */; };
+		D4B543621D0326440000CBFF /* STPKCoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B543611D0326440000CBFF /* STPKCoreDataStack.swift */; };
+		D4B543651D0326690000CBFF /* BNRCoreDataStack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4B543631D0326690000CBFF /* BNRCoreDataStack.framework */; };
+		D4B543661D0326690000CBFF /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4B543641D0326690000CBFF /* CoreData.framework */; };
+		D4B5436B1D032D020000CBFF /* STPKTree+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B543691D032D020000CBFF /* STPKTree+CoreDataProperties.swift */; };
+		D4B5436C1D032D020000CBFF /* STPKTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B5436A1D032D020000CBFF /* STPKTree.swift */; };
+		D4B5436E1D0339C50000CBFF /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4B5436D1D0339C50000CBFF /* Alamofire.framework */; };
+		D4B543701D0339F70000CBFF /* tes.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B5436F1D0339F70000CBFF /* tes.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -130,6 +139,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		01EFB84C410B6CBCB4498E34 /* Pods-Street Trees.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Street Trees.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Street Trees/Pods-Street Trees.debug.xcconfig"; sourceTree = "<group>"; };
+		D154145AC64686495A3F5874 /* Pods_Street_Trees.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Street_Trees.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D45F073F1D0258320025F8F0 /* Street Trees.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Street Trees.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D45F07421D0258320025F8F0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D45F07441D0258320025F8F0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -163,6 +174,15 @@
 		D45F07D11D02614A0025F8F0 /* StreetTreesFoundationKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StreetTreesFoundationKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D45F07D81D02614A0025F8F0 /* StreetTreesFoundationKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreetTreesFoundationKitTests.swift; sourceTree = "<group>"; };
 		D45F07DA1D02614A0025F8F0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D4B543571D0322BB0000CBFF /* STPKModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = STPKModel.xcdatamodel; sourceTree = "<group>"; };
+		D4B543611D0326440000CBFF /* STPKCoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STPKCoreDataStack.swift; sourceTree = "<group>"; };
+		D4B543631D0326690000CBFF /* BNRCoreDataStack.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BNRCoreDataStack.framework; path = "../../../Library/Developer/Xcode/DerivedData/Street_Trees-dmyahyozksacllaehqxolnnibfxo/Build/Products/Debug-iphonesimulator/BNRCoreDataStack.framework"; sourceTree = "<group>"; };
+		D4B543641D0326690000CBFF /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		D4B543691D032D020000CBFF /* STPKTree+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "STPKTree+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		D4B5436A1D032D020000CBFF /* STPKTree.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STPKTree.swift; sourceTree = "<group>"; };
+		D4B5436D1D0339C50000CBFF /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = "../../../Library/Developer/Xcode/DerivedData/Street_Trees-dmyahyozksacllaehqxolnnibfxo/Build/Products/Debug-iphonesimulator/Alamofire.framework"; sourceTree = "<group>"; };
+		D4B5436F1D0339F70000CBFF /* tes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = tes.swift; sourceTree = "<group>"; };
+		DB0867AD3C985EBC75B8FB0A /* Pods-Street Trees.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Street Trees.release.xcconfig"; path = "Pods/Target Support Files/Pods-Street Trees/Pods-Street Trees.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -174,6 +194,7 @@
 				D45F07901D0260B00025F8F0 /* StreetTreesTransportKit.framework in Frameworks */,
 				D45F07741D025E610025F8F0 /* MapKit.framework in Frameworks */,
 				D45F07DD1D02614A0025F8F0 /* StreetTreesFoundationKit.framework in Frameworks */,
+				437FA8157393A54623C4AAA6 /* Pods_Street_Trees.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -195,6 +216,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D4B5436E1D0339C50000CBFF /* Alamofire.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -210,6 +232,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D4B543651D0326690000CBFF /* BNRCoreDataStack.framework in Frameworks */,
+				D4B543661D0326690000CBFF /* CoreData.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -239,6 +263,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8F40C3FE92744CCF46452AFE /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				01EFB84C410B6CBCB4498E34 /* Pods-Street Trees.debug.xcconfig */,
+				DB0867AD3C985EBC75B8FB0A /* Pods-Street Trees.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		D45F07361D0258320025F8F0 = {
 			isa = PBXGroup;
 			children = (
@@ -253,6 +286,7 @@
 				D45F07C91D02614A0025F8F0 /* StreetTreesFoundationKit */,
 				D45F07D71D02614A0025F8F0 /* StreetTreesFoundationKitTests */,
 				D45F07401D0258320025F8F0 /* Products */,
+				8F40C3FE92744CCF46452AFE /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -307,7 +341,11 @@
 		D45F07751D0260100025F8F0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D4B5436D1D0339C50000CBFF /* Alamofire.framework */,
+				D4B543631D0326690000CBFF /* BNRCoreDataStack.framework */,
+				D4B543641D0326690000CBFF /* CoreData.framework */,
 				D45F07731D025E610025F8F0 /* MapKit.framework */,
+				D154145AC64686495A3F5874 /* Pods_Street_Trees.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -316,6 +354,7 @@
 			isa = PBXGroup;
 			children = (
 				D45F077D1D0260B00025F8F0 /* StreetTreesTransportKit.h */,
+				D4B5436F1D0339F70000CBFF /* tes.swift */,
 				D45F077F1D0260B00025F8F0 /* Info.plist */,
 			);
 			path = StreetTreesTransportKit;
@@ -334,6 +373,10 @@
 			isa = PBXGroup;
 			children = (
 				D45F07A01D0260CA0025F8F0 /* StreetTreesPersistentKit.h */,
+				D4B543561D0322BB0000CBFF /* STPKModel.xcdatamodeld */,
+				D4B543611D0326440000CBFF /* STPKCoreDataStack.swift */,
+				D4B543681D032C820000CBFF /* Human */,
+				D4B543671D032C630000CBFF /* Machine */,
 				D45F07A21D0260CA0025F8F0 /* Info.plist */,
 			);
 			path = StreetTreesPersistentKit;
@@ -364,6 +407,22 @@
 				D45F07DA1D02614A0025F8F0 /* Info.plist */,
 			);
 			path = StreetTreesFoundationKitTests;
+			sourceTree = "<group>";
+		};
+		D4B543671D032C630000CBFF /* Machine */ = {
+			isa = PBXGroup;
+			children = (
+				D4B543691D032D020000CBFF /* STPKTree+CoreDataProperties.swift */,
+				D4B5436A1D032D020000CBFF /* STPKTree.swift */,
+			);
+			name = Machine;
+			sourceTree = "<group>";
+		};
+		D4B543681D032C820000CBFF /* Human */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Human;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -400,10 +459,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D45F076A1D0258320025F8F0 /* Build configuration list for PBXNativeTarget "Street Trees" */;
 			buildPhases = (
+				919C8657446ACB000563EC59 /* Check Pods Manifest.lock */,
 				D45F073B1D0258320025F8F0 /* Sources */,
 				D45F073C1D0258320025F8F0 /* Frameworks */,
 				D45F073D1D0258320025F8F0 /* Resources */,
 				D45F07951D0260B00025F8F0 /* Embed Frameworks */,
+				6DB2DFCA15304E5A26DE6C7D /* Embed Pods Frameworks */,
+				62EA94E905C9BF1AE0B3CB23 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -703,6 +765,54 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		62EA94E905C9BF1AE0B3CB23 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Street Trees/Pods-Street Trees-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6DB2DFCA15304E5A26DE6C7D /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Street Trees/Pods-Street Trees-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		919C8657446ACB000563EC59 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		D45F073B1D0258320025F8F0 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -734,6 +844,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D4B543701D0339F70000CBFF /* tes.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -749,6 +860,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D4B543581D0322BB0000CBFF /* STPKModel.xcdatamodeld in Sources */,
+				D4B543621D0326440000CBFF /* STPKCoreDataStack.swift in Sources */,
+				D4B5436B1D032D020000CBFF /* STPKTree+CoreDataProperties.swift in Sources */,
+				D4B5436C1D032D020000CBFF /* STPKTree.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -942,8 +1057,10 @@
 		};
 		D45F076B1D0258320025F8F0 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 01EFB84C410B6CBCB4498E34 /* Pods-Street Trees.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = "Street Trees/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.CodeForOrlando.Street-Trees";
@@ -953,8 +1070,10 @@
 		};
 		D45F076C1D0258320025F8F0 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DB0867AD3C985EBC75B8FB0A /* Pods-Street Trees.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = "Street Trees/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.CodeForOrlando.Street-Trees";
@@ -1011,6 +1130,7 @@
 		D45F07931D0260B00025F8F0 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -1022,6 +1142,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.CodeForOrlando.StreetTreesTransportKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -1030,6 +1151,7 @@
 		D45F07941D0260B00025F8F0 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -1071,6 +1193,7 @@
 		D45F07B61D0260CA0025F8F0 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -1082,6 +1205,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.CodeForOrlando.StreetTreesPersistentKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -1090,6 +1214,7 @@
 		D45F07B71D0260CA0025F8F0 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -1234,6 +1359,7 @@
 				D45F07941D0260B00025F8F0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		D45F07961D0260B00025F8F0 /* Build configuration list for PBXNativeTarget "StreetTreesTransportKitTests" */ = {
 			isa = XCConfigurationList;
@@ -1242,6 +1368,7 @@
 				D45F07981D0260B00025F8F0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		D45F07B51D0260CA0025F8F0 /* Build configuration list for PBXNativeTarget "StreetTreesPersistentKit" */ = {
 			isa = XCConfigurationList;
@@ -1250,6 +1377,7 @@
 				D45F07B71D0260CA0025F8F0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		D45F07B81D0260CA0025F8F0 /* Build configuration list for PBXNativeTarget "StreetTreesPersistentKitTests" */ = {
 			isa = XCConfigurationList;
@@ -1258,6 +1386,7 @@
 				D45F07BA1D0260CA0025F8F0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		D45F07DF1D02614A0025F8F0 /* Build configuration list for PBXNativeTarget "StreetTreesFoundationKit" */ = {
 			isa = XCConfigurationList;
@@ -1266,6 +1395,7 @@
 				D45F07E11D02614A0025F8F0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		D45F07E21D02614A0025F8F0 /* Build configuration list for PBXNativeTarget "StreetTreesFoundationKitTests" */ = {
 			isa = XCConfigurationList;
@@ -1274,6 +1404,7 @@
 				D45F07E41D02614A0025F8F0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
@@ -1285,6 +1416,16 @@
 			);
 			currentVersion = D45F074A1D0258320025F8F0 /* Street_Trees.xcdatamodel */;
 			path = Street_Trees.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+		D4B543561D0322BB0000CBFF /* STPKModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				D4B543571D0322BB0000CBFF /* STPKModel.xcdatamodel */,
+			);
+			currentVersion = D4B543571D0322BB0000CBFF /* STPKModel.xcdatamodel */;
+			path = STPKModel.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};
