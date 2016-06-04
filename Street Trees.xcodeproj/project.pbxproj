@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		52256F541D033548004D8CE2 /* TreeLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52256F531D033548004D8CE2 /* TreeLocation.swift */; };
 		437FA8157393A54623C4AAA6 /* Pods_Street_Trees.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D154145AC64686495A3F5874 /* Pods_Street_Trees.framework */; };
 		D45F07431D0258320025F8F0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45F07421D0258320025F8F0 /* AppDelegate.swift */; };
 		D45F07451D0258320025F8F0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45F07441D0258320025F8F0 /* ViewController.swift */; };
@@ -139,6 +140,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		52256F531D033548004D8CE2 /* TreeLocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TreeLocation.swift; sourceTree = "<group>"; };
 		01EFB84C410B6CBCB4498E34 /* Pods-Street Trees.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Street Trees.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Street Trees/Pods-Street Trees.debug.xcconfig"; sourceTree = "<group>"; };
 		D154145AC64686495A3F5874 /* Pods_Street_Trees.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Street_Trees.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D45F073F1D0258320025F8F0 /* Street Trees.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Street Trees.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -316,6 +318,7 @@
 				D45F074E1D0258320025F8F0 /* LaunchScreen.storyboard */,
 				D45F07511D0258320025F8F0 /* Info.plist */,
 				D45F07491D0258320025F8F0 /* Street_Trees.xcdatamodeld */,
+				52256F531D033548004D8CE2 /* TreeLocation.swift */,
 			);
 			path = "Street Trees";
 			sourceTree = "<group>";
@@ -820,6 +823,7 @@
 			files = (
 				D45F074B1D0258320025F8F0 /* Street_Trees.xcdatamodeld in Sources */,
 				D45F07451D0258320025F8F0 /* ViewController.swift in Sources */,
+				52256F541D033548004D8CE2 /* TreeLocation.swift in Sources */,
 				D45F07431D0258320025F8F0 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
