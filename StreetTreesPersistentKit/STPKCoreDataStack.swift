@@ -13,6 +13,8 @@ import BNRCoreDataStack
 //**********************************************************************************************************************
 // MARK: - Type Aliases
 
+public typealias STPKCoreDataStackCompletionBlock = (anError: NSError?) -> Void
+
 public typealias STPKCoreDataStackResetFailureBlock = (error: NSError) -> Void
 public typealias STPKCoreDataStackResetSuccessBlock = () -> Void
 
