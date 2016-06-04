@@ -9,15 +9,16 @@
 import UIKit
 import MapKit
 
-class TreeLocation: NSObject, MKAnnotation {
-  var title: String?
-  var subtitle: String?
-  var latitude: Double
-  var longitude: Double
+public class TreeLocation: NSObject, MKAnnotation {
+  public var title: String?
+  public var subtitle: String?
+  public var latitude: Double
+  public var longitude: Double
+    public let order: Int = 1
   
-  var pinColor: UIColor = MKPinAnnotationView.greenPinColor()
+  public var pinColor: UIColor = MKPinAnnotationView.greenPinColor()
 
-  var coordinate: CLLocationCoordinate2D {
+  public var coordinate: CLLocationCoordinate2D {
     return CLLocationCoordinate2D(latitude: self.latitude, longitude: self.longitude)
   }
   

@@ -38,19 +38,30 @@ public class STCoreData: NSObject {
         STPKCoreDataStack.constructStack(url: url, successBlock: successBlock, failureBlock: failureBlock)
     }
     
-    public func insertNewTrees(jsonData: [[String: AnyObject]]) {
+    public func insertNewTrees(jsonData: [TreeLocation], completion: STPKCoreDataStackCompletionBlock) {
         guard let context = self.coreDataStack?.newBackgroundWorkerMOC() else { return }
+        let currentTrees = self.fetchTrees()
         
         context.performBlockAndWait { 
+            
             for treeData in jsonData {
-                let newTree = STPKTree.insertTree(context: context)
-                //TODO: set data
+                let containsTree = currentTrees.contains { (tree: STPKTree) -> Bool in
+                    tree.order == treeData.order
+                }
+                
+                if !containsTree {
+                    let newTree = STPKTree.insertTree(context: context)
+                    newTree.latitude = treeData.latitude
+                    newTree.longitude = treeData.longitude
+                    newTree.speciesName = treeData.title
+                }
             }
             
             do {
                 try context.saveContextAndWait()
+                completion(anError: nil)
             } catch {
-                
+                completion(anError: NSError(domain: "com.codefororlando.streettrees.inserttrees", code: -1, userInfo: nil))
             }
             
         }
@@ -68,6 +79,7 @@ public class STCoreData: NSObject {
         
         return trees
     }
+    
     
     //******************************************************************************************************************
     // MARK: - Private Functions
