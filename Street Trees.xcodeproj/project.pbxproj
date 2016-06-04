@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		437FA8157393A54623C4AAA6 /* Pods_Street_Trees.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D154145AC64686495A3F5874 /* Pods_Street_Trees.framework */; };
+		5DDC17931D0341A700AA272B /* STTKDownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DDC17921D0341A700AA272B /* STTKDownloadManager.swift */; };
+		5DDC17971D034D0500AA272B /* STTKStreetTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DDC17961D034D0500AA272B /* STTKStreetTree.swift */; };
+		5DDC17991D0356F100AA272B /* STFKStreetTreeDateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DDC17981D0356F100AA272B /* STFKStreetTreeDateFormatter.swift */; };
 		D45F07431D0258320025F8F0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45F07421D0258320025F8F0 /* AppDelegate.swift */; };
 		D45F07451D0258320025F8F0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45F07441D0258320025F8F0 /* ViewController.swift */; };
 		D45F07481D0258320025F8F0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D45F07461D0258320025F8F0 /* Main.storyboard */; };
@@ -140,6 +143,9 @@
 
 /* Begin PBXFileReference section */
 		01EFB84C410B6CBCB4498E34 /* Pods-Street Trees.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Street Trees.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Street Trees/Pods-Street Trees.debug.xcconfig"; sourceTree = "<group>"; };
+		5DDC17921D0341A700AA272B /* STTKDownloadManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STTKDownloadManager.swift; sourceTree = "<group>"; };
+		5DDC17961D034D0500AA272B /* STTKStreetTree.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STTKStreetTree.swift; sourceTree = "<group>"; };
+		5DDC17981D0356F100AA272B /* STFKStreetTreeDateFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STFKStreetTreeDateFormatter.swift; sourceTree = "<group>"; };
 		D154145AC64686495A3F5874 /* Pods_Street_Trees.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Street_Trees.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D45F073F1D0258320025F8F0 /* Street Trees.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Street Trees.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D45F07421D0258320025F8F0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -356,6 +362,8 @@
 				D45F077D1D0260B00025F8F0 /* StreetTreesTransportKit.h */,
 				D4B5436F1D0339F70000CBFF /* tes.swift */,
 				D45F077F1D0260B00025F8F0 /* Info.plist */,
+				5DDC17921D0341A700AA272B /* STTKDownloadManager.swift */,
+				5DDC17961D034D0500AA272B /* STTKStreetTree.swift */,
 			);
 			path = StreetTreesTransportKit;
 			sourceTree = "<group>";
@@ -396,6 +404,7 @@
 			children = (
 				D45F07CA1D02614A0025F8F0 /* StreetTreesFoundationKit.h */,
 				D45F07CC1D02614A0025F8F0 /* Info.plist */,
+				5DDC17981D0356F100AA272B /* STFKStreetTreeDateFormatter.swift */,
 			);
 			path = StreetTreesFoundationKit;
 			sourceTree = "<group>";
@@ -845,6 +854,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				D4B543701D0339F70000CBFF /* tes.swift in Sources */,
+				5DDC17971D034D0500AA272B /* STTKStreetTree.swift in Sources */,
+				5DDC17931D0341A700AA272B /* STTKDownloadManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -879,6 +890,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5DDC17991D0356F100AA272B /* STFKStreetTreeDateFormatter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1256,6 +1268,7 @@
 		D45F07E01D02614A0025F8F0 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -1267,6 +1280,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.CodeForOrlando.StreetTreesFoundationKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -1275,6 +1289,7 @@
 		D45F07E11D02614A0025F8F0 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
