@@ -40,6 +40,7 @@
 		D4B5436C1D032D020000CBFF /* STPKTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B5436A1D032D020000CBFF /* STPKTree.swift */; };
 		D4B5436E1D0339C50000CBFF /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4B5436D1D0339C50000CBFF /* Alamofire.framework */; };
 		D4B543701D0339F70000CBFF /* tes.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B5436F1D0339F70000CBFF /* tes.swift */; };
+		D4B543721D03445B0000CBFF /* STCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B543711D03445B0000CBFF /* STCoreData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -182,6 +183,7 @@
 		D4B5436A1D032D020000CBFF /* STPKTree.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STPKTree.swift; sourceTree = "<group>"; };
 		D4B5436D1D0339C50000CBFF /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = "../../../Library/Developer/Xcode/DerivedData/Street_Trees-dmyahyozksacllaehqxolnnibfxo/Build/Products/Debug-iphonesimulator/Alamofire.framework"; sourceTree = "<group>"; };
 		D4B5436F1D0339F70000CBFF /* tes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = tes.swift; sourceTree = "<group>"; };
+		D4B543711D03445B0000CBFF /* STCoreData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STCoreData.swift; sourceTree = "<group>"; };
 		DB0867AD3C985EBC75B8FB0A /* Pods-Street Trees.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Street Trees.release.xcconfig"; path = "Pods/Target Support Files/Pods-Street Trees/Pods-Street Trees.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -311,6 +313,7 @@
 			children = (
 				D45F07421D0258320025F8F0 /* AppDelegate.swift */,
 				D45F07441D0258320025F8F0 /* ViewController.swift */,
+				D4B543711D03445B0000CBFF /* STCoreData.swift */,
 				D45F07461D0258320025F8F0 /* Main.storyboard */,
 				D45F074C1D0258320025F8F0 /* Assets.xcassets */,
 				D45F074E1D0258320025F8F0 /* LaunchScreen.storyboard */,
@@ -819,6 +822,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D45F074B1D0258320025F8F0 /* Street_Trees.xcdatamodeld in Sources */,
+				D4B543721D03445B0000CBFF /* STCoreData.swift in Sources */,
 				D45F07451D0258320025F8F0 /* ViewController.swift in Sources */,
 				D45F07431D0258320025F8F0 /* AppDelegate.swift in Sources */,
 			);
