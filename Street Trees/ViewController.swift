@@ -68,10 +68,10 @@ class ViewController: UIViewController, MKMapViewDelegate {
       var pinView = mapView.dequeueReusableAnnotationViewWithIdentifier(reuseId) as? MKPinAnnotationView
       if pinView == nil {
         pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
-        pinView!.animatesDrop = true
-        pinView!.pinTintColor = UIColor.greenColor()
+        pinView?.animatesDrop = true
+        pinView?.pinTintColor = UIColor.greenColor()
       } else {
-        pinView!.annotation = annotation
+        pinView?.annotation = annotation
       }
       return pinView
       

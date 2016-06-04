@@ -18,7 +18,7 @@ class TreeLocation: NSObject, MKAnnotation {
   var pinColor: UIColor = MKPinAnnotationView.greenPinColor()
 
   var coordinate: CLLocationCoordinate2D {
-    return CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+    return CLLocationCoordinate2D(latitude: self.latitude, longitude: self.longitude)
   }
   
   init(name: String, type: String, latitude: Double, longitude: Double) {
