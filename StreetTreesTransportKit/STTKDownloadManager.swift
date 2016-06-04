@@ -12,7 +12,7 @@ import Alamofire
 // App Key from Brigade Open Data Sharing Platform
 private let appKey = "aIJDKwhq6DsA4Q5IfBhbAkYHh"
 
-public class STTKDownloadManager {
+public final class STTKDownloadManager {
   
   // EXAMPLE JSON OUTPUT
    /*
@@ -59,6 +59,52 @@ public class STTKDownloadManager {
                 } else {
                     completion([STTKStreetTree]())
                 }
+        }
+        
+    }
+    
+    
+    // This should probably not be used anymore now that the online API has been updated with location data
+    public class func fetchAllTreesFromLocalFile(completion: ([STTKStreetTree])->Void) {
+        
+        // download data on a background queue
+        let concurrentQueue = dispatch_queue_create("com.CodeForOrlando.concurrentQueue", DISPATCH_QUEUE_CONCURRENT)
+        
+        dispatch_async(concurrentQueue) { 
+            
+            if let data = NSData(contentsOfFile: "testData.json") {
+                
+                // convert data into JSON
+                do {
+                    if let JSON = try NSJSONSerialization.JSONObjectWithData(data, options: []) as? [AnyObject] {
+                        
+                        // Iterate through each of the JSON objects found in the JSON download and load them into a data model array
+                        var streetTrees: [STTKStreetTree] = []
+                        
+                        for treeJSON in JSON {
+                            if let tree = STTKStreetTree(json: treeJSON) {
+                                streetTrees.append(tree)
+                            }
+                        }
+                        
+                        // once done, call the completion handler passing off all the Tree Objects downloaded
+                        completion(streetTrees)
+                    }
+                    
+                    completion([STTKStreetTree]())
+                   
+                } catch {
+                    print("NSJSONSerialization Failed with Error: \(error)")
+                     completion([STTKStreetTree]())
+                }
+                
+                
+                
+            } else {
+                completion([STTKStreetTree]())
+            }
+            
+            
         }
         
     }
