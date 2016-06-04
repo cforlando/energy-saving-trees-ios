@@ -6,6 +6,7 @@ use_frameworks!
 target 'Street Trees' do
 pod 'BNRCoreDataStack'
 pod 'Alamofire'
+pod 'FBAnnotationClusteringSwift'
 end
 
 target 'Street TreesTests' do

@@ -60,6 +60,8 @@ public class STCoreData: NSObject {
                     newTree.stormWater = treeData.stormwater
                     newTree.therms = treeData.therms
                     newTree.speciesName = treeData.name
+                    newTree.longitude = treeData.long
+                    newTree.latitude = treeData.lat
                 }
             }
             

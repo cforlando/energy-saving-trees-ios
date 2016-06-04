@@ -86,8 +86,10 @@ strip_invalid_archs() {
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods-Street Trees/Alamofire.framework"
   install_framework "Pods-Street Trees/BNRCoreDataStack.framework"
+  install_framework "Pods-Street Trees/FBAnnotationClusteringSwift.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods-Street Trees/Alamofire.framework"
   install_framework "Pods-Street Trees/BNRCoreDataStack.framework"
+  install_framework "Pods-Street Trees/FBAnnotationClusteringSwift.framework"
 fi
