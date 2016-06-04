@@ -55,10 +55,17 @@ class ViewController: UIViewController, MKMapViewDelegate {
   
   
     func loadPinsToMap() {
-      let pins = getTestPins()
-      for pin in pins {
-        mapView.addAnnotation(pin)
-      }
+      let pins = getTestPins() //TODO: Replace with API call
+        STCoreData.sharedInstance.insertNewTrees(pins) { (anError: NSError?) -> Void in
+            if anError != nil {
+                //TODO: throw error?
+                return
+            }
+            for tree in STCoreData.sharedInstance.fetchTrees() {
+                let pin = TreeLocation(name: tree.speciesName ?? "", type: "Tuliptree", latitude: tree.latitude?.doubleValue ?? 0.0, longitude: tree.longitude?.doubleValue ?? 0.0)
+                self.mapView.addAnnotation(pin)
+            }
+        }
     }
   
     func mapView(mapView: MKMapView,

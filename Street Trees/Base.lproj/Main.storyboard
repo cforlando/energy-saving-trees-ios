@@ -133,6 +133,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="mapView" destination="Jvl-Ec-rHt" id="tmF-Xa-fG0"/>
                         <segue destination="jz4-LI-Ugk" kind="presentation" modalPresentationStyle="formSheet" id="ucA-UC-X3v"/>
                     </connections>
                 </viewController>

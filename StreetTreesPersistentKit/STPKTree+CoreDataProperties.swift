@@ -12,18 +12,18 @@
 import Foundation
 import CoreData
 
-extension STPKTree {
+public extension STPKTree {
 
-    @NSManaged var order: NSNumber?
-    @NSManaged var latitude: NSNumber?
-    @NSManaged var longitude: NSNumber?
-    @NSManaged var speciesName: String?
-    @NSManaged var savings: NSDecimalNumber?
-    @NSManaged var kiloWattHours: NSNumber?
-    @NSManaged var therms: NSNumber?
-    @NSManaged var stormWater: NSNumber?
-    @NSManaged var carbon: NSNumber?
-    @NSManaged var air: NSNumber?
-    @NSManaged var type: NSNumber?
+    @NSManaged public  var order: NSNumber?
+    @NSManaged public  var latitude: NSNumber?
+    @NSManaged public  var longitude: NSNumber?
+    @NSManaged public  var speciesName: String?
+    @NSManaged public  var savings: NSDecimalNumber?
+    @NSManaged public  var kiloWattHours: NSNumber?
+    @NSManaged public  var therms: NSNumber?
+    @NSManaged public  var stormWater: NSNumber?
+    @NSManaged public  var carbon: NSNumber?
+    @NSManaged public  var air: NSNumber?
+    @NSManaged public  var type: NSNumber?
 
 }
