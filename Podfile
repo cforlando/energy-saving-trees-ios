@@ -4,7 +4,8 @@ platform :ios, '9.0'
 use_frameworks!
 
 target 'Street Trees' do
-
+pod 'BNRCoreDataStack'
+pod 'Alamofire'
 end
 
 target 'Street TreesTests' do

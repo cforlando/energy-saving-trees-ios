@@ -7,6 +7,7 @@
 //
 
 import XCTest
+import Alamofire
 @testable import StreetTreesTransportKit
 
 class StreetTreesTransportKitTests: XCTestCase {
@@ -24,6 +25,8 @@ class StreetTreesTransportKitTests: XCTestCase {
     func testExample() {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
+        let t = tes()
+        XCTAssertNil(t.test(), "is nil")
     }
     
     func testPerformanceExample() {
