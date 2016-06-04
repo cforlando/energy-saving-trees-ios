@@ -1,0 +1,1294 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		D45F07431D0258320025F8F0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45F07421D0258320025F8F0 /* AppDelegate.swift */; };
+		D45F07451D0258320025F8F0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45F07441D0258320025F8F0 /* ViewController.swift */; };
+		D45F07481D0258320025F8F0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D45F07461D0258320025F8F0 /* Main.storyboard */; };
+		D45F074B1D0258320025F8F0 /* Street_Trees.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D45F07491D0258320025F8F0 /* Street_Trees.xcdatamodeld */; };
+		D45F074D1D0258320025F8F0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D45F074C1D0258320025F8F0 /* Assets.xcassets */; };
+		D45F07501D0258320025F8F0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D45F074E1D0258320025F8F0 /* LaunchScreen.storyboard */; };
+		D45F075B1D0258320025F8F0 /* Street_TreesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45F075A1D0258320025F8F0 /* Street_TreesTests.swift */; };
+		D45F07661D0258320025F8F0 /* Street_TreesUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45F07651D0258320025F8F0 /* Street_TreesUITests.swift */; };
+		D45F07741D025E610025F8F0 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D45F07731D025E610025F8F0 /* MapKit.framework */; };
+		D45F077E1D0260B00025F8F0 /* StreetTreesTransportKit.h in Headers */ = {isa = PBXBuildFile; fileRef = D45F077D1D0260B00025F8F0 /* StreetTreesTransportKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D45F07851D0260B00025F8F0 /* StreetTreesTransportKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D45F077B1D0260B00025F8F0 /* StreetTreesTransportKit.framework */; };
+		D45F078C1D0260B00025F8F0 /* StreetTreesTransportKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45F078B1D0260B00025F8F0 /* StreetTreesTransportKitTests.swift */; };
+		D45F07901D0260B00025F8F0 /* StreetTreesTransportKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D45F077B1D0260B00025F8F0 /* StreetTreesTransportKit.framework */; };
+		D45F07911D0260B00025F8F0 /* StreetTreesTransportKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D45F077B1D0260B00025F8F0 /* StreetTreesTransportKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D45F07A11D0260CA0025F8F0 /* StreetTreesPersistentKit.h in Headers */ = {isa = PBXBuildFile; fileRef = D45F07A01D0260CA0025F8F0 /* StreetTreesPersistentKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D45F07A81D0260CA0025F8F0 /* StreetTreesPersistentKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D45F079E1D0260CA0025F8F0 /* StreetTreesPersistentKit.framework */; };
+		D45F07AF1D0260CA0025F8F0 /* StreetTreesPersistentKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45F07AE1D0260CA0025F8F0 /* StreetTreesPersistentKitTests.swift */; };
+		D45F07B31D0260CA0025F8F0 /* StreetTreesPersistentKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D45F079E1D0260CA0025F8F0 /* StreetTreesPersistentKit.framework */; };
+		D45F07B41D0260CA0025F8F0 /* StreetTreesPersistentKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D45F079E1D0260CA0025F8F0 /* StreetTreesPersistentKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D45F07CB1D02614A0025F8F0 /* StreetTreesFoundationKit.h in Headers */ = {isa = PBXBuildFile; fileRef = D45F07CA1D02614A0025F8F0 /* StreetTreesFoundationKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D45F07D21D02614A0025F8F0 /* StreetTreesFoundationKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D45F07C81D02614A0025F8F0 /* StreetTreesFoundationKit.framework */; };
+		D45F07D91D02614A0025F8F0 /* StreetTreesFoundationKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45F07D81D02614A0025F8F0 /* StreetTreesFoundationKitTests.swift */; };
+		D45F07DD1D02614A0025F8F0 /* StreetTreesFoundationKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D45F07C81D02614A0025F8F0 /* StreetTreesFoundationKit.framework */; };
+		D45F07DE1D02614A0025F8F0 /* StreetTreesFoundationKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D45F07C81D02614A0025F8F0 /* StreetTreesFoundationKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		D45F07571D0258320025F8F0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D45F07371D0258320025F8F0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D45F073E1D0258320025F8F0;
+			remoteInfo = "Street Trees";
+		};
+		D45F07621D0258320025F8F0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D45F07371D0258320025F8F0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D45F073E1D0258320025F8F0;
+			remoteInfo = "Street Trees";
+		};
+		D45F07861D0260B00025F8F0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D45F07371D0258320025F8F0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D45F077A1D0260B00025F8F0;
+			remoteInfo = StreetTreesTransportKit;
+		};
+		D45F07881D0260B00025F8F0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D45F07371D0258320025F8F0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D45F073E1D0258320025F8F0;
+			remoteInfo = "Street Trees";
+		};
+		D45F078E1D0260B00025F8F0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D45F07371D0258320025F8F0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D45F077A1D0260B00025F8F0;
+			remoteInfo = StreetTreesTransportKit;
+		};
+		D45F07A91D0260CA0025F8F0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D45F07371D0258320025F8F0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D45F079D1D0260CA0025F8F0;
+			remoteInfo = StreetTreesPersistentKit;
+		};
+		D45F07AB1D0260CA0025F8F0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D45F07371D0258320025F8F0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D45F073E1D0258320025F8F0;
+			remoteInfo = "Street Trees";
+		};
+		D45F07B11D0260CA0025F8F0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D45F07371D0258320025F8F0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D45F079D1D0260CA0025F8F0;
+			remoteInfo = StreetTreesPersistentKit;
+		};
+		D45F07D31D02614A0025F8F0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D45F07371D0258320025F8F0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D45F07C71D02614A0025F8F0;
+			remoteInfo = StreetTreesFoundationKit;
+		};
+		D45F07D51D02614A0025F8F0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D45F07371D0258320025F8F0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D45F073E1D0258320025F8F0;
+			remoteInfo = "Street Trees";
+		};
+		D45F07DB1D02614A0025F8F0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D45F07371D0258320025F8F0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D45F07C71D02614A0025F8F0;
+			remoteInfo = StreetTreesFoundationKit;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		D45F07951D0260B00025F8F0 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				D45F07911D0260B00025F8F0 /* StreetTreesTransportKit.framework in Embed Frameworks */,
+				D45F07B41D0260CA0025F8F0 /* StreetTreesPersistentKit.framework in Embed Frameworks */,
+				D45F07DE1D02614A0025F8F0 /* StreetTreesFoundationKit.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		D45F073F1D0258320025F8F0 /* Street Trees.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Street Trees.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D45F07421D0258320025F8F0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		D45F07441D0258320025F8F0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		D45F07471D0258320025F8F0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		D45F074A1D0258320025F8F0 /* Street_Trees.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Street_Trees.xcdatamodel; sourceTree = "<group>"; };
+		D45F074C1D0258320025F8F0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		D45F074F1D0258320025F8F0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		D45F07511D0258320025F8F0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D45F07561D0258320025F8F0 /* Street TreesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Street TreesTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D45F075A1D0258320025F8F0 /* Street_TreesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Street_TreesTests.swift; sourceTree = "<group>"; };
+		D45F075C1D0258320025F8F0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D45F07611D0258320025F8F0 /* Street TreesUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Street TreesUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D45F07651D0258320025F8F0 /* Street_TreesUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Street_TreesUITests.swift; sourceTree = "<group>"; };
+		D45F07671D0258320025F8F0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D45F07731D025E610025F8F0 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		D45F077B1D0260B00025F8F0 /* StreetTreesTransportKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = StreetTreesTransportKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D45F077D1D0260B00025F8F0 /* StreetTreesTransportKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StreetTreesTransportKit.h; sourceTree = "<group>"; };
+		D45F077F1D0260B00025F8F0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D45F07841D0260B00025F8F0 /* StreetTreesTransportKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StreetTreesTransportKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D45F078B1D0260B00025F8F0 /* StreetTreesTransportKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreetTreesTransportKitTests.swift; sourceTree = "<group>"; };
+		D45F078D1D0260B00025F8F0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D45F079E1D0260CA0025F8F0 /* StreetTreesPersistentKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = StreetTreesPersistentKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D45F07A01D0260CA0025F8F0 /* StreetTreesPersistentKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StreetTreesPersistentKit.h; sourceTree = "<group>"; };
+		D45F07A21D0260CA0025F8F0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D45F07A71D0260CA0025F8F0 /* StreetTreesPersistentKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StreetTreesPersistentKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D45F07AE1D0260CA0025F8F0 /* StreetTreesPersistentKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreetTreesPersistentKitTests.swift; sourceTree = "<group>"; };
+		D45F07B01D0260CA0025F8F0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D45F07C81D02614A0025F8F0 /* StreetTreesFoundationKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = StreetTreesFoundationKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D45F07CA1D02614A0025F8F0 /* StreetTreesFoundationKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StreetTreesFoundationKit.h; sourceTree = "<group>"; };
+		D45F07CC1D02614A0025F8F0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D45F07D11D02614A0025F8F0 /* StreetTreesFoundationKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StreetTreesFoundationKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D45F07D81D02614A0025F8F0 /* StreetTreesFoundationKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreetTreesFoundationKitTests.swift; sourceTree = "<group>"; };
+		D45F07DA1D02614A0025F8F0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D45F073C1D0258320025F8F0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D45F07B31D0260CA0025F8F0 /* StreetTreesPersistentKit.framework in Frameworks */,
+				D45F07901D0260B00025F8F0 /* StreetTreesTransportKit.framework in Frameworks */,
+				D45F07741D025E610025F8F0 /* MapKit.framework in Frameworks */,
+				D45F07DD1D02614A0025F8F0 /* StreetTreesFoundationKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D45F07531D0258320025F8F0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D45F075E1D0258320025F8F0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D45F07771D0260B00025F8F0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D45F07811D0260B00025F8F0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D45F07851D0260B00025F8F0 /* StreetTreesTransportKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D45F079A1D0260CA0025F8F0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D45F07A41D0260CA0025F8F0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D45F07A81D0260CA0025F8F0 /* StreetTreesPersistentKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D45F07C41D02614A0025F8F0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D45F07CE1D02614A0025F8F0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D45F07D21D02614A0025F8F0 /* StreetTreesFoundationKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		D45F07361D0258320025F8F0 = {
+			isa = PBXGroup;
+			children = (
+				D45F07751D0260100025F8F0 /* Frameworks */,
+				D45F07411D0258320025F8F0 /* Street Trees */,
+				D45F07591D0258320025F8F0 /* Street TreesTests */,
+				D45F07641D0258320025F8F0 /* Street TreesUITests */,
+				D45F077C1D0260B00025F8F0 /* StreetTreesTransportKit */,
+				D45F078A1D0260B00025F8F0 /* StreetTreesTransportKitTests */,
+				D45F079F1D0260CA0025F8F0 /* StreetTreesPersistentKit */,
+				D45F07AD1D0260CA0025F8F0 /* StreetTreesPersistentKitTests */,
+				D45F07C91D02614A0025F8F0 /* StreetTreesFoundationKit */,
+				D45F07D71D02614A0025F8F0 /* StreetTreesFoundationKitTests */,
+				D45F07401D0258320025F8F0 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		D45F07401D0258320025F8F0 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D45F073F1D0258320025F8F0 /* Street Trees.app */,
+				D45F07561D0258320025F8F0 /* Street TreesTests.xctest */,
+				D45F07611D0258320025F8F0 /* Street TreesUITests.xctest */,
+				D45F077B1D0260B00025F8F0 /* StreetTreesTransportKit.framework */,
+				D45F07841D0260B00025F8F0 /* StreetTreesTransportKitTests.xctest */,
+				D45F079E1D0260CA0025F8F0 /* StreetTreesPersistentKit.framework */,
+				D45F07A71D0260CA0025F8F0 /* StreetTreesPersistentKitTests.xctest */,
+				D45F07C81D02614A0025F8F0 /* StreetTreesFoundationKit.framework */,
+				D45F07D11D02614A0025F8F0 /* StreetTreesFoundationKitTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D45F07411D0258320025F8F0 /* Street Trees */ = {
+			isa = PBXGroup;
+			children = (
+				D45F07421D0258320025F8F0 /* AppDelegate.swift */,
+				D45F07441D0258320025F8F0 /* ViewController.swift */,
+				D45F07461D0258320025F8F0 /* Main.storyboard */,
+				D45F074C1D0258320025F8F0 /* Assets.xcassets */,
+				D45F074E1D0258320025F8F0 /* LaunchScreen.storyboard */,
+				D45F07511D0258320025F8F0 /* Info.plist */,
+				D45F07491D0258320025F8F0 /* Street_Trees.xcdatamodeld */,
+			);
+			path = "Street Trees";
+			sourceTree = "<group>";
+		};
+		D45F07591D0258320025F8F0 /* Street TreesTests */ = {
+			isa = PBXGroup;
+			children = (
+				D45F075A1D0258320025F8F0 /* Street_TreesTests.swift */,
+				D45F075C1D0258320025F8F0 /* Info.plist */,
+			);
+			path = "Street TreesTests";
+			sourceTree = "<group>";
+		};
+		D45F07641D0258320025F8F0 /* Street TreesUITests */ = {
+			isa = PBXGroup;
+			children = (
+				D45F07651D0258320025F8F0 /* Street_TreesUITests.swift */,
+				D45F07671D0258320025F8F0 /* Info.plist */,
+			);
+			path = "Street TreesUITests";
+			sourceTree = "<group>";
+		};
+		D45F07751D0260100025F8F0 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D45F07731D025E610025F8F0 /* MapKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D45F077C1D0260B00025F8F0 /* StreetTreesTransportKit */ = {
+			isa = PBXGroup;
+			children = (
+				D45F077D1D0260B00025F8F0 /* StreetTreesTransportKit.h */,
+				D45F077F1D0260B00025F8F0 /* Info.plist */,
+			);
+			path = StreetTreesTransportKit;
+			sourceTree = "<group>";
+		};
+		D45F078A1D0260B00025F8F0 /* StreetTreesTransportKitTests */ = {
+			isa = PBXGroup;
+			children = (
+				D45F078B1D0260B00025F8F0 /* StreetTreesTransportKitTests.swift */,
+				D45F078D1D0260B00025F8F0 /* Info.plist */,
+			);
+			path = StreetTreesTransportKitTests;
+			sourceTree = "<group>";
+		};
+		D45F079F1D0260CA0025F8F0 /* StreetTreesPersistentKit */ = {
+			isa = PBXGroup;
+			children = (
+				D45F07A01D0260CA0025F8F0 /* StreetTreesPersistentKit.h */,
+				D45F07A21D0260CA0025F8F0 /* Info.plist */,
+			);
+			path = StreetTreesPersistentKit;
+			sourceTree = "<group>";
+		};
+		D45F07AD1D0260CA0025F8F0 /* StreetTreesPersistentKitTests */ = {
+			isa = PBXGroup;
+			children = (
+				D45F07AE1D0260CA0025F8F0 /* StreetTreesPersistentKitTests.swift */,
+				D45F07B01D0260CA0025F8F0 /* Info.plist */,
+			);
+			path = StreetTreesPersistentKitTests;
+			sourceTree = "<group>";
+		};
+		D45F07C91D02614A0025F8F0 /* StreetTreesFoundationKit */ = {
+			isa = PBXGroup;
+			children = (
+				D45F07CA1D02614A0025F8F0 /* StreetTreesFoundationKit.h */,
+				D45F07CC1D02614A0025F8F0 /* Info.plist */,
+			);
+			path = StreetTreesFoundationKit;
+			sourceTree = "<group>";
+		};
+		D45F07D71D02614A0025F8F0 /* StreetTreesFoundationKitTests */ = {
+			isa = PBXGroup;
+			children = (
+				D45F07D81D02614A0025F8F0 /* StreetTreesFoundationKitTests.swift */,
+				D45F07DA1D02614A0025F8F0 /* Info.plist */,
+			);
+			path = StreetTreesFoundationKitTests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		D45F07781D0260B00025F8F0 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D45F077E1D0260B00025F8F0 /* StreetTreesTransportKit.h in Headers */,
+				D45F07A11D0260CA0025F8F0 /* StreetTreesPersistentKit.h in Headers */,
+				D45F07CB1D02614A0025F8F0 /* StreetTreesFoundationKit.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D45F079B1D0260CA0025F8F0 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D45F07C51D02614A0025F8F0 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		D45F073E1D0258320025F8F0 /* Street Trees */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D45F076A1D0258320025F8F0 /* Build configuration list for PBXNativeTarget "Street Trees" */;
+			buildPhases = (
+				D45F073B1D0258320025F8F0 /* Sources */,
+				D45F073C1D0258320025F8F0 /* Frameworks */,
+				D45F073D1D0258320025F8F0 /* Resources */,
+				D45F07951D0260B00025F8F0 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D45F078F1D0260B00025F8F0 /* PBXTargetDependency */,
+				D45F07B21D0260CA0025F8F0 /* PBXTargetDependency */,
+				D45F07DC1D02614A0025F8F0 /* PBXTargetDependency */,
+			);
+			name = "Street Trees";
+			productName = "Street Trees";
+			productReference = D45F073F1D0258320025F8F0 /* Street Trees.app */;
+			productType = "com.apple.product-type.application";
+		};
+		D45F07551D0258320025F8F0 /* Street TreesTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D45F076D1D0258320025F8F0 /* Build configuration list for PBXNativeTarget "Street TreesTests" */;
+			buildPhases = (
+				D45F07521D0258320025F8F0 /* Sources */,
+				D45F07531D0258320025F8F0 /* Frameworks */,
+				D45F07541D0258320025F8F0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D45F07581D0258320025F8F0 /* PBXTargetDependency */,
+			);
+			name = "Street TreesTests";
+			productName = "Street TreesTests";
+			productReference = D45F07561D0258320025F8F0 /* Street TreesTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		D45F07601D0258320025F8F0 /* Street TreesUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D45F07701D0258320025F8F0 /* Build configuration list for PBXNativeTarget "Street TreesUITests" */;
+			buildPhases = (
+				D45F075D1D0258320025F8F0 /* Sources */,
+				D45F075E1D0258320025F8F0 /* Frameworks */,
+				D45F075F1D0258320025F8F0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D45F07631D0258320025F8F0 /* PBXTargetDependency */,
+			);
+			name = "Street TreesUITests";
+			productName = "Street TreesUITests";
+			productReference = D45F07611D0258320025F8F0 /* Street TreesUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+		D45F077A1D0260B00025F8F0 /* StreetTreesTransportKit */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D45F07921D0260B00025F8F0 /* Build configuration list for PBXNativeTarget "StreetTreesTransportKit" */;
+			buildPhases = (
+				D45F07761D0260B00025F8F0 /* Sources */,
+				D45F07771D0260B00025F8F0 /* Frameworks */,
+				D45F07781D0260B00025F8F0 /* Headers */,
+				D45F07791D0260B00025F8F0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = StreetTreesTransportKit;
+			productName = StreetTreesTransportKit;
+			productReference = D45F077B1D0260B00025F8F0 /* StreetTreesTransportKit.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		D45F07831D0260B00025F8F0 /* StreetTreesTransportKitTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D45F07961D0260B00025F8F0 /* Build configuration list for PBXNativeTarget "StreetTreesTransportKitTests" */;
+			buildPhases = (
+				D45F07801D0260B00025F8F0 /* Sources */,
+				D45F07811D0260B00025F8F0 /* Frameworks */,
+				D45F07821D0260B00025F8F0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D45F07871D0260B00025F8F0 /* PBXTargetDependency */,
+				D45F07891D0260B00025F8F0 /* PBXTargetDependency */,
+			);
+			name = StreetTreesTransportKitTests;
+			productName = StreetTreesTransportKitTests;
+			productReference = D45F07841D0260B00025F8F0 /* StreetTreesTransportKitTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		D45F079D1D0260CA0025F8F0 /* StreetTreesPersistentKit */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D45F07B51D0260CA0025F8F0 /* Build configuration list for PBXNativeTarget "StreetTreesPersistentKit" */;
+			buildPhases = (
+				D45F07991D0260CA0025F8F0 /* Sources */,
+				D45F079A1D0260CA0025F8F0 /* Frameworks */,
+				D45F079B1D0260CA0025F8F0 /* Headers */,
+				D45F079C1D0260CA0025F8F0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = StreetTreesPersistentKit;
+			productName = StreetTreesPersistentKit;
+			productReference = D45F079E1D0260CA0025F8F0 /* StreetTreesPersistentKit.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		D45F07A61D0260CA0025F8F0 /* StreetTreesPersistentKitTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D45F07B81D0260CA0025F8F0 /* Build configuration list for PBXNativeTarget "StreetTreesPersistentKitTests" */;
+			buildPhases = (
+				D45F07A31D0260CA0025F8F0 /* Sources */,
+				D45F07A41D0260CA0025F8F0 /* Frameworks */,
+				D45F07A51D0260CA0025F8F0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D45F07AA1D0260CA0025F8F0 /* PBXTargetDependency */,
+				D45F07AC1D0260CA0025F8F0 /* PBXTargetDependency */,
+			);
+			name = StreetTreesPersistentKitTests;
+			productName = StreetTreesPersistentKitTests;
+			productReference = D45F07A71D0260CA0025F8F0 /* StreetTreesPersistentKitTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		D45F07C71D02614A0025F8F0 /* StreetTreesFoundationKit */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D45F07DF1D02614A0025F8F0 /* Build configuration list for PBXNativeTarget "StreetTreesFoundationKit" */;
+			buildPhases = (
+				D45F07C31D02614A0025F8F0 /* Sources */,
+				D45F07C41D02614A0025F8F0 /* Frameworks */,
+				D45F07C51D02614A0025F8F0 /* Headers */,
+				D45F07C61D02614A0025F8F0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = StreetTreesFoundationKit;
+			productName = StreetTreesFoundationKit;
+			productReference = D45F07C81D02614A0025F8F0 /* StreetTreesFoundationKit.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		D45F07D01D02614A0025F8F0 /* StreetTreesFoundationKitTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D45F07E21D02614A0025F8F0 /* Build configuration list for PBXNativeTarget "StreetTreesFoundationKitTests" */;
+			buildPhases = (
+				D45F07CD1D02614A0025F8F0 /* Sources */,
+				D45F07CE1D02614A0025F8F0 /* Frameworks */,
+				D45F07CF1D02614A0025F8F0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D45F07D41D02614A0025F8F0 /* PBXTargetDependency */,
+				D45F07D61D02614A0025F8F0 /* PBXTargetDependency */,
+			);
+			name = StreetTreesFoundationKitTests;
+			productName = StreetTreesFoundationKitTests;
+			productReference = D45F07D11D02614A0025F8F0 /* StreetTreesFoundationKitTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D45F07371D0258320025F8F0 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0730;
+				LastUpgradeCheck = 0730;
+				ORGANIZATIONNAME = "Code for Orlando";
+				TargetAttributes = {
+					D45F073E1D0258320025F8F0 = {
+						CreatedOnToolsVersion = 7.3;
+					};
+					D45F07551D0258320025F8F0 = {
+						CreatedOnToolsVersion = 7.3;
+						TestTargetID = D45F073E1D0258320025F8F0;
+					};
+					D45F07601D0258320025F8F0 = {
+						CreatedOnToolsVersion = 7.3;
+						TestTargetID = D45F073E1D0258320025F8F0;
+					};
+					D45F077A1D0260B00025F8F0 = {
+						CreatedOnToolsVersion = 7.3;
+					};
+					D45F07831D0260B00025F8F0 = {
+						CreatedOnToolsVersion = 7.3;
+						TestTargetID = D45F073E1D0258320025F8F0;
+					};
+					D45F079D1D0260CA0025F8F0 = {
+						CreatedOnToolsVersion = 7.3;
+					};
+					D45F07A61D0260CA0025F8F0 = {
+						CreatedOnToolsVersion = 7.3;
+						TestTargetID = D45F073E1D0258320025F8F0;
+					};
+					D45F07C71D02614A0025F8F0 = {
+						CreatedOnToolsVersion = 7.3;
+					};
+					D45F07D01D02614A0025F8F0 = {
+						CreatedOnToolsVersion = 7.3;
+						TestTargetID = D45F073E1D0258320025F8F0;
+					};
+				};
+			};
+			buildConfigurationList = D45F073A1D0258320025F8F0 /* Build configuration list for PBXProject "Street Trees" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = D45F07361D0258320025F8F0;
+			productRefGroup = D45F07401D0258320025F8F0 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D45F073E1D0258320025F8F0 /* Street Trees */,
+				D45F07551D0258320025F8F0 /* Street TreesTests */,
+				D45F07601D0258320025F8F0 /* Street TreesUITests */,
+				D45F077A1D0260B00025F8F0 /* StreetTreesTransportKit */,
+				D45F07831D0260B00025F8F0 /* StreetTreesTransportKitTests */,
+				D45F079D1D0260CA0025F8F0 /* StreetTreesPersistentKit */,
+				D45F07A61D0260CA0025F8F0 /* StreetTreesPersistentKitTests */,
+				D45F07C71D02614A0025F8F0 /* StreetTreesFoundationKit */,
+				D45F07D01D02614A0025F8F0 /* StreetTreesFoundationKitTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		D45F073D1D0258320025F8F0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D45F07501D0258320025F8F0 /* LaunchScreen.storyboard in Resources */,
+				D45F074D1D0258320025F8F0 /* Assets.xcassets in Resources */,
+				D45F07481D0258320025F8F0 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D45F07541D0258320025F8F0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D45F075F1D0258320025F8F0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D45F07791D0260B00025F8F0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D45F07821D0260B00025F8F0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D45F079C1D0260CA0025F8F0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D45F07A51D0260CA0025F8F0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D45F07C61D02614A0025F8F0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D45F07CF1D02614A0025F8F0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D45F073B1D0258320025F8F0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D45F074B1D0258320025F8F0 /* Street_Trees.xcdatamodeld in Sources */,
+				D45F07451D0258320025F8F0 /* ViewController.swift in Sources */,
+				D45F07431D0258320025F8F0 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D45F07521D0258320025F8F0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D45F075B1D0258320025F8F0 /* Street_TreesTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D45F075D1D0258320025F8F0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D45F07661D0258320025F8F0 /* Street_TreesUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D45F07761D0260B00025F8F0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D45F07801D0260B00025F8F0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D45F078C1D0260B00025F8F0 /* StreetTreesTransportKitTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D45F07991D0260CA0025F8F0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D45F07A31D0260CA0025F8F0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D45F07AF1D0260CA0025F8F0 /* StreetTreesPersistentKitTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D45F07C31D02614A0025F8F0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D45F07CD1D02614A0025F8F0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D45F07D91D02614A0025F8F0 /* StreetTreesFoundationKitTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		D45F07581D0258320025F8F0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D45F073E1D0258320025F8F0 /* Street Trees */;
+			targetProxy = D45F07571D0258320025F8F0 /* PBXContainerItemProxy */;
+		};
+		D45F07631D0258320025F8F0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D45F073E1D0258320025F8F0 /* Street Trees */;
+			targetProxy = D45F07621D0258320025F8F0 /* PBXContainerItemProxy */;
+		};
+		D45F07871D0260B00025F8F0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D45F077A1D0260B00025F8F0 /* StreetTreesTransportKit */;
+			targetProxy = D45F07861D0260B00025F8F0 /* PBXContainerItemProxy */;
+		};
+		D45F07891D0260B00025F8F0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D45F073E1D0258320025F8F0 /* Street Trees */;
+			targetProxy = D45F07881D0260B00025F8F0 /* PBXContainerItemProxy */;
+		};
+		D45F078F1D0260B00025F8F0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D45F077A1D0260B00025F8F0 /* StreetTreesTransportKit */;
+			targetProxy = D45F078E1D0260B00025F8F0 /* PBXContainerItemProxy */;
+		};
+		D45F07AA1D0260CA0025F8F0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D45F079D1D0260CA0025F8F0 /* StreetTreesPersistentKit */;
+			targetProxy = D45F07A91D0260CA0025F8F0 /* PBXContainerItemProxy */;
+		};
+		D45F07AC1D0260CA0025F8F0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D45F073E1D0258320025F8F0 /* Street Trees */;
+			targetProxy = D45F07AB1D0260CA0025F8F0 /* PBXContainerItemProxy */;
+		};
+		D45F07B21D0260CA0025F8F0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D45F079D1D0260CA0025F8F0 /* StreetTreesPersistentKit */;
+			targetProxy = D45F07B11D0260CA0025F8F0 /* PBXContainerItemProxy */;
+		};
+		D45F07D41D02614A0025F8F0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D45F07C71D02614A0025F8F0 /* StreetTreesFoundationKit */;
+			targetProxy = D45F07D31D02614A0025F8F0 /* PBXContainerItemProxy */;
+		};
+		D45F07D61D02614A0025F8F0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D45F073E1D0258320025F8F0 /* Street Trees */;
+			targetProxy = D45F07D51D02614A0025F8F0 /* PBXContainerItemProxy */;
+		};
+		D45F07DC1D02614A0025F8F0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D45F07C71D02614A0025F8F0 /* StreetTreesFoundationKit */;
+			targetProxy = D45F07DB1D02614A0025F8F0 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		D45F07461D0258320025F8F0 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D45F07471D0258320025F8F0 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		D45F074E1D0258320025F8F0 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D45F074F1D0258320025F8F0 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		D45F07681D0258320025F8F0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		D45F07691D0258320025F8F0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		D45F076B1D0258320025F8F0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = "Street Trees/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.CodeForOrlando.Street-Trees";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		D45F076C1D0258320025F8F0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = "Street Trees/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.CodeForOrlando.Street-Trees";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		D45F076E1D0258320025F8F0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = "Street TreesTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.CodeForOrlando.Street-TreesTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Street Trees.app/Street Trees";
+			};
+			name = Debug;
+		};
+		D45F076F1D0258320025F8F0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = "Street TreesTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.CodeForOrlando.Street-TreesTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Street Trees.app/Street Trees";
+			};
+			name = Release;
+		};
+		D45F07711D0258320025F8F0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = "Street TreesUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.CodeForOrlando.Street-TreesUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = "Street Trees";
+			};
+			name = Debug;
+		};
+		D45F07721D0258320025F8F0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = "Street TreesUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.CodeForOrlando.Street-TreesUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = "Street Trees";
+			};
+			name = Release;
+		};
+		D45F07931D0260B00025F8F0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = StreetTreesTransportKit/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.CodeForOrlando.StreetTreesTransportKit;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		D45F07941D0260B00025F8F0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = StreetTreesTransportKit/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.CodeForOrlando.StreetTreesTransportKit;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		D45F07971D0260B00025F8F0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = StreetTreesTransportKitTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.CodeForOrlando.StreetTreesTransportKitTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Street Trees.app/Street Trees";
+			};
+			name = Debug;
+		};
+		D45F07981D0260B00025F8F0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = StreetTreesTransportKitTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.CodeForOrlando.StreetTreesTransportKitTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Street Trees.app/Street Trees";
+			};
+			name = Release;
+		};
+		D45F07B61D0260CA0025F8F0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = StreetTreesPersistentKit/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.CodeForOrlando.StreetTreesPersistentKit;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		D45F07B71D0260CA0025F8F0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = StreetTreesPersistentKit/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.CodeForOrlando.StreetTreesPersistentKit;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		D45F07B91D0260CA0025F8F0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = StreetTreesPersistentKitTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.CodeForOrlando.StreetTreesPersistentKitTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Street Trees.app/Street Trees";
+			};
+			name = Debug;
+		};
+		D45F07BA1D0260CA0025F8F0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = StreetTreesPersistentKitTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.CodeForOrlando.StreetTreesPersistentKitTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Street Trees.app/Street Trees";
+			};
+			name = Release;
+		};
+		D45F07E01D02614A0025F8F0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = StreetTreesFoundationKit/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.CodeForOrlando.StreetTreesFoundationKit;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		D45F07E11D02614A0025F8F0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = StreetTreesFoundationKit/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.CodeForOrlando.StreetTreesFoundationKit;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		D45F07E31D02614A0025F8F0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = StreetTreesFoundationKitTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.CodeForOrlando.StreetTreesFoundationKitTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Street Trees.app/Street Trees";
+			};
+			name = Debug;
+		};
+		D45F07E41D02614A0025F8F0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = StreetTreesFoundationKitTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.CodeForOrlando.StreetTreesFoundationKitTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Street Trees.app/Street Trees";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		D45F073A1D0258320025F8F0 /* Build configuration list for PBXProject "Street Trees" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D45F07681D0258320025F8F0 /* Debug */,
+				D45F07691D0258320025F8F0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D45F076A1D0258320025F8F0 /* Build configuration list for PBXNativeTarget "Street Trees" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D45F076B1D0258320025F8F0 /* Debug */,
+				D45F076C1D0258320025F8F0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D45F076D1D0258320025F8F0 /* Build configuration list for PBXNativeTarget "Street TreesTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D45F076E1D0258320025F8F0 /* Debug */,
+				D45F076F1D0258320025F8F0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D45F07701D0258320025F8F0 /* Build configuration list for PBXNativeTarget "Street TreesUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D45F07711D0258320025F8F0 /* Debug */,
+				D45F07721D0258320025F8F0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D45F07921D0260B00025F8F0 /* Build configuration list for PBXNativeTarget "StreetTreesTransportKit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D45F07931D0260B00025F8F0 /* Debug */,
+				D45F07941D0260B00025F8F0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		D45F07961D0260B00025F8F0 /* Build configuration list for PBXNativeTarget "StreetTreesTransportKitTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D45F07971D0260B00025F8F0 /* Debug */,
+				D45F07981D0260B00025F8F0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		D45F07B51D0260CA0025F8F0 /* Build configuration list for PBXNativeTarget "StreetTreesPersistentKit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D45F07B61D0260CA0025F8F0 /* Debug */,
+				D45F07B71D0260CA0025F8F0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		D45F07B81D0260CA0025F8F0 /* Build configuration list for PBXNativeTarget "StreetTreesPersistentKitTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D45F07B91D0260CA0025F8F0 /* Debug */,
+				D45F07BA1D0260CA0025F8F0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		D45F07DF1D02614A0025F8F0 /* Build configuration list for PBXNativeTarget "StreetTreesFoundationKit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D45F07E01D02614A0025F8F0 /* Debug */,
+				D45F07E11D02614A0025F8F0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		D45F07E21D02614A0025F8F0 /* Build configuration list for PBXNativeTarget "StreetTreesFoundationKitTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D45F07E31D02614A0025F8F0 /* Debug */,
+				D45F07E41D02614A0025F8F0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		D45F07491D0258320025F8F0 /* Street_Trees.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				D45F074A1D0258320025F8F0 /* Street_Trees.xcdatamodel */,
+			);
+			currentVersion = D45F074A1D0258320025F8F0 /* Street_Trees.xcdatamodel */;
+			path = Street_Trees.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = D45F07371D0258320025F8F0 /* Project object */;
+}

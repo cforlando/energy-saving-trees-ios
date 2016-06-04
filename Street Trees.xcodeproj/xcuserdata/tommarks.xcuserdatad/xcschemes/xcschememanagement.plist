@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>SchemeUserState</key>
+	<dict>
+		<key>Street Trees.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>0</integer>
+		</dict>
+		<key>StreetTreesFoundationKit.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>3</integer>
+		</dict>
+		<key>StreetTreesPersistentKit.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>2</integer>
+		</dict>
+		<key>StreetTreesTransportKit.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>D45F073E1D0258320025F8F0</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>D45F07551D0258320025F8F0</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>D45F07601D0258320025F8F0</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>D45F077A1D0260B00025F8F0</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>D45F07831D0260B00025F8F0</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>D45F079D1D0260CA0025F8F0</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>D45F07A61D0260CA0025F8F0</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>D45F07C71D02614A0025F8F0</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>D45F07D01D02614A0025F8F0</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+	</dict>
+</dict>
+</plist>
