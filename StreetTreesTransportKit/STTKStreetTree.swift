@@ -52,13 +52,13 @@ public struct STTKStreetTree {
     public let carbon: Double
     public let date: NSDate
     public let kWh: Double
+    public let lat: Double
+    public let long: Double
+    public let name: String
     public let order: Int
     public let savings: Double
     public let stormwater: Double
     public let therms: Double
-    public let name: String
-    public let long: Double
-    public let lat: Double
    
     
     init?(json: AnyObject) {
@@ -95,7 +95,7 @@ public struct STTKStreetTree {
         self.savings = savings
         self.stormwater = stormwater
         self.therms = therms
-        self.name = name
+        self.name = name.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
         self.long = long
         self.lat = lat
     }
