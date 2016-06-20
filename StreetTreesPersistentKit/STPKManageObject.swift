@@ -1,5 +1,5 @@
 //
-//  STPKTree.swift
+//  STPKManagedObject.swift
 //  Street Trees
 //
 //  Copyright © 2016 Code for Orlando.
@@ -25,19 +25,32 @@
 //  SOFTWARE.
 //
 
-import Foundation
 import CoreData
+import Foundation
 
-public class STPKTree: STPKManagedObject {
-
-// Insert code here to add functionality to your managed object subclass
+public class STPKManagedObject: NSManagedObject {
     
-    override class func entityName() -> String {
-      return "STPKTree"
+    //******************************************************************************************************************
+    // MARK: - Public Functions
+    
+    public class func fetch(context: NSManagedObjectContext) throws -> [STPKManagedObject] {
+        let fetchRequest = NSFetchRequest(entityName: self.entityName())
+        return try context.executeFetchRequest(fetchRequest) as? [STPKManagedObject] ?? []
     }
     
-    override public class func insert(context context: NSManagedObjectContext) -> STPKTree {
-        let newTree = STPKTree(entity: self.entityDescription(inManagedObjectContext: context), insertIntoManagedObjectContext: context)
-        return newTree
+    public class func insert(context context: NSManagedObjectContext) -> STPKManagedObject {
+        preconditionFailure("This method must be overridden")
     }
+    
+    //******************************************************************************************************************
+    // MARK: - Private Functions (to the framework)
+    
+    class func entityDescription(inManagedObjectContext context: NSManagedObjectContext) -> NSEntityDescription {
+        return NSEntityDescription.entityForName(self.entityName(), inManagedObjectContext: context)!
+    }
+    
+    class func entityName() -> String {
+        preconditionFailure("This method must be overridden")
+    }
+    
 }

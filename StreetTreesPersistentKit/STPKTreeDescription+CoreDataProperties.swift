@@ -28,19 +28,23 @@
 import Foundation
 import CoreData
 
-public extension STPKTree {
+public extension STPKTreeDescription {
 
-    @NSManaged var air: NSNumber?
-    @NSManaged var carbon: NSNumber?
-    @NSManaged var kiloWattHours: NSNumber?
-    @NSManaged var latitude: NSNumber?
-    @NSManaged var longitude: NSNumber?
-    @NSManaged var order: NSNumber?
-    @NSManaged var savings: NSDecimalNumber?
-    @NSManaged var speciesName: String?
-    @NSManaged var stormWater: NSNumber?
-    @NSManaged var therms: NSNumber?
-    @NSManaged var treeDescription: STPKTreeDescription?
-    @NSManaged var type: NSNumber?
+    @NSManaged var additional: String?
+    @NSManaged var canopy: NSNumber?
+    @NSManaged var fullSun: NSNumber?
+    @NSManaged var leaf: String?
+    @NSManaged var maxHeight: NSNumber?
+    @NSManaged var maxWidth: NSNumber?
+    @NSManaged var minHeight: NSNumber?
+    @NSManaged var minWidth: NSNumber?
+    @NSManaged var moisture: String?
+    @NSManaged var name: String?
+    @NSManaged var partialShade: NSNumber?
+    @NSManaged var partialSun: NSNumber?
+    @NSManaged var shape: String?
+    @NSManaged var soil: String?
+    @NSManaged var treeDescription: String?
+    @NSManaged var trees: NSSet?
 
 }
