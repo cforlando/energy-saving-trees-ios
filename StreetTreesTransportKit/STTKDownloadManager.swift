@@ -25,8 +25,8 @@
 //  SOFTWARE.
 //
 
-import Foundation
 import Alamofire
+import Foundation
 
 // App Key from Brigade Open Data Sharing Platform
 private let appKey = "aIJDKwhq6DsA4Q5IfBhbAkYHh"
@@ -56,7 +56,6 @@ public final class STTKDownloadManager {
         Alamofire.request(.GET, "https://brigades.opendatanetwork.com/resource/7w7p-3857.json",
             parameters: ["$$app_token":appKey])
             .responseJSON { response in
-                
                 
                 //      print(response.request)  // original URL request
                 //      print(response.response) // URL response

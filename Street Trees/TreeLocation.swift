@@ -30,17 +30,17 @@ import MapKit
 import FBAnnotationClusteringSwift
 
 public class TreeLocation: FBAnnotation {
-  public var subtitle: String?
-  public let order: Int = 1
-  
-  public var pinColor: UIColor = MKPinAnnotationView.greenPinColor()
-
-  
-  init(name: String, type: String, latitude: Double, longitude: Double) {
-    super.init()
-    self.title = name
-    self.subtitle = type
-    self.coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+    public let order: Int = 1
+    public var pinColor: UIColor = MKPinAnnotationView.greenPinColor()
+    public var subtitle: String?
+    public let image: UIImage?
     
-  }
+    init(name: String, description: String, latitude: Double, longitude: Double, image: UIImage?) {
+        self.image = image
+        super.init()
+        self.title = name
+        self.subtitle = description
+        self.coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+        
+    }
 }

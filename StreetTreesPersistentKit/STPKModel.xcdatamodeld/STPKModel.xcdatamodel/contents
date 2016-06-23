@@ -12,8 +12,28 @@
         <attribute name="stormWater" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="therms" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="type" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <relationship name="treeDescription" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="STPKTreeDescription" inverseName="trees" inverseEntity="STPKTreeDescription" syncable="YES"/>
+    </entity>
+    <entity name="STPKTreeDescription" representedClassName=".STPKTreeDescription" syncable="YES">
+        <attribute name="additional" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="canopy" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="fullSun" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="leaf" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="maxHeight" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="maxWidth" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="minHeight" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="minWidth" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="moisture" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="partialShade" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="partialSun" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="shape" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="soil" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="treeDescription" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="trees" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="STPKTree" inverseName="treeDescription" inverseEntity="STPKTree" syncable="YES"/>
     </entity>
     <elements>
-        <element name="STPKTree" positionX="-63" positionY="-18" width="128" height="210"/>
+        <element name="STPKTree" positionX="-63" positionY="-18" width="128" height="223"/>
+        <element name="STPKTreeDescription" positionX="367" positionY="63" width="128" height="283"/>
     </elements>
 </model>

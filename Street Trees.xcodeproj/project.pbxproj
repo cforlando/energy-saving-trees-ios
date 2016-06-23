@@ -13,6 +13,12 @@
 		5DDC17971D034D0500AA272B /* STTKStreetTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DDC17961D034D0500AA272B /* STTKStreetTree.swift */; };
 		5DDC17991D0356F100AA272B /* STFKStreetTreeDateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DDC17981D0356F100AA272B /* STFKStreetTreeDateFormatter.swift */; };
 		5DDC179B1D0361F900AA272B /* testData.json in Resources */ = {isa = PBXBuildFile; fileRef = 5DDC179A1D0361F900AA272B /* testData.json */; };
+		D420E37B1D1729A0007E23C8 /* STPKTreeDescription+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D420E3791D1729A0007E23C8 /* STPKTreeDescription+CoreDataProperties.swift */; };
+		D420E37C1D1729A0007E23C8 /* STPKTreeDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = D420E37A1D1729A0007E23C8 /* STPKTreeDescription.swift */; };
+		D420E3861D1731EC007E23C8 /* STPKManageObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = D420E3851D1731EC007E23C8 /* STPKManageObject.swift */; };
+		D420E3881D1738BE007E23C8 /* STTKTreeDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = D420E3871D1738BE007E23C8 /* STTKTreeDescription.swift */; };
+		D420E3891D174C60007E23C8 /* STPKCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B543711D03445B0000CBFF /* STPKCoreData.swift */; };
+		D420E38B1D176C30007E23C8 /* Trees.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D420E38A1D176C30007E23C8 /* Trees.xcassets */; };
 		D45F07431D0258320025F8F0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45F07421D0258320025F8F0 /* AppDelegate.swift */; };
 		D45F07451D0258320025F8F0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45F07441D0258320025F8F0 /* ViewController.swift */; };
 		D45F07481D0258320025F8F0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D45F07461D0258320025F8F0 /* Main.storyboard */; };
@@ -43,8 +49,6 @@
 		D4B5436B1D032D020000CBFF /* STPKTree+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B543691D032D020000CBFF /* STPKTree+CoreDataProperties.swift */; };
 		D4B5436C1D032D020000CBFF /* STPKTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B5436A1D032D020000CBFF /* STPKTree.swift */; };
 		D4B5436E1D0339C50000CBFF /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4B5436D1D0339C50000CBFF /* Alamofire.framework */; };
-		D4B543701D0339F70000CBFF /* tes.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B5436F1D0339F70000CBFF /* tes.swift */; };
-		D4B543721D03445B0000CBFF /* STCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B543711D03445B0000CBFF /* STCoreData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -151,6 +155,11 @@
 		5DDC17981D0356F100AA272B /* STFKStreetTreeDateFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STFKStreetTreeDateFormatter.swift; sourceTree = "<group>"; };
 		5DDC179A1D0361F900AA272B /* testData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = testData.json; sourceTree = "<group>"; };
 		D154145AC64686495A3F5874 /* Pods_Street_Trees.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Street_Trees.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D420E3791D1729A0007E23C8 /* STPKTreeDescription+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "STPKTreeDescription+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		D420E37A1D1729A0007E23C8 /* STPKTreeDescription.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STPKTreeDescription.swift; sourceTree = "<group>"; };
+		D420E3851D1731EC007E23C8 /* STPKManageObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STPKManageObject.swift; sourceTree = "<group>"; };
+		D420E3871D1738BE007E23C8 /* STTKTreeDescription.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STTKTreeDescription.swift; sourceTree = "<group>"; };
+		D420E38A1D176C30007E23C8 /* Trees.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Trees.xcassets; sourceTree = "<group>"; };
 		D45F073F1D0258320025F8F0 /* Street Trees.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Street Trees.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D45F07421D0258320025F8F0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D45F07441D0258320025F8F0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -190,8 +199,7 @@
 		D4B543691D032D020000CBFF /* STPKTree+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "STPKTree+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		D4B5436A1D032D020000CBFF /* STPKTree.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STPKTree.swift; sourceTree = "<group>"; };
 		D4B5436D1D0339C50000CBFF /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = "../../../Library/Developer/Xcode/DerivedData/Street_Trees-dmyahyozksacllaehqxolnnibfxo/Build/Products/Debug-iphonesimulator/Alamofire.framework"; sourceTree = "<group>"; };
-		D4B5436F1D0339F70000CBFF /* tes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = tes.swift; sourceTree = "<group>"; };
-		D4B543711D03445B0000CBFF /* STCoreData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STCoreData.swift; sourceTree = "<group>"; };
+		D4B543711D03445B0000CBFF /* STPKCoreData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STPKCoreData.swift; path = "../Street Trees/STPKCoreData.swift"; sourceTree = "<group>"; };
 		DB0867AD3C985EBC75B8FB0A /* Pods-Street Trees.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Street Trees.release.xcconfig"; path = "Pods/Target Support Files/Pods-Street Trees/Pods-Street Trees.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -321,7 +329,6 @@
 			children = (
 				D45F07421D0258320025F8F0 /* AppDelegate.swift */,
 				D45F07441D0258320025F8F0 /* ViewController.swift */,
-				D4B543711D03445B0000CBFF /* STCoreData.swift */,
 				D45F07461D0258320025F8F0 /* Main.storyboard */,
 				D45F074C1D0258320025F8F0 /* Assets.xcassets */,
 				D45F074E1D0258320025F8F0 /* LaunchScreen.storyboard */,
@@ -366,10 +373,10 @@
 			children = (
 				5DDC179A1D0361F900AA272B /* testData.json */,
 				D45F077D1D0260B00025F8F0 /* StreetTreesTransportKit.h */,
-				D4B5436F1D0339F70000CBFF /* tes.swift */,
 				D45F077F1D0260B00025F8F0 /* Info.plist */,
 				5DDC17921D0341A700AA272B /* STTKDownloadManager.swift */,
 				5DDC17961D034D0500AA272B /* STTKStreetTree.swift */,
+				D420E3871D1738BE007E23C8 /* STTKTreeDescription.swift */,
 			);
 			path = StreetTreesTransportKit;
 			sourceTree = "<group>";
@@ -389,6 +396,8 @@
 				D45F07A01D0260CA0025F8F0 /* StreetTreesPersistentKit.h */,
 				D4B543561D0322BB0000CBFF /* STPKModel.xcdatamodeld */,
 				D4B543611D0326440000CBFF /* STPKCoreDataStack.swift */,
+				D4B543711D03445B0000CBFF /* STPKCoreData.swift */,
+				D420E3851D1731EC007E23C8 /* STPKManageObject.swift */,
 				D4B543681D032C820000CBFF /* Human */,
 				D4B543671D032C630000CBFF /* Machine */,
 				D45F07A21D0260CA0025F8F0 /* Info.plist */,
@@ -427,6 +436,7 @@
 		D4B543671D032C630000CBFF /* Machine */ = {
 			isa = PBXGroup;
 			children = (
+				D420E3791D1729A0007E23C8 /* STPKTreeDescription+CoreDataProperties.swift */,
 				D4B543691D032D020000CBFF /* STPKTree+CoreDataProperties.swift */,
 			);
 			name = Machine;
@@ -436,6 +446,8 @@
 			isa = PBXGroup;
 			children = (
 				D4B5436A1D032D020000CBFF /* STPKTree.swift */,
+				D420E37A1D1729A0007E23C8 /* STPKTreeDescription.swift */,
+				D420E38A1D176C30007E23C8 /* Trees.xcassets */,
 			);
 			name = Human;
 			sourceTree = "<group>";
@@ -755,6 +767,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D420E38B1D176C30007E23C8 /* Trees.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -834,7 +847,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D4B543721D03445B0000CBFF /* STCoreData.swift in Sources */,
 				D45F07451D0258320025F8F0 /* ViewController.swift in Sources */,
 				52256F541D033548004D8CE2 /* TreeLocation.swift in Sources */,
 				D45F07431D0258320025F8F0 /* AppDelegate.swift in Sources */,
@@ -861,8 +873,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D4B543701D0339F70000CBFF /* tes.swift in Sources */,
 				5DDC17971D034D0500AA272B /* STTKStreetTree.swift in Sources */,
+				D420E3881D1738BE007E23C8 /* STTKTreeDescription.swift in Sources */,
 				5DDC17931D0341A700AA272B /* STTKDownloadManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -881,7 +893,11 @@
 			files = (
 				D4B543581D0322BB0000CBFF /* STPKModel.xcdatamodeld in Sources */,
 				D4B543621D0326440000CBFF /* STPKCoreDataStack.swift in Sources */,
+				D420E3891D174C60007E23C8 /* STPKCoreData.swift in Sources */,
+				D420E3861D1731EC007E23C8 /* STPKManageObject.swift in Sources */,
+				D420E37B1D1729A0007E23C8 /* STPKTreeDescription+CoreDataProperties.swift in Sources */,
 				D4B5436B1D032D020000CBFF /* STPKTree+CoreDataProperties.swift in Sources */,
+				D420E37C1D1729A0007E23C8 /* STPKTreeDescription.swift in Sources */,
 				D4B5436C1D032D020000CBFF /* STPKTree.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
