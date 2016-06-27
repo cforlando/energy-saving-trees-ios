@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="0zK-cp-JAa">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <scenes>
+        <!--Tree Details Table View Controller-->
+        <scene sceneID="KlD-3m-8Wg">
+            <objects>
+                <tableViewController id="0zK-cp-JAa" customClass="STTreeDetailsTableViewController" customModule="Street_Trees" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="e9o-8L-qLm">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <view key="tableHeaderView" contentMode="scaleToFill" id="5cg-k9-RF4">
+                            <rect key="frame" x="0.0" y="0.0" width="600" height="143"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" zoomEnabled="NO" scrollEnabled="NO" rotateEnabled="NO" pitchEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CBe-NI-45X">
+                                    <rect key="frame" x="0.0" y="-66" width="600" height="209"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="209" id="YxY-hx-o6s"/>
+                                    </constraints>
+                                    <connections>
+                                        <outlet property="delegate" destination="0zK-cp-JAa" id="2rV-qa-Q1y"/>
+                                    </connections>
+                                </mapView>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstItem="CBe-NI-45X" firstAttribute="leading" secondItem="5cg-k9-RF4" secondAttribute="leading" id="nMU-sh-grW"/>
+                                <constraint firstAttribute="bottom" secondItem="CBe-NI-45X" secondAttribute="bottom" id="nwK-Kd-lAP"/>
+                                <constraint firstAttribute="trailing" secondItem="CBe-NI-45X" secondAttribute="trailing" id="zkk-SP-Jit"/>
+                            </constraints>
+                        </view>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="basic" textLabel="Erd-Od-iUT" style="IBUITableViewCellStyleDefault" id="NSP-9e-Z5B">
+                                <rect key="frame" x="0.0" y="193" width="600" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="NSP-9e-Z5B" id="UP3-Kh-bXg">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Erd-Od-iUT">
+                                            <rect key="frame" x="15" y="0.0" width="570" height="44"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="0zK-cp-JAa" id="0uw-H4-Gul"/>
+                            <outlet property="delegate" destination="0zK-cp-JAa" id="Bdb-n7-kFZ"/>
+                        </connections>
+                    </tableView>
+                    <connections>
+                        <outlet property="bottomLayoutConstraint" destination="nwK-Kd-lAP" id="yyo-uG-0Rz"/>
+                        <outlet property="containerView" destination="5cg-k9-RF4" id="s4n-GU-c2N"/>
+                        <outlet property="heightLayoutConstraint" destination="YxY-hx-o6s" id="5kM-QC-t4U"/>
+                        <outlet property="mapView" destination="CBe-NI-45X" id="X2m-As-yr2"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="KGx-NZ-cIK" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="600" y="463"/>
+        </scene>
+    </scenes>
+</document>

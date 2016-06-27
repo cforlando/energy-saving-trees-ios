@@ -63,7 +63,7 @@ public class STPKTreeDescription: STPKManagedObject {
         case "Southern Magnolia":
             imageName = "cfo-magnolia"
         case "Tabebuia Ipe":
-            imageName = "" //TODO: Get correct Image
+            imageName = "cfo-elm" //TODO: Get correct Image
         case "Tuliptree":
             imageName = "cfo-tulip_poplar"
         case "Winged Elm":
