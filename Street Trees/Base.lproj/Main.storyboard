@@ -3,7 +3,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
-        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -49,40 +48,6 @@
             </objects>
             <point key="canvasLocation" x="2661" y="-342"/>
         </scene>
-        <!--Table View Controller-->
-        <scene sceneID="wTE-Fo-b4t">
-            <objects>
-                <tableViewController id="rjE-9y-Ywb" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="OSN-sW-gUI">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="lLT-S8-BwF">
-                                <rect key="frame" x="0.0" y="72" width="600" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="lLT-S8-BwF" id="BAl-2I-DE0">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="rjE-9y-Ywb" id="jOk-Fo-dHO"/>
-                            <outlet property="delegate" destination="rjE-9y-Ywb" id="hyd-PY-EOt"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" id="WQ0-l8-b4o">
-                        <rightBarButtonItems>
-                            <barButtonItem systemItem="action" id="VAQ-oR-Hdn"/>
-                            <barButtonItem systemItem="compose" id="ajZ-5K-3aM"/>
-                        </rightBarButtonItems>
-                    </navigationItem>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="gCE-cj-Bqs" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2661" y="387"/>
-        </scene>
         <!--View Controller-->
         <scene sceneID="lyU-Q2-z1C">
             <objects>
@@ -101,10 +66,10 @@
             </objects>
             <point key="canvasLocation" x="3371" y="-342"/>
         </scene>
-        <!--View Controller-->
+        <!--Tree Map View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Street_Trees" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="STTreeMapViewController" customModule="Street_Trees" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -134,12 +99,20 @@
                     </navigationItem>
                     <connections>
                         <outlet property="mapView" destination="Jvl-Ec-rHt" id="tmF-Xa-fG0"/>
-                        <segue destination="jz4-LI-Ugk" kind="presentation" modalPresentationStyle="formSheet" id="ucA-UC-X3v"/>
+                        <segue destination="qHy-UH-G9A" kind="show" identifier="treeDetails" id="cU5-pH-t0d"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1152" y="387"/>
+            <point key="canvasLocation" x="1228" y="401"/>
+        </scene>
+        <!--TreeDetails-->
+        <scene sceneID="CqE-2d-2nh">
+            <objects>
+                <viewControllerPlaceholder storyboardName="TreeDetails" id="qHy-UH-G9A" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="V58-oE-sKx" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1711.5" y="428"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="EnU-Fj-G4Q">
@@ -176,24 +149,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9xw-hO-u7r" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1149" y="-342"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="CGf-Xw-ECJ">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="jz4-LI-Ugk" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="sws-RD-MK5">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="rjE-9y-Ywb" kind="relationship" relationship="rootViewController" id="UwK-nG-Zyi"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ojW-et-ChA" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1961" y="387"/>
         </scene>
     </scenes>
 </document>

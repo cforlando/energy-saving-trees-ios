@@ -30,14 +30,27 @@ import CoreData
 
 public class STPKTree: STPKManagedObject {
 
-// Insert code here to add functionality to your managed object subclass
+    //******************************************************************************************************************
+    // MARK: - Class overrides
     
     override class func entityName() -> String {
       return "STPKTree"
     }
     
-    override public class func insert(context context: NSManagedObjectContext) -> STPKTree {
-        let newTree = STPKTree(entity: self.entityDescription(inManagedObjectContext: context), insertIntoManagedObjectContext: context)
+    override public class func insert(context aContext: NSManagedObjectContext) -> STPKTree {
+        let entityDescription = self.entityDescription(inManagedObjectContext: aContext)
+        let newTree = STPKTree(entity: entityDescription, insertIntoManagedObjectContext: aContext)
         return newTree
+    }
+    
+    //******************************************************************************************************************
+    // MARK: - Class Functions
+    
+    class func fetch(byOrderNumber anOrderNumber: Int, inContext aContext: NSManagedObjectContext) throws -> STPKTree? {
+        let fetchRequest = NSFetchRequest(entityName: self.entityName())
+        fetchRequest.predicate = NSPredicate(format: "SELF.order == %@", NSNumber(integer: anOrderNumber))
+        fetchRequest.fetchLimit = 1
+        
+        return try aContext.executeFetchRequest(fetchRequest).first as? STPKTree
     }
 }

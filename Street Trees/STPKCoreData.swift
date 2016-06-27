@@ -39,6 +39,62 @@ public class STPKCoreData: NSObject {
     
     public static let sharedInstance = STPKCoreData()
     
+    //******************************************************************************************************************
+    // MARK: - Public Functions
+    
+    public func fetch(decriptionForName aName: String) -> STPKTreeDescription? {
+        guard let context = self.coreDataStack?.mainQueueContext() else { return nil }
+        var description: STPKTreeDescription?
+        
+        do {
+            description = try STPKTreeDescription.fetch(descriptionForName: aName, context: context)
+        } catch {
+            description = nil
+        }
+        
+        return description
+    }
+    
+    public func fetch(treeForOrderNumber anOrderNumber: Int) -> STPKTree? {
+        guard let context = self.coreDataStack?.mainQueueContext() else { return nil }
+        
+        var tree: STPKTree?
+        
+        do {
+            tree = try STPKTree.fetch(byOrderNumber: anOrderNumber, inContext: context)
+        } catch {
+            tree = nil
+        }
+        
+        return tree
+    }
+    
+    public func fetchTreeDescriptions() -> [STPKTreeDescription] {
+        guard let context = self.coreDataStack?.mainQueueContext() else { return [] }
+        let treeDescriptions: [STPKTreeDescription]
+        
+        do {
+            treeDescriptions = try STPKTreeDescription.fetch(context) as? [STPKTreeDescription] ?? []
+        } catch {
+            treeDescriptions = []
+        }
+        
+        return treeDescriptions
+    }
+    
+    public func fetchTrees() -> [STPKTree] {
+        guard let context = self.coreDataStack?.mainQueueContext() else { return [] }
+        let trees: [STPKTree]
+        
+        do {
+            trees = try STPKTree.fetch(context) as? [STPKTree] ?? []
+        } catch {
+            trees = []
+        }
+        
+        return trees
+    }
+    
     public func insert(descriptionData: [STTKTreeDescription], completion:STPKCoreDataStackCompletionBlock) {
         guard let context = self.coreDataStack?.newBackgroundWorkerMOC() else { return }
         let currentTreeDescriptions = self.fetchTreeDescriptions()
@@ -101,45 +157,6 @@ public class STPKCoreData: NSObject {
             
             self.save(context, completion: completion)
         }
-    }
-    
-    public func fetchTreeDescriptions() -> [STPKTreeDescription] {
-        guard let context = self.coreDataStack?.mainQueueContext() else { return [] }
-        let treeDescriptions: [STPKTreeDescription]
-        
-        do {
-            treeDescriptions = try STPKTreeDescription.fetch(context) as? [STPKTreeDescription] ?? []
-        } catch {
-            treeDescriptions = []
-        }
-        
-        return treeDescriptions
-    }
-    
-    public func fetchTrees() -> [STPKTree] {
-        guard let context = self.coreDataStack?.mainQueueContext() else { return [] }
-        let trees: [STPKTree]
-        
-        do {
-            trees = try STPKTree.fetch(context) as? [STPKTree] ?? []
-        } catch {
-            trees = []
-        }
-        
-        return trees
-    }
-    
-    public func fetch(decriptionForName aName: String) -> STPKTreeDescription? {
-        guard let context = self.coreDataStack?.mainQueueContext() else { return nil }
-        var description: STPKTreeDescription?
-        
-        do {
-            description = try STPKTreeDescription.fetch(descriptionForName: aName, context: context)
-        } catch {
-            description = nil
-        }
-        
-        return description
     }
     
     public func refreshAll(completion: STPKCoreDataCompletionBlock) {
