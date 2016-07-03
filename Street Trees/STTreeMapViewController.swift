@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  STTreeMapViewController.swift
 //  Street Trees
 //
 //  Copyright © 2016 Code for Orlando.
@@ -32,7 +32,7 @@ import StreetTreesPersistentKit
 import StreetTreesTransportKit
 import UIKit
 
-class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
+class STTreeMapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
 
     @IBOutlet weak var mapView: MKMapView!
     
@@ -41,14 +41,23 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     let regionRadius: CLLocationDistance = 1000
     var foundUser = false
     
+    var selectedAnnotation: STTreeAnnotation?
+    
     //******************************************************************************************************************
     // MARK: - Class Overrides
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        super.prepareForSegue(segue, sender: sender)
+        
+        if let detailVC = segue.destinationViewController as? STTreeDetailsTableViewController
+            where segue.identifier == STTreeDetailsSegueIdentifier {
+            detailVC.annotation = self.selectedAnnotation
+        }
+    }
   
     override func viewDidLoad() {
         super.viewDidLoad()
         mapView.delegate = self
-        // TODO: Remove this location and call current user location, currently located near code for orlando
-        
         self.loadPinsToMap()
     }
     
@@ -93,11 +102,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             for tree in STPKCoreData.sharedInstance.fetchTrees() {
                 
                 let image = STPKTreeDescription.image(treeName: tree.speciesName ?? "")
-                let pin = TreeLocation(name: tree.speciesName ?? "",
-                    description: "",
-                    latitude: tree.latitude?.doubleValue ?? 0.0,
-                    longitude: tree.longitude?.doubleValue ?? 0.0,
-                    image:image)
+                let pin = STTreeAnnotation(tree: tree, image: image)
                 
                 self.mapView.addAnnotation(pin)
                 clusters.append(pin)
@@ -105,7 +110,6 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             self.clusteringManager.addAnnotations(clusters)
             self.loadPins()
         }
-        
     }
     
     func setupLocation() {
@@ -153,13 +157,22 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             }
             
             annotationView?.canShowCallout = true
+            let button = UIButton(type: .DetailDisclosure)
+            annotationView?.rightCalloutAccessoryView = button
             
-            if let treeLocation = annotation as? TreeLocation {
+            if let treeLocation = annotation as? STTreeAnnotation {
                 annotationView?.image = treeLocation.image
             }
         }
         
         return annotationView
+    }
+    
+    func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        if let treeAnnotation = view.annotation as? STTreeAnnotation {
+            self.selectedAnnotation = treeAnnotation
+        }
+        self.performSegueWithIdentifier(STTreeDetailsSegueIdentifier, sender: self)
     }
 
     //******************************************************************************************************************

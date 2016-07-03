@@ -1,5 +1,5 @@
 //
-//  TreeLocation.swift
+//  StoryboardSegueIdentifiers.swift
 //  Street Trees
 //
 //  Copyright © 2016 Code for Orlando.
@@ -25,22 +25,6 @@
 //  SOFTWARE.
 //
 
-import UIKit
-import MapKit
-import FBAnnotationClusteringSwift
+import Foundation
 
-public class TreeLocation: FBAnnotation {
-    public let order: Int = 1
-    public var pinColor: UIColor = MKPinAnnotationView.greenPinColor()
-    public var subtitle: String?
-    public let image: UIImage?
-    
-    init(name: String, description: String, latitude: Double, longitude: Double, image: UIImage?) {
-        self.image = image
-        super.init()
-        self.title = name
-        self.subtitle = description
-        self.coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-        
-    }
-}
+let STTreeDetailsSegueIdentifier = "treeDetails"
