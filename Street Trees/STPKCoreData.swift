@@ -96,7 +96,11 @@ public class STPKCoreData: NSObject {
     }
     
     public func insert(descriptionData: [STTKTreeDescription], completion:STPKCoreDataStackCompletionBlock) {
-        guard let context = self.coreDataStack?.newBackgroundWorkerMOC() else { return }
+        guard let context = self.coreDataStack?.newBackgroundWorkerMOC() else {
+            let error = NSError(domain: "com.CodeForOrlando.StreeTrees.InsertDescriptions", code: 1, userInfo: nil)
+            completion(anError: error)
+            return
+        }
         let currentTreeDescriptions = self.fetchTreeDescriptions()
         
         context.performBlockAndWait {
@@ -121,16 +125,17 @@ public class STPKCoreData: NSObject {
                     newDescription.partialSun = descriptionItem.partialSun
                     newDescription.shape  = descriptionItem.shape
                     newDescription.soil = descriptionItem.soil
-                    
                 }
             }
-            
             self.save(context, completion: completion)
         }
     }
     
     public func insert(treesData: [STTKStreetTree], completion: STPKCoreDataStackCompletionBlock) {
-        guard let context = self.coreDataStack?.newBackgroundWorkerMOC() else { return }
+        guard let context = self.coreDataStack?.newBackgroundWorkerMOC() else {
+            let error = NSError(domain: "com.CodeForOrlando.StreeTrees.InsertTrees", code: 2, userInfo: nil)
+            completion(anError: error)
+            return }
         let currentTrees = self.fetchTrees()
         
         context.performBlockAndWait { 
@@ -160,16 +165,37 @@ public class STPKCoreData: NSObject {
     }
     
     public func refreshAll(completion: STPKCoreDataCompletionBlock) {
-        STTKDownloadManager.fetchAllTrees { (trees: [STTKStreetTree]) in
-            // Download all descriptions
+        
+        STTKDownloadManager.fetch(treeDescriptionsWithcompletion:  { (descriptions:[STTKTreeDescription]) in
             
-            self.insert(trees, completion: { (anError) in
-                // Insert all descriptions
-                // join descriptions and trees
+            self.insert(descriptions, completion: { (anError) in
                 
-                completion(anError: anError)
+                if anError != nil {
+                    completion(anError: anError)
+                    return
+                }
+                
+                STTKDownloadManager.fetch(treesWithCompletion: { (trees: [STTKStreetTree]) in
+                    // Download all descriptions
+                    
+                    self.insert(trees, completion: { (anError) in
+                        // Insert all descriptions
+                        // join descriptions and trees
+                        guard let context = self.coreDataStack?.mainQueueContext() else {
+                            let error = NSError(domain: "com.CodeForOrlando.StreeTrees.FetchTreesMainQueueContext", code: 1, userInfo: nil)
+                            completion(anError: error)
+                            return
+                        }
+                        if let allTrees = try? STPKTree.fetch(context) as? [STPKTree] {
+                            for tree in allTrees ?? [] {
+                                self.updateDescriptionForTree(tree: tree)
+                            }
+                        }
+                        completion(anError: anError)
+                    })
+                })
             })
-        }
+        })
     }
     
     /**
@@ -196,6 +222,20 @@ public class STPKCoreData: NSObject {
     //******************************************************************************************************************
     // MARK: - Private Functions
     
+    private func updateDescriptionForTree(tree aTree: STPKTree) {
+        guard let context = self.coreDataStack?.mainQueueContext() else { return }
+        guard let name = aTree.speciesName else { return }
+        
+        do {
+            let description = try STPKTreeDescription.fetch(descriptionForName: name, context: context)
+            aTree.treeDescription = description
+            description?.trees = description?.trees?.setByAddingObject(aTree)
+        } catch {
+            // Throw error
+            print("Unable to fetch tree description for species \(aTree.speciesName ?? "No species name") ")
+        }
+    }
+    
     private func defaultPersistentStorePath() -> String {
         return NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0]
     }
@@ -205,7 +245,7 @@ public class STPKCoreData: NSObject {
             try context.saveContextAndWait()
             completion(anError: nil)
         } catch {
-            completion(anError: NSError(domain: "com.codefororlando.streettrees.inserttrees", code: -1, userInfo: nil))
+            completion(anError: NSError(domain: "com.CodeForOrlando.StreetTrees.FailedToSaveContext", code: -1, userInfo: nil))
         }
         
     }
