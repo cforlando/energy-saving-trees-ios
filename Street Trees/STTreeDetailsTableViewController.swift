@@ -25,23 +25,57 @@
 //  SOFTWARE.
 //
 
-import UIKit
 import MapKit
 import StreetTreesPersistentKit
+import UIKit
 
+private let STEstimateRowHeight: CGFloat = 44.0
 private let STGoldenRatio: CGFloat = 0.618
 private let STRegionOffset: CLLocationDegrees = 0.0004
 private let STRegionRadius: CLLocationDistance = 0.001
-private let STEstimateRowHeight: CGFloat = 44.0
+private let STDefaultOffset: CGFloat = -64.0
 
 enum STDetailRows {
-    case Age
-    case Details
-    case Directions
-    case Email
-    case LifeExpectency
+    case Additional
+    case Description
     case Height
+    case Leaf
+    case Moisture
+    case Name
+    case OpenInMaps
+    case Shape
+    case Soil
+    case Width
     
+    func sectionHeader() -> String? {
+        switch self {
+        case .Additional:
+            return "Additional"
+        case .OpenInMaps:
+            return nil
+        case .Name, .Description:
+            return nil
+        case .Width, .Height, .Shape:
+            return "Dimensions"
+        case .Soil, .Moisture, .Leaf:
+            return "Foilage and Environment"
+        }
+    }
+}
+
+extension UIViewController {
+    func showAlert(title: String, message: String) {
+        let alertViewController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
+        let cancelAction = UIAlertAction(title: "OK", style: .Cancel, handler: nil)
+        alertViewController.addAction(cancelAction)
+        self.presentViewController(alertViewController, animated: true, completion: nil)
+    }
+}
+
+extension UIColor {
+    class func orlandoGreenColor(alpha: CGFloat = 1.0) -> UIColor {
+        return UIColor(red: 0.5294117647, green: 0.7333333333, blue: 0.3960784314, alpha: alpha)
+    }
 }
 
 class STTreeDetailsTableViewController: UITableViewController, MKMapViewDelegate {
@@ -52,19 +86,48 @@ class STTreeDetailsTableViewController: UITableViewController, MKMapViewDelegate
     @IBOutlet weak var mapView: MKMapView!
     
     var annotation: STTreeAnnotation?
+    var treeDescription: STPKTreeDescription? {
+        return self.annotation?.tree.treeDescription
+    }
     
-    let datasource: [[STDetailRows]] = [[.Directions],
-                                        [.Details, .Email, .LifeExpectency, .Height]]
+    lazy var datasource: [[STDetailRows]] = {
+    
+        var source: [[STDetailRows]] = [[.Name, .Description],
+                                        [.OpenInMaps],
+                                        [.Height, .Width, .Shape]]
+        
+        var foilageAndEnvironment: [STDetailRows] = [.Leaf, .Soil]
+        if self.treeDescription?.moisture != nil {
+            foilageAndEnvironment.append(.Moisture)
+        }
+        
+        source.append(foilageAndEnvironment)
+        
+        if self.treeDescription?.additional != nil {
+            source.append([.Additional])
+        }
+        
+        return source
+    
+    }()
+    
+    //******************************************************************************************************************
+    // MARK: - Class Overrides
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationItem.title = self.annotation?.tree.speciesName
         self.tableView.estimatedRowHeight = STEstimateRowHeight
         self.tableView.rowHeight = UITableViewAutomaticDimension
+        self.clearsSelectionOnViewWillAppear = true
         self.setupMapView()
     }
     
-    override func scrollViewDidScroll(scrollView: UIScrollView) {
+    override func scrollViewDidScroll(scrollView: UIScrollView) {        
+        if scrollView.contentOffset.y > STDefaultOffset {
+            return
+        }
+        
         let offsetY = abs(scrollView.contentOffset.y + scrollView.contentInset.top)
         self.containerView.clipsToBounds = offsetY <= 0
         
@@ -94,11 +157,19 @@ class STTreeDetailsTableViewController: UITableViewController, MKMapViewDelegate
         
         annotationView?.canShowCallout = false
         
-        if let treeLocation = annotation as? STTreeAnnotation {
-            annotationView?.image = treeLocation.image
+        return annotationView
+    }
+    
+    func mapView(mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer {
+        if let circleOverlay = overlay as? MKCircle {
+            let circleView = MKCircleRenderer(circle: circleOverlay)
+            circleView.lineWidth = 3.0
+            circleView.strokeColor = UIColor.orlandoGreenColor()
+            circleView.fillColor = UIColor.orlandoGreenColor(0.2)
+            return circleView
         }
         
-        return annotationView
+        return MKOverlayRenderer()
     }
     
     //******************************************************************************************************************
@@ -115,24 +186,36 @@ class STTreeDetailsTableViewController: UITableViewController, MKMapViewDelegate
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let basicCell = tableView.dequeueReusableCellWithIdentifier("basic", forIndexPath: indexPath)
         
-        let section = self.datasource[indexPath.section]
-        let row = section[indexPath.row]
+        let row = self.detailRow(forIndexPath: indexPath)
         let content: String
-        let treeDescription = self.annotation?.tree.treeDescription
+        basicCell.selectionStyle = .None
         
         switch row {
-        case .Age:
-            content = "1000" // Use treeDescription to get the current age and the sown/order date.
-        case .Details:
-            content = treeDescription?.treeDescription ?? "Tree Description Tree Description Tree Description Tree Description Tree DescriptionTree Description Tree Description Tree Description Tree Description Tree Description Tree Description Tree Description Tree Description Tree Description Tree Description Tree Description Tree Description Tree Description Tree Description"
-        case .Email:
-            content = "tree@orlando.com"
+        case .Name:
+            content = self.treeDescription?.name ?? "Error retrieving name"
+        case .Description:
+            content = self.treeDescription?.treeDescription ?? "Tree Description Missing"
         case .Height:
-            content = "100m" // Use treeDescription to get the min & max height
-        case .LifeExpectency:
-            content = "10 yrs" // Use treeDescription to get the min & max age
-        case .Directions:
+            content = self.localizedHeight()
+        case .Width:
+            content = self.localizedWidth()
+        case .OpenInMaps:
             content = "Open in Maps"
+        case .Leaf:
+            let leaf = self.treeDescription?.leaf ?? "Leaf information missing"
+            content = "Leaf:\n\(leaf)"
+        case .Shape:
+            let shape = self.treeDescription?.shape ?? "Shape information missing"
+            content = "Shape:\n\(shape)"
+        case .Soil:
+            var soil = self.treeDescription?.soil
+            soil = soil?.stringByReplacingOccurrencesOfString(";", withString: ", ") ?? "Soil information missing"
+            content = "Soil:\n\(soil)"
+        case .Moisture:
+            let moisture = self.treeDescription?.moisture ?? "Moisture information missing"
+            content = "Moisture:\n\(moisture)"
+        case .Additional:
+            content = self.treeDescription?.additional ?? "Additional information missing"
         }
         
         basicCell.textLabel?.text = content
@@ -140,13 +223,84 @@ class STTreeDetailsTableViewController: UITableViewController, MKMapViewDelegate
         return basicCell
     }
     
+    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        let rows = self.datasource[section]
+        return rows.first?.sectionHeader()
+    }
+    
     //******************************************************************************************************************
     // MARK: - TableView Delegate
     
-    // TODO: Add link to open maps app to get a route to the trees location.
+    override func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {
+        let detail = self.detailRow(forIndexPath: indexPath)
+        
+        return detail == .OpenInMaps ? indexPath : nil
+    }
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let detailRow = self.detailRow(forIndexPath: indexPath)
+        
+        if detailRow == .OpenInMaps {
+            self.openInMaps()
+            tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        }
+    }
     
     //******************************************************************************************************************
     // MARK: - Functions
+    
+    func detailRow(forIndexPath anIndexPath: NSIndexPath) -> STDetailRows {
+        let section = self.datasource[anIndexPath.section]
+        return section[anIndexPath.row]
+    }
+    
+    func localizedHeight() -> String {
+        guard let minimum = self.annotation?.tree.treeDescription?.minHeight?.doubleValue else {
+            return "Error getting minimum height"
+        }
+        guard let maximum = self.annotation?.tree.treeDescription?.maxHeight?.doubleValue else {
+            return "Error getting maximum height"
+        }
+        
+        return "Average Height:\n\(self.localizedLength(minimum, maximum: maximum, unitType: .Meter))"
+    }
+    
+    func localizedLength(minimum: Double, maximum: Double, unitType aType: NSLengthFormatterUnit) -> String {
+        let formatter = NSLengthFormatter()
+        formatter.forPersonHeightUse = true
+        formatter.unitStyle = .Medium
+        
+        let minimumString = formatter.stringFromValue(minimum, unit: aType)
+        let maximumString = formatter.stringFromValue(maximum, unit: aType)
+        
+        return "\(minimumString) - \(maximumString)"
+    }
+    
+    func localizedWidth() -> String {
+        guard let minimum = self.annotation?.tree.treeDescription?.minWidth?.doubleValue else {
+            return "Error getting minimum width"
+        }
+        guard let maximum = self.annotation?.tree.treeDescription?.maxWidth?.doubleValue else {
+            return "Error getting maximum width"
+        }
+        
+        return "Average Width:\n\(self.localizedLength(minimum, maximum: maximum, unitType: .Meter))"
+    }
+    
+    func openInMaps() {
+        if let latitude = self.annotation?.tree.latitude as? CLLocationDegrees,
+            let longitude = self.annotation?.tree.longitude as? CLLocationDegrees,
+            let URL = NSURL(string: "http://maps.apple.com/maps?q=\(latitude),\(longitude)"){
+            
+            if UIApplication.sharedApplication().canOpenURL(URL) {
+                UIApplication.sharedApplication().openURL(URL)
+            } else {
+                self.showAlert("Oops", message: "Street Trees was unable to open maps.")
+            }
+        } else {
+            self.showAlert("Oops", message: "Something went wrong getting the location of the tree.")
+        }
+    }
     
     func setupMapView() {
         
@@ -154,7 +308,10 @@ class STTreeDetailsTableViewController: UITableViewController, MKMapViewDelegate
         
         // Add annotation to map
         if let annotation = self.annotation {
+            let distance: CLLocationDistance = self.treeDescription?.averageWidth() ?? 0.0
+            let circleOverlay = MKCircle(centerCoordinate: annotation.coordinate, radius: distance)
             self.mapView.addAnnotation(annotation)
+            self.mapView.addOverlay(circleOverlay)
         }
     }
     
@@ -173,5 +330,4 @@ class STTreeDetailsTableViewController: UITableViewController, MKMapViewDelegate
         let region = MKCoordinateRegion(center: coordinate, span: coordinateSpan)
         self.mapView.setRegion(region, animated: true)
     }
-
 }

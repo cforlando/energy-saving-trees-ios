@@ -95,8 +95,17 @@ public struct STTKStreetTree {
         self.savings = savings
         self.stormwater = stormwater
         self.therms = therms
-        self.name = name.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
         self.long = long
         self.lat = lat
+        
+        // All names need to be sanitised because they usually contain additional white space
+        var trimmedName = name.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
+        
+        // The Tulip Poplar tree is incorrectly named in the DB. This is a fix until the DB can be updated.
+        if trimmedName == "Tuliptree" {
+            trimmedName = "Tulip Poplar"
+        }
+        
+        self.name = trimmedName
     }
 }

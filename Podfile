@@ -7,6 +7,7 @@ target 'Street Trees' do
 pod 'BNRCoreDataStack'
 pod 'Alamofire'
 pod 'FBAnnotationClusteringSwift'
+pod 'GeoJSONSerialization'
 end
 
 target 'Street TreesTests' do
