@@ -32,8 +32,17 @@
         <attribute name="treeDescription" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="trees" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="STPKTree" inverseName="treeDescription" inverseEntity="STPKTree" syncable="YES"/>
     </entity>
+    <entity name="STPKUser" representedClassName=".STPKUser" syncable="YES">
+        <attribute name="firstName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="lastestUpdate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="lastName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="streetAddress" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="streetNumber" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="zipcode" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+    </entity>
     <elements>
         <element name="STPKTree" positionX="-63" positionY="-18" width="128" height="223"/>
         <element name="STPKTreeDescription" positionX="367" positionY="63" width="128" height="283"/>
+        <element name="STPKUser" positionX="144" positionY="135" width="128" height="135"/>
     </elements>
 </model>

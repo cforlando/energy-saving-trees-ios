@@ -41,6 +41,25 @@ class STTreeMapViewController: UIViewController, MKMapViewDelegate, CLLocationMa
     let regionRadius: CLLocationDistance = 1000
     var foundUser = false
     
+    var isInOrlando: Bool {
+        if self.foundUser {
+            let userCoordinate = self.mapView.userLocation.coordinate
+            let userMapPoint = MKMapPointForCoordinate(userCoordinate)
+            var isInside = false
+            for overlay in self.mapView.overlays {
+                if let renderer = self.mapView.rendererForOverlay(overlay) as? MKPolygonRenderer {
+                    let polygonPoint = renderer.pointForMapPoint(userMapPoint)
+                    isInside = CGPathContainsPoint(renderer.path, nil, polygonPoint, false)
+                    if isInside {
+                        return isInside
+                    }
+                }
+            }
+        }
+        
+        return false
+    }
+    
     var selectedAnnotation: STTreeAnnotation?
     
     //******************************************************************************************************************
@@ -57,8 +76,15 @@ class STTreeMapViewController: UIViewController, MKMapViewDelegate, CLLocationMa
   
     override func viewDidLoad() {
         super.viewDidLoad()
-        mapView.delegate = self
+        self.mapView.delegate = self
         self.loadPinsToMap()
+        
+        STTKDownloadManager.fetch(cityGeoPoints: { (response: [AnyObject]) in
+            if let polygons = response as? [MKPolygon] {
+                self.mapView.addOverlays(polygons)
+            }
+        })
+        
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -72,6 +98,13 @@ class STTreeMapViewController: UIViewController, MKMapViewDelegate, CLLocationMa
     //******************************************************************************************************************
     // MARK: - MKMapView Delegates
 
+    func mapView(mapView: MKMapView, annotationView view: MKAnnotationView,
+                 calloutAccessoryControlTapped control: UIControl) {
+        if let treeAnnotation = view.annotation as? STTreeAnnotation {
+            self.selectedAnnotation = treeAnnotation
+        }
+        self.performSegueWithIdentifier(STTreeDetailsSegueIdentifier, sender: self)
+    }
     
     func mapView(mapView: MKMapView, didUpdateUserLocation userLocation: MKUserLocation) {
         if !self.foundUser {
@@ -84,6 +117,19 @@ class STTreeMapViewController: UIViewController, MKMapViewDelegate, CLLocationMa
         self.loadPins()
     }
     
+    func mapView(mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer {
+        if let polygon = overlay as? MKPolygon {
+            
+            let renderer = MKPolygonRenderer(polygon: polygon)
+            renderer.strokeColor = UIColor.orlandoGreenColor()
+            renderer.fillColor = UIColor.orlandoGreenColor(0.2)
+            renderer.lineWidth = 3.0
+            return renderer
+        }
+        
+        return MKPolygonRenderer()
+    }
+    
     func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
         if annotation is MKUserLocation {
             return nil
@@ -93,7 +139,14 @@ class STTreeMapViewController: UIViewController, MKMapViewDelegate, CLLocationMa
         var reuseId: String
         
         if annotation.isKindOfClass(FBAnnotationCluster) {
-            annotationView = FBAnnotationClusterView(annotation: annotation, reuseIdentifier: nil, options: nil)
+            let imageLarge = "clusterLarge"
+            let imageMedium = "clusterMedium"
+            let imageSmall = "clusterSmall"
+            
+            let imageSize = FBAnnotationClusterViewOptions(smallClusterImage: imageSmall, mediumClusterImage: imageMedium, largeClusterImage: imageLarge)
+            
+            annotationView = FBAnnotationClusterView(annotation: annotation, reuseIdentifier: nil, options: imageSize)
+            
         } else {
             reuseId = "Pin"
             annotationView = mapView.dequeueReusableAnnotationViewWithIdentifier(reuseId)
@@ -113,14 +166,6 @@ class STTreeMapViewController: UIViewController, MKMapViewDelegate, CLLocationMa
         
         return annotationView
     }
-    
-    func mapView(mapView: MKMapView, annotationView view: MKAnnotationView,
-                 calloutAccessoryControlTapped control: UIControl) {
-        if let treeAnnotation = view.annotation as? STTreeAnnotation {
-            self.selectedAnnotation = treeAnnotation
-        }
-        self.performSegueWithIdentifier(STTreeDetailsSegueIdentifier, sender: self)
-    }
 
     //******************************************************************************************************************
     // MARK: - CLLocationManager Delegates
@@ -136,7 +181,7 @@ class STTreeMapViewController: UIViewController, MKMapViewDelegate, CLLocationMa
     
     func centerMapOnLocation(location: CLLocation) {
         let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate,
-                                                                  regionRadius * 2.0, regionRadius * 2.0)
+                                                                  self.regionRadius * 2.0, self.regionRadius * 2.0)
         self.mapView.setRegion(coordinateRegion, animated: true)
     }
     
@@ -144,7 +189,9 @@ class STTreeMapViewController: UIViewController, MKMapViewDelegate, CLLocationMa
         NSOperationQueue().addOperationWithBlock {
             let mapBoundsWidth = Double(self.mapView.bounds.size.width)
             let mapRectWidth:Double = self.mapView.visibleMapRect.size.width
+            
             let scale:Double = mapBoundsWidth / mapRectWidth
+            
             let annotationArray = self.clusteringManager.clusteredAnnotationsWithinMapRect(self.mapView.visibleMapRect,
                 withZoomScale:scale)
             
@@ -153,25 +200,17 @@ class STTreeMapViewController: UIViewController, MKMapViewDelegate, CLLocationMa
     }
     
     func loadPinsToMap() {
-        
-        STPKCoreData.sharedInstance.refreshAll { (anError) in
-            if anError != nil {
-                //TODO: throw error?
-                return
-            }
+        var clusters:[FBAnnotation] = []
+        for tree in STPKCoreData.sharedInstance.fetchTrees() {
             
-            var clusters:[FBAnnotation] = []
-            for tree in STPKCoreData.sharedInstance.fetchTrees() {
-                
-                let image = STPKTreeDescription.image(treeName: tree.speciesName ?? "")
-                let pin = STTreeAnnotation(tree: tree, image: image)
-                
-                self.mapView.addAnnotation(pin)
-                clusters.append(pin)
-            }
-            self.clusteringManager.addAnnotations(clusters)
-            self.loadPins()
+            let image = STPKTreeDescription.image(treeName: tree.speciesName ?? "")
+            let pin = STTreeAnnotation(tree: tree, image: image)
+            
+            self.mapView.addAnnotation(pin)
+            clusters.append(pin)
         }
+        self.clusteringManager.addAnnotations(clusters)
+        self.loadPins()
     }
     
     func setupLocation() {

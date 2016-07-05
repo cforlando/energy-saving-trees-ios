@@ -27,6 +27,7 @@
 
 import MapKit
 import StreetTreesPersistentKit
+import StreetTreesFoundationKit
 import UIKit
 
 private let STEstimateRowHeight: CGFloat = 44.0
@@ -60,21 +61,6 @@ enum STDetailRows {
         case .Soil, .Moisture, .Leaf:
             return "Foilage and Environment"
         }
-    }
-}
-
-extension UIViewController {
-    func showAlert(title: String, message: String) {
-        let alertViewController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
-        let cancelAction = UIAlertAction(title: "OK", style: .Cancel, handler: nil)
-        alertViewController.addAction(cancelAction)
-        self.presentViewController(alertViewController, animated: true, completion: nil)
-    }
-}
-
-extension UIColor {
-    class func orlandoGreenColor(alpha: CGFloat = 1.0) -> UIColor {
-        return UIColor(red: 0.5294117647, green: 0.7333333333, blue: 0.3960784314, alpha: alpha)
     }
 }
 
