@@ -19,6 +19,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>GeoJSONSerialization.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-Street Trees.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -27,6 +32,11 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>366C9858F94BE184943D3EDCCBDC6F0D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>423C10F04A172BB11C7A3702F8F09B90</key>
 		<dict>
 			<key>primary</key>
@@ -42,7 +52,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>C96DA877632774446AC183432D130C56</key>
+		<key>BBEADA089404EAC7386224366796CDD8</key>
 		<dict>
 			<key>primary</key>
 			<true/>

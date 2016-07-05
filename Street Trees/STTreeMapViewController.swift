@@ -70,60 +70,6 @@ class STTreeMapViewController: UIViewController, MKMapViewDelegate, CLLocationMa
     }
     
     //******************************************************************************************************************
-    // MARK: - Internal Functions
-  
-    func centerMapOnLocation(location: CLLocation) {
-      let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate,
-                                                                regionRadius * 2.0, regionRadius * 2.0)
-      self.mapView.setRegion(coordinateRegion, animated: true)
-    }
-    
-    func loadPins() {
-        NSOperationQueue().addOperationWithBlock {
-            let mapBoundsWidth = Double(self.mapView.bounds.size.width)
-            let mapRectWidth:Double = self.mapView.visibleMapRect.size.width
-            let scale:Double = mapBoundsWidth / mapRectWidth
-            let annotationArray = self.clusteringManager.clusteredAnnotationsWithinMapRect(self.mapView.visibleMapRect,
-                withZoomScale:scale)
-            
-            self.clusteringManager.displayAnnotations(annotationArray, onMapView:self.mapView)
-        }
-    }
-    
-    func loadPinsToMap() {
-        
-        STPKCoreData.sharedInstance.refreshAll { (anError) in
-            if anError != nil {
-                //TODO: throw error?
-                return
-            }
-            
-            var clusters:[FBAnnotation] = []
-            for tree in STPKCoreData.sharedInstance.fetchTrees() {
-                
-                let image = STPKTreeDescription.image(treeName: tree.speciesName ?? "")
-                let pin = STTreeAnnotation(tree: tree, image: image)
-                
-                self.mapView.addAnnotation(pin)
-                clusters.append(pin)
-            }
-            self.clusteringManager.addAnnotations(clusters)
-            self.loadPins()
-        }
-    }
-    
-    func setupLocation() {
-        switch CLLocationManager.authorizationStatus() {
-        case .NotDetermined, .Restricted:
-            self.locationManager.requestAlwaysAuthorization()
-        case .AuthorizedAlways:
-            self.mapView.showsUserLocation = true
-        default:
-            ()
-        }
-    }
-    
-    //******************************************************************************************************************
     // MARK: - MKMapView Delegates
 
     
@@ -168,7 +114,8 @@ class STTreeMapViewController: UIViewController, MKMapViewDelegate, CLLocationMa
         return annotationView
     }
     
-    func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+    func mapView(mapView: MKMapView, annotationView view: MKAnnotationView,
+                 calloutAccessoryControlTapped control: UIControl) {
         if let treeAnnotation = view.annotation as? STTreeAnnotation {
             self.selectedAnnotation = treeAnnotation
         }
@@ -181,6 +128,60 @@ class STTreeMapViewController: UIViewController, MKMapViewDelegate, CLLocationMa
     func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
         if status == .AuthorizedAlways {
             self.mapView.showsUserLocation = true
+        }
+    }
+    
+    //******************************************************************************************************************
+    // MARK: - Internal Functions
+    
+    func centerMapOnLocation(location: CLLocation) {
+        let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate,
+                                                                  regionRadius * 2.0, regionRadius * 2.0)
+        self.mapView.setRegion(coordinateRegion, animated: true)
+    }
+    
+    func loadPins() {
+        NSOperationQueue().addOperationWithBlock {
+            let mapBoundsWidth = Double(self.mapView.bounds.size.width)
+            let mapRectWidth:Double = self.mapView.visibleMapRect.size.width
+            let scale:Double = mapBoundsWidth / mapRectWidth
+            let annotationArray = self.clusteringManager.clusteredAnnotationsWithinMapRect(self.mapView.visibleMapRect,
+                withZoomScale:scale)
+            
+            self.clusteringManager.displayAnnotations(annotationArray, onMapView:self.mapView)
+        }
+    }
+    
+    func loadPinsToMap() {
+        
+        STPKCoreData.sharedInstance.refreshAll { (anError) in
+            if anError != nil {
+                //TODO: throw error?
+                return
+            }
+            
+            var clusters:[FBAnnotation] = []
+            for tree in STPKCoreData.sharedInstance.fetchTrees() {
+                
+                let image = STPKTreeDescription.image(treeName: tree.speciesName ?? "")
+                let pin = STTreeAnnotation(tree: tree, image: image)
+                
+                self.mapView.addAnnotation(pin)
+                clusters.append(pin)
+            }
+            self.clusteringManager.addAnnotations(clusters)
+            self.loadPins()
+        }
+    }
+    
+    func setupLocation() {
+        switch CLLocationManager.authorizationStatus() {
+        case .NotDetermined, .Restricted:
+            self.locationManager.requestAlwaysAuthorization()
+        case .AuthorizedAlways:
+            self.mapView.showsUserLocation = true
+        default:
+            ()
         }
     }
 }

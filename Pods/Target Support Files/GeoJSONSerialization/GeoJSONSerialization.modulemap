@@ -1,0 +1,6 @@
+framework module GeoJSONSerialization {
+  umbrella header "GeoJSONSerialization-umbrella.h"
+
+  export *
+  module * { export * }
+}

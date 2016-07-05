@@ -64,7 +64,7 @@ public class STPKTreeDescription: STPKManagedObject {
             imageName = "cfo-magnolia"
         case "Tabebuia Ipe":
             imageName = "cfo-elm" //TODO: Get correct Image
-        case "Tuliptree":
+        case "Tulip Poplar":
             imageName = "cfo-tulip_poplar"
         case "Winged Elm":
             imageName = "cfo-elm"
@@ -88,12 +88,19 @@ public class STPKTreeDescription: STPKManagedObject {
     }
     
     override public class func insert(context context: NSManagedObjectContext) -> STPKTreeDescription {
-        let newTree = STPKTreeDescription(entity: self.entityDescription(inManagedObjectContext: context), insertIntoManagedObjectContext: context)
+        let newTree = STPKTreeDescription(entity: self.entityDescription(inManagedObjectContext: context),
+                                          insertIntoManagedObjectContext: context)
         return newTree
     }
     
     //******************************************************************************************************************
     // MARK: - Public Functions
+    
+    public func averageWidth() -> Double {
+        guard let minimum = self.minWidth?.doubleValue else { return 0.0 }
+        guard let maximum = self.maxWidth?.doubleValue else { return 0.0 }
+        return (minimum + maximum) / 2
+    }
     
     public func image() -> UIImage? {
         return STPKTreeDescription.image(treeName: self.name ?? "")
