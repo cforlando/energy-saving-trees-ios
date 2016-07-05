@@ -27,16 +27,24 @@
 
 import Alamofire
 import Foundation
+import GeoJSONSerialization
 
 public typealias STTKTreeCompletion = ([STTKStreetTree]) -> Void
 public typealias STTKTreeDescriptionCompletion = ([STTKTreeDescription]) -> Void
+public typealias STTKTCityGeoPointsCompletion = ([AnyObject]) -> Void
 
 enum STRequestBuilder: String {
     case Trees = "7w7p-3857.json"
     case TreeDescriptions = "69mx-t3bq.json"
+    case GeoData = "https://data.cityoforlando.net/api/geospatial/k3h7-bsnc?method=export&format=GeoJSON"
     
     func URLPath() -> String {
-        return "https://brigades.opendatanetwork.com/resource/\(self.rawValue)"
+        switch self {
+        case .TreeDescriptions, .Trees:
+            return "https://brigades.opendatanetwork.com/resource/\(self.rawValue)"
+        case .GeoData:
+            return self.rawValue
+        }
     }
 }
 
@@ -47,6 +55,22 @@ public final class STTKDownloadManager {
     
     //******************************************************************************************************************
     // MARK: - Public Class Functions
+    
+    public class func fetch(cityGeoPoints completion: STTKTCityGeoPointsCompletion) {
+        Alamofire.request(.GET, STRequestBuilder.GeoData.URLPath()).responseJSON { (response) in
+            if let resultData = response.result.value as? [NSObject: AnyObject] {
+                
+                do {
+                    let shape = try GeoJSONSerialization.shapesFromGeoJSONFeatureCollection(resultData)
+                    completion(shape)
+                } catch {
+                    print("GeoJSON not happy")
+                }
+            } else {
+                print("Not a [String: AnyObject]")
+            }
+        }
+    }
     
     // EXAMPLE JSON OUTPUT
     /*

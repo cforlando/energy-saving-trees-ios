@@ -52,6 +52,10 @@
 		D4B5436B1D032D020000CBFF /* STPKTree+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B543691D032D020000CBFF /* STPKTree+CoreDataProperties.swift */; };
 		D4B5436C1D032D020000CBFF /* STPKTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B5436A1D032D020000CBFF /* STPKTree.swift */; };
 		D4B5436E1D0339C50000CBFF /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4B5436D1D0339C50000CBFF /* Alamofire.framework */; };
+		D4EE1FDB1D2B3EDC007E6C01 /* STPKUser+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EE1FD91D2B3EDC007E6C01 /* STPKUser+CoreDataProperties.swift */; };
+		D4EE1FDC1D2B3EDC007E6C01 /* STPKUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EE1FDA1D2B3EDC007E6C01 /* STPKUser.swift */; };
+		D4EE1FE01D2BF79A007E6C01 /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EE1FDF1D2BF79A007E6C01 /* UIViewControllerExtension.swift */; };
+		D4EE1FE21D2BF7FE007E6C01 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EE1FE11D2BF7FE007E6C01 /* UIColorExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -206,6 +210,10 @@
 		D4B5436A1D032D020000CBFF /* STPKTree.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STPKTree.swift; sourceTree = "<group>"; };
 		D4B5436D1D0339C50000CBFF /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = "../../../Library/Developer/Xcode/DerivedData/Street_Trees-dmyahyozksacllaehqxolnnibfxo/Build/Products/Debug-iphonesimulator/Alamofire.framework"; sourceTree = "<group>"; };
 		D4B543711D03445B0000CBFF /* STPKCoreData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STPKCoreData.swift; path = "../Street Trees/STPKCoreData.swift"; sourceTree = "<group>"; };
+		D4EE1FD91D2B3EDC007E6C01 /* STPKUser+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "STPKUser+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		D4EE1FDA1D2B3EDC007E6C01 /* STPKUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STPKUser.swift; sourceTree = "<group>"; };
+		D4EE1FDF1D2BF79A007E6C01 /* UIViewControllerExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtension.swift; sourceTree = "<group>"; };
+		D4EE1FE11D2BF7FE007E6C01 /* UIColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		DB0867AD3C985EBC75B8FB0A /* Pods-Street Trees.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Street Trees.release.xcconfig"; path = "Pods/Target Support Files/Pods-Street Trees/Pods-Street Trees.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -428,6 +436,8 @@
 				D45F07CA1D02614A0025F8F0 /* StreetTreesFoundationKit.h */,
 				D45F07CC1D02614A0025F8F0 /* Info.plist */,
 				5DDC17981D0356F100AA272B /* STFKStreetTreeDateFormatter.swift */,
+				D4EE1FE11D2BF7FE007E6C01 /* UIColorExtension.swift */,
+				D4EE1FDF1D2BF79A007E6C01 /* UIViewControllerExtension.swift */,
 			);
 			path = StreetTreesFoundationKit;
 			sourceTree = "<group>";
@@ -453,6 +463,7 @@
 		D4B543671D032C630000CBFF /* Machine */ = {
 			isa = PBXGroup;
 			children = (
+				D4EE1FD91D2B3EDC007E6C01 /* STPKUser+CoreDataProperties.swift */,
 				D420E3791D1729A0007E23C8 /* STPKTreeDescription+CoreDataProperties.swift */,
 				D4B543691D032D020000CBFF /* STPKTree+CoreDataProperties.swift */,
 			);
@@ -464,6 +475,7 @@
 			children = (
 				D4B5436A1D032D020000CBFF /* STPKTree.swift */,
 				D420E37A1D1729A0007E23C8 /* STPKTreeDescription.swift */,
+				D4EE1FDA1D2B3EDC007E6C01 /* STPKUser.swift */,
 				D420E38A1D176C30007E23C8 /* Trees.xcassets */,
 			);
 			name = Human;
@@ -911,9 +923,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D4EE1FDC1D2B3EDC007E6C01 /* STPKUser.swift in Sources */,
 				D4B543581D0322BB0000CBFF /* STPKModel.xcdatamodeld in Sources */,
 				D4B543621D0326440000CBFF /* STPKCoreDataStack.swift in Sources */,
 				D420E3891D174C60007E23C8 /* STPKCoreData.swift in Sources */,
+				D4EE1FDB1D2B3EDC007E6C01 /* STPKUser+CoreDataProperties.swift in Sources */,
 				D420E3861D1731EC007E23C8 /* STPKManageObject.swift in Sources */,
 				D420E37B1D1729A0007E23C8 /* STPKTreeDescription+CoreDataProperties.swift in Sources */,
 				D4B5436B1D032D020000CBFF /* STPKTree+CoreDataProperties.swift in Sources */,
@@ -935,6 +949,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				5DDC17991D0356F100AA272B /* STFKStreetTreeDateFormatter.swift in Sources */,
+				D4EE1FE01D2BF79A007E6C01 /* UIViewControllerExtension.swift in Sources */,
+				D4EE1FE21D2BF7FE007E6C01 /* UIColorExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

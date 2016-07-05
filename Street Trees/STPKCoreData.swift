@@ -30,8 +30,10 @@ import BNRCoreDataStack
 import StreetTreesTransportKit
 
 public typealias STPKCoreDataCompletionBlock = (anError: NSError?) -> Void
+public typealias STPKCoreDataUserCompletionBlock = (user: STPKUser?, anError: NSError?) -> Void
 
 private let STPKPersistentStoreFileName = "streettrees.sqlite"
+private let STPKUpdateFrequency: NSTimeInterval = 1209600 // 2 weeks
 
 public class STPKCoreData: NSObject {
     
@@ -41,6 +43,29 @@ public class STPKCoreData: NSObject {
     
     //******************************************************************************************************************
     // MARK: - Public Functions
+    
+    public func createUser(completion: STPKCoreDataUserCompletionBlock) {
+        guard let context = self.coreDataStack?.newBackgroundWorkerMOC() else {
+            let error = NSError(domain: "com.CodeForOrlando.StreeTrees.CreateUser", code: 3, userInfo: nil)
+            completion(user: nil, anError: error)
+            return
+        }
+        
+        context.performBlockAndWait {
+            if self.fetchUser() == nil {
+                STPKUser.insert(context: context)
+                self.save(context) { error in
+                    if let _ = error {
+                        completion(user: nil, anError: error)
+                    }
+                    completion(user: self.fetchUser(), anError: error)
+                }
+            } else {
+                let error = NSError(domain: "com.CodeForOrlando.StreeTrees.UserExists", code: 4, userInfo: nil)
+                completion(user: nil, anError: error)
+            }
+        }
+    }
     
     public func fetch(decriptionForName aName: String) -> STPKTreeDescription? {
         guard let context = self.coreDataStack?.mainQueueContext() else { return nil }
@@ -93,6 +118,17 @@ public class STPKCoreData: NSObject {
         }
         
         return trees
+    }
+    
+    public func fetchUser() -> STPKUser? {
+        guard let context = self.coreDataStack?.mainQueueContext() else { return nil }
+        do {
+            return try STPKUser.fetch(context).first as? STPKUser
+        } catch {
+            
+        }
+        
+        return nil
     }
     
     public func insert(descriptionData: [STTKTreeDescription], completion:STPKCoreDataStackCompletionBlock) {
@@ -165,6 +201,32 @@ public class STPKCoreData: NSObject {
     }
     
     public func refreshAll(completion: STPKCoreDataCompletionBlock) {
+        
+        if let user = self.fetchUser() {
+            let updateDate = user.lastestUpdate ?? NSDate()
+            
+            let isTimeToUpdate = NSDate().timeIntervalSinceDate(updateDate) >= STPKUpdateFrequency
+            if !isTimeToUpdate && user.lastestUpdate != nil {
+                completion(anError: nil)
+                return
+            }
+            guard let backgroundContext = self.coreDataStack?.newBackgroundWorkerMOC() else {
+                let error = NSError(domain: "com.CodeForOrlando.StreeTrees.UpdateUserTime", code: 1, userInfo: nil)
+                completion(anError: error)
+                return
+            }
+            
+            if let backgroundUser = try? STPKUser.fetch(backgroundContext).first as? STPKUser {
+                backgroundUser?.lastestUpdate = NSDate()
+                self.save(backgroundContext, completion: { (anError) in
+                    // nothing to do here
+                })
+            }
+        } else {
+            let error = NSError(domain: "com.CodeForOrlando.StreeTrees.NoUserInDB", code: 5, userInfo: nil)
+            completion(anError: error)
+            return
+        }
         
         STTKDownloadManager.fetch(treeDescriptionsWithcompletion:  { (descriptions:[STTKTreeDescription]) in
             
