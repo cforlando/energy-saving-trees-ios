@@ -37,7 +37,7 @@ private let STPKUpdateFrequency: NSTimeInterval = 1209600 // 2 weeks
 
 public class STPKCoreData: NSObject {
     
-    private(set) var coreDataStack: STPKCoreDataStack?
+    public private(set) var coreDataStack: STPKCoreDataStack?
     
     public static let sharedInstance = STPKCoreData()
     

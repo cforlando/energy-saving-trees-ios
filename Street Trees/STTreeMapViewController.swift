@@ -25,6 +25,7 @@
 //  SOFTWARE.
 //
 
+import CoreData
 import CoreLocation
 import FBAnnotationClusteringSwift
 import MapKit
@@ -32,7 +33,7 @@ import StreetTreesPersistentKit
 import StreetTreesTransportKit
 import UIKit
 
-class STTreeMapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
+class STTreeMapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, NSFetchedResultsControllerDelegate {
 
     @IBOutlet weak var mapView: MKMapView!
     
@@ -40,6 +41,23 @@ class STTreeMapViewController: UIViewController, MKMapViewDelegate, CLLocationMa
     let locationManager = CLLocationManager()
     let regionRadius: CLLocationDistance = 1000
     var foundUser = false
+    
+    lazy var fetchedResultsController: NSFetchedResultsController = {
+        let fetchRequest = NSFetchRequest(entityName: STPKTree.entityName())
+        let sortDescriptor = NSSortDescriptor(key: "order", ascending: true)
+        fetchRequest.sortDescriptors = [sortDescriptor]
+        let context = STPKCoreData.sharedInstance.coreDataStack?.mainQueueContext()
+        let controller = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context!, sectionNameKeyPath: nil, cacheName: nil)
+        controller.delegate = self
+        
+        do {
+            try controller.performFetch()
+        } catch {
+            
+        }
+        
+        return controller
+    }()
     
     var isInOrlando: Bool {
         if self.foundUser {
@@ -77,7 +95,10 @@ class STTreeMapViewController: UIViewController, MKMapViewDelegate, CLLocationMa
     override func viewDidLoad() {
         super.viewDidLoad()
         self.mapView.delegate = self
-        self.loadPinsToMap()
+        
+        STPKCoreData.sharedInstance.refreshAll { (anError) in
+            self.loadPinsToMap()
+        }
         
         STTKDownloadManager.fetch(cityGeoPoints: { (response: [AnyObject]) in
             if let polygons = response as? [MKPolygon] {
@@ -93,6 +114,13 @@ class STTreeMapViewController: UIViewController, MKMapViewDelegate, CLLocationMa
         self.mapView.showsCompass = true
         self.locationManager.delegate = self
         self.setupLocation()
+    }
+    
+    //******************************************************************************************************************
+    // MARK: - FetchedResultsController Delegate
+    
+    func controllerDidChangeContent(controller: NSFetchedResultsController) {
+        self.loadPinsToMap()
     }
     
     //******************************************************************************************************************
@@ -200,8 +228,13 @@ class STTreeMapViewController: UIViewController, MKMapViewDelegate, CLLocationMa
     }
     
     func loadPinsToMap() {
+        
+        if self.mapView.annotations.count > 0 {
+            self.mapView.removeAnnotations(self.mapView.annotations)
+        }
+        
         var clusters:[FBAnnotation] = []
-        for tree in STPKCoreData.sharedInstance.fetchTrees() {
+        for tree in self.fetchedResultsController.fetchedObjects as? [STPKTree] ?? [] {
             
             let image = STPKTreeDescription.image(treeName: tree.speciesName ?? "")
             let pin = STTreeAnnotation(tree: tree, image: image)

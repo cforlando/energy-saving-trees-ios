@@ -33,7 +33,7 @@ public class STPKTree: STPKManagedObject {
     //******************************************************************************************************************
     // MARK: - Class overrides
     
-    override class func entityName() -> String {
+    override public class func entityName() -> String {
       return "STPKTree"
     }
     
