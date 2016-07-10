@@ -8,7 +8,15 @@ One Tree One Person iOS app will allow users to view where trees have been plant
 1.0 (MVP)
 
 ##### Feature List:
-A list of features we would like finished for version 1.0 (<i>link coming soon</i>).
+<ul>
+    
+    <li>Save all tree information locally.</li>
+    <li>View all trees on a map.</li>
+    <li>Tap an icon for more information about that tree.</li>
+    <li>View Orlando City limits.</li>
+    <li>Order form for requesting a tree.</li>
+
+</ul>
 
 ##### Data Source: </b>
 
