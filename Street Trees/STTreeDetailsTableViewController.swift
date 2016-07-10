@@ -174,6 +174,7 @@ class STTreeDetailsTableViewController: UITableViewController, MKMapViewDelegate
         
         let row = self.detailRow(forIndexPath: indexPath)
         let content: String
+        var subtitle: String? = nil
         basicCell.selectionStyle = .None
         
         switch row {
@@ -182,29 +183,34 @@ class STTreeDetailsTableViewController: UITableViewController, MKMapViewDelegate
         case .Description:
             content = self.treeDescription?.treeDescription ?? "Tree Description Missing"
         case .Height:
-            content = self.localizedHeight()
+            let height = self.localizedHeight()
+            content = height.content
+            subtitle = height.subtitle
         case .Width:
-            content = self.localizedWidth()
+            let height = self.localizedWidth()
+            content = height.content
+            subtitle = height.subtitle
         case .OpenInMaps:
             content = "Open in Maps"
         case .Leaf:
-            let leaf = self.treeDescription?.leaf ?? "Leaf information missing"
-            content = "Leaf:\n\(leaf)"
+            content = self.treeDescription?.leaf ?? "Leaf information missing"
+            subtitle = "Leaf"
         case .Shape:
-            let shape = self.treeDescription?.shape ?? "Shape information missing"
-            content = "Shape:\n\(shape)"
+            content = self.treeDescription?.shape ?? "Shape information missing"
+            subtitle = "Shape"
         case .Soil:
-            var soil = self.treeDescription?.soil
-            soil = soil?.stringByReplacingOccurrencesOfString(";", withString: ", ") ?? "Soil information missing"
-            content = "Soil:\n\(soil)"
+            let soil = self.treeDescription?.soil
+            content = soil?.stringByReplacingOccurrencesOfString(";", withString: ", ") ?? "Soil information missing"
+            subtitle = "Soil"
         case .Moisture:
-            let moisture = self.treeDescription?.moisture ?? "Moisture information missing"
-            content = "Moisture:\n\(moisture)"
+            content = self.treeDescription?.moisture ?? "Moisture information missing"
+            subtitle = "Moisture"
         case .Additional:
             content = self.treeDescription?.additional ?? "Additional information missing"
         }
         
         basicCell.textLabel?.text = content
+        basicCell.detailTextLabel?.text = subtitle
         
         return basicCell
     }
@@ -240,15 +246,15 @@ class STTreeDetailsTableViewController: UITableViewController, MKMapViewDelegate
         return section[anIndexPath.row]
     }
     
-    func localizedHeight() -> String {
+    func localizedHeight() -> (subtitle: String, content: String) {
         guard let minimum = self.annotation?.tree.treeDescription?.minHeight?.doubleValue else {
-            return "Error getting minimum height"
+            return (subtitle:"Error", content: "Getting minimum height")
         }
         guard let maximum = self.annotation?.tree.treeDescription?.maxHeight?.doubleValue else {
-            return "Error getting maximum height"
+            return (subtitle:"Error", content: "Getting maximum height")
         }
         
-        return "Average Height:\n\(self.localizedLength(minimum, maximum: maximum, unitType: .Meter))"
+        return (subtitle:"Average Height", content: self.localizedLength(minimum, maximum: maximum, unitType: .Meter))
     }
     
     func localizedLength(minimum: Double, maximum: Double, unitType aType: NSLengthFormatterUnit) -> String {
@@ -262,15 +268,15 @@ class STTreeDetailsTableViewController: UITableViewController, MKMapViewDelegate
         return "\(minimumString) - \(maximumString)"
     }
     
-    func localizedWidth() -> String {
-        guard let minimum = self.annotation?.tree.treeDescription?.minWidth?.doubleValue else {
-            return "Error getting minimum width"
+    func localizedWidth() -> (subtitle: String, content: String) {
+        guard let minimum = self.annotation?.tree.treeDescription?.minHeight?.doubleValue else {
+            return (subtitle:"Error", content: "Getting minimum width")
         }
-        guard let maximum = self.annotation?.tree.treeDescription?.maxWidth?.doubleValue else {
-            return "Error getting maximum width"
+        guard let maximum = self.annotation?.tree.treeDescription?.maxHeight?.doubleValue else {
+            return (subtitle:"Error", content: "Getting maximum weight")
         }
         
-        return "Average Width:\n\(self.localizedLength(minimum, maximum: maximum, unitType: .Meter))"
+        return (subtitle:"Average Weight", content: self.localizedLength(minimum, maximum: maximum, unitType: .Meter))
     }
     
     func openInMaps() {
