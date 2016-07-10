@@ -25,6 +25,7 @@
 //  SOFTWARE.
 //
 
+import CoreData
 import CoreLocation
 import FBAnnotationClusteringSwift
 import MapKit
@@ -32,14 +33,45 @@ import StreetTreesPersistentKit
 import StreetTreesTransportKit
 import UIKit
 
-class STTreeMapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
+private let STAnimationDuration: NSTimeInterval = 0.3
+private let STCityLimitsFillAlpha: CGFloat = 0.2
+private let STCityLimitsLineWidth: CGFloat = 3.0
+private let STClusterLargeImageName = "clusterLarge"
+private let STClusterMediumImageName = "clusterMedium"
+private let STClusterSmallImageName = "clusterSmall"
+private let STMapPinReuseIdentifier = "com.streettrees.mapview.pin"
+private let STMaximumAnnotationViewAlpha: CGFloat = 1.0
+private let STMaximumTransformScale: CGFloat = 1.0
+private let STMinimumAnnotationViewAlpha: CGFloat = 0.0
+private let STMinimumTransformScale: CGFloat = 0.0
+private let STRegionRadius: CLLocationDistance = 1000
+private let STRegionRadiusDistance = STRegionRadius * 2.0
+private let STViewControllerTitle = "Street Trees"
+private let STLoadingMessage = "Loading..."
+
+class STTreeMapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, NSFetchedResultsControllerDelegate {
 
     @IBOutlet weak var mapView: MKMapView!
     
     let clusteringManager = FBClusteringManager()
     let locationManager = CLLocationManager()
-    let regionRadius: CLLocationDistance = 1000
     var foundUser = false
+    
+    lazy var fetchedResultsController: NSFetchedResultsController = {
+        let fetchRequest = NSFetchRequest(entityName: STPKTree.entityName())
+        let sortDescriptor = NSSortDescriptor(key: "order", ascending: true)
+        fetchRequest.sortDescriptors = [sortDescriptor]
+        let context = STPKCoreData.sharedInstance.coreDataStack?.mainQueueContext()
+        let controller = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context!, sectionNameKeyPath: nil, cacheName: nil)
+        controller.delegate = self
+        
+        do {
+            try controller.performFetch()
+        } catch {
+            
+        }
+        return controller
+    }()
     
     var isInOrlando: Bool {
         if self.foundUser {
@@ -77,14 +109,18 @@ class STTreeMapViewController: UIViewController, MKMapViewDelegate, CLLocationMa
     override func viewDidLoad() {
         super.viewDidLoad()
         self.mapView.delegate = self
-        self.loadPinsToMap()
-        
-        STTKDownloadManager.fetch(cityGeoPoints: { (response: [AnyObject]) in
-            if let polygons = response as? [MKPolygon] {
-                self.mapView.addOverlays(polygons)
-            }
-        })
-        
+        let application = UIApplication.sharedApplication()
+        application.networkActivityIndicatorVisible = true
+        STPKCoreData.sharedInstance.refreshAll { (anError) in
+            
+            self.loadPinsToMap()
+            STTKDownloadManager.fetch(cityGeoPoints: { (response: [AnyObject]) in
+                if let polygons = response as? [MKPolygon] {
+                    self.mapView.addOverlays(polygons)
+                }
+                application.networkActivityIndicatorVisible = false
+            })
+        }
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -93,6 +129,23 @@ class STTreeMapViewController: UIViewController, MKMapViewDelegate, CLLocationMa
         self.mapView.showsCompass = true
         self.locationManager.delegate = self
         self.setupLocation()
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        if self.fetchedResultsController.fetchedObjects?.count == 0 {
+            self.navigationItem.title = STLoadingMessage
+        }
+    }
+    
+    //******************************************************************************************************************
+    // MARK: - FetchedResultsController Delegate
+    
+    func controllerDidChangeContent(controller: NSFetchedResultsController) {
+        self.loadPinsToMap()
+        if self.fetchedResultsController.fetchedObjects?.count != 0 {
+            self.navigationItem.title = STViewControllerTitle
+        }
     }
     
     //******************************************************************************************************************
@@ -104,6 +157,35 @@ class STTreeMapViewController: UIViewController, MKMapViewDelegate, CLLocationMa
             self.selectedAnnotation = treeAnnotation
         }
         self.performSegueWithIdentifier(STTreeDetailsSegueIdentifier, sender: self)
+    }
+    
+    func mapView(mapView: MKMapView, didAddAnnotationViews views: [MKAnnotationView]) {
+        for view in views {
+            
+            if view is FBAnnotationClusterView {
+                continue
+            }
+            
+            let originalSize = view.transform
+            view.alpha = STMinimumAnnotationViewAlpha
+            
+            let transform = CGAffineTransformScale(originalSize, STMinimumTransformScale, STMinimumTransformScale)
+            view.transform = transform
+            
+            UIView.animateWithDuration(STAnimationDuration, animations: {
+                view.alpha = STMaximumAnnotationViewAlpha
+                view.transform = CGAffineTransformScale(originalSize, STMaximumTransformScale, STMaximumTransformScale)
+            })
+        }
+    }
+    
+    func mapView(mapView: MKMapView, didAddOverlayRenderers renderers: [MKOverlayRenderer]) {
+        for renderer in renderers {
+            renderer.alpha = STMinimumAnnotationViewAlpha
+            UIView.animateWithDuration(STAnimationDuration, animations: {
+                renderer.alpha = STMaximumAnnotationViewAlpha
+            })
+        }
     }
     
     func mapView(mapView: MKMapView, didUpdateUserLocation userLocation: MKUserLocation) {
@@ -122,8 +204,8 @@ class STTreeMapViewController: UIViewController, MKMapViewDelegate, CLLocationMa
             
             let renderer = MKPolygonRenderer(polygon: polygon)
             renderer.strokeColor = UIColor.orlandoGreenColor()
-            renderer.fillColor = UIColor.orlandoGreenColor(0.2)
-            renderer.lineWidth = 3.0
+            renderer.fillColor = UIColor.orlandoGreenColor(STCityLimitsFillAlpha)
+            renderer.lineWidth = STCityLimitsLineWidth
             return renderer
         }
         
@@ -139,16 +221,15 @@ class STTreeMapViewController: UIViewController, MKMapViewDelegate, CLLocationMa
         var reuseId: String
         
         if annotation.isKindOfClass(FBAnnotationCluster) {
-            let imageLarge = "clusterLarge"
-            let imageMedium = "clusterMedium"
-            let imageSmall = "clusterSmall"
             
-            let imageSize = FBAnnotationClusterViewOptions(smallClusterImage: imageSmall, mediumClusterImage: imageMedium, largeClusterImage: imageLarge)
+            let imageSize = FBAnnotationClusterViewOptions(smallClusterImage: STClusterSmallImageName,
+                                                           mediumClusterImage: STClusterMediumImageName,
+                                                           largeClusterImage: STClusterLargeImageName)
             
             annotationView = FBAnnotationClusterView(annotation: annotation, reuseIdentifier: nil, options: imageSize)
             
         } else {
-            reuseId = "Pin"
+            reuseId = STMapPinReuseIdentifier
             annotationView = mapView.dequeueReusableAnnotationViewWithIdentifier(reuseId)
             
             if annotationView == nil {
@@ -166,6 +247,8 @@ class STTreeMapViewController: UIViewController, MKMapViewDelegate, CLLocationMa
         
         return annotationView
     }
+    
+    
 
     //******************************************************************************************************************
     // MARK: - CLLocationManager Delegates
@@ -181,7 +264,7 @@ class STTreeMapViewController: UIViewController, MKMapViewDelegate, CLLocationMa
     
     func centerMapOnLocation(location: CLLocation) {
         let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate,
-                                                                  self.regionRadius * 2.0, self.regionRadius * 2.0)
+                                                                  STRegionRadiusDistance, STRegionRadiusDistance)
         self.mapView.setRegion(coordinateRegion, animated: true)
     }
     
@@ -200,8 +283,14 @@ class STTreeMapViewController: UIViewController, MKMapViewDelegate, CLLocationMa
     }
     
     func loadPinsToMap() {
+        
+        if self.mapView.annotations.count > 0 {
+            self.mapView.removeAnnotations(self.mapView.annotations)
+            self.clusteringManager.setAnnotations([])
+        }
+        
         var clusters:[FBAnnotation] = []
-        for tree in STPKCoreData.sharedInstance.fetchTrees() {
+        for tree in self.fetchedResultsController.fetchedObjects as? [STPKTree] ?? [] {
             
             let image = STPKTreeDescription.image(treeName: tree.speciesName ?? "")
             let pin = STTreeAnnotation(tree: tree, image: image)

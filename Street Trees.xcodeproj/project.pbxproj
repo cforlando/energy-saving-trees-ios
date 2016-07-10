@@ -45,6 +45,8 @@
 		D46D99581D2005ED0038617B /* TreeDetails.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D46D99571D2005ED0038617B /* TreeDetails.storyboard */; };
 		D46D995B1D20068F0038617B /* StoryboardSegueIdentifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46D995A1D20068F0038617B /* StoryboardSegueIdentifiers.swift */; };
 		D46D995D1D20251A0038617B /* STTreeDetailsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46D995C1D20251A0038617B /* STTreeDetailsTableViewController.swift */; };
+		D4AADE4C1D2C880C00481FD0 /* InitializerStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D4AADE4B1D2C880C00481FD0 /* InitializerStoryboard.storyboard */; };
+		D4AADE4E1D2C886D00481FD0 /* STInitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4AADE4D1D2C886D00481FD0 /* STInitialViewController.swift */; };
 		D4B543581D0322BB0000CBFF /* STPKModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D4B543561D0322BB0000CBFF /* STPKModel.xcdatamodeld */; };
 		D4B543621D0326440000CBFF /* STPKCoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B543611D0326440000CBFF /* STPKCoreDataStack.swift */; };
 		D4B543651D0326690000CBFF /* BNRCoreDataStack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4B543631D0326690000CBFF /* BNRCoreDataStack.framework */; };
@@ -202,6 +204,8 @@
 		D46D99571D2005ED0038617B /* TreeDetails.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = TreeDetails.storyboard; sourceTree = "<group>"; };
 		D46D995A1D20068F0038617B /* StoryboardSegueIdentifiers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryboardSegueIdentifiers.swift; sourceTree = "<group>"; };
 		D46D995C1D20251A0038617B /* STTreeDetailsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STTreeDetailsTableViewController.swift; sourceTree = "<group>"; };
+		D4AADE4B1D2C880C00481FD0 /* InitializerStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = InitializerStoryboard.storyboard; sourceTree = "<group>"; };
+		D4AADE4D1D2C886D00481FD0 /* STInitialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STInitialViewController.swift; sourceTree = "<group>"; };
 		D4B543571D0322BB0000CBFF /* STPKModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = STPKModel.xcdatamodel; sourceTree = "<group>"; };
 		D4B543611D0326440000CBFF /* STPKCoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STPKCoreDataStack.swift; sourceTree = "<group>"; };
 		D4B543631D0326690000CBFF /* BNRCoreDataStack.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BNRCoreDataStack.framework; path = "../../../Library/Developer/Xcode/DerivedData/Street_Trees-dmyahyozksacllaehqxolnnibfxo/Build/Products/Debug-iphonesimulator/BNRCoreDataStack.framework"; sourceTree = "<group>"; };
@@ -344,6 +348,7 @@
 				D45F07421D0258320025F8F0 /* AppDelegate.swift */,
 				D45F07441D0258320025F8F0 /* STTreeMapViewController.swift */,
 				D46D995C1D20251A0038617B /* STTreeDetailsTableViewController.swift */,
+				D4AADE4D1D2C886D00481FD0 /* STInitialViewController.swift */,
 				D46D995A1D20068F0038617B /* StoryboardSegueIdentifiers.swift */,
 				D46D99591D2005F20038617B /* Storyboards */,
 				D45F074C1D0258320025F8F0 /* Assets.xcassets */,
@@ -455,6 +460,7 @@
 			isa = PBXGroup;
 			children = (
 				D45F07461D0258320025F8F0 /* Main.storyboard */,
+				D4AADE4B1D2C880C00481FD0 /* InitializerStoryboard.storyboard */,
 				D46D99571D2005ED0038617B /* TreeDetails.storyboard */,
 			);
 			name = Storyboards;
@@ -758,6 +764,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D45F07501D0258320025F8F0 /* LaunchScreen.storyboard in Resources */,
+				D4AADE4C1D2C880C00481FD0 /* InitializerStoryboard.storyboard in Resources */,
 				D45F074D1D0258320025F8F0 /* Assets.xcassets in Resources */,
 				D45F07481D0258320025F8F0 /* Main.storyboard in Resources */,
 				D46D99581D2005ED0038617B /* TreeDetails.storyboard in Resources */,
@@ -879,6 +886,7 @@
 			files = (
 				D45F07451D0258320025F8F0 /* STTreeMapViewController.swift in Sources */,
 				D46D995D1D20251A0038617B /* STTreeDetailsTableViewController.swift in Sources */,
+				D4AADE4E1D2C886D00481FD0 /* STInitialViewController.swift in Sources */,
 				52256F541D033548004D8CE2 /* STTreeAnnotation.swift in Sources */,
 				D46D995B1D20068F0038617B /* StoryboardSegueIdentifiers.swift in Sources */,
 				D45F07431D0258320025F8F0 /* AppDelegate.swift in Sources */,

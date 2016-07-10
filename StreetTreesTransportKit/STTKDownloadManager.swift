@@ -67,7 +67,7 @@ public final class STTKDownloadManager {
                     print("GeoJSON not happy")
                 }
             } else {
-                print("Not a [String: AnyObject]")
+                print("Not a [String: AnyObject] \(response.result.value)")
             }
         }
     }

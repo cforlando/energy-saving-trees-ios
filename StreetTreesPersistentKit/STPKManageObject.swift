@@ -33,6 +33,10 @@ public class STPKManagedObject: NSManagedObject {
     //******************************************************************************************************************
     // MARK: - Public Functions
     
+    public class func entityName() -> String {
+        preconditionFailure("This method must be overridden")
+    }
+    
     public class func fetch(context: NSManagedObjectContext) throws -> [STPKManagedObject] {
         let fetchRequest = NSFetchRequest(entityName: self.entityName())
         return try context.executeFetchRequest(fetchRequest) as? [STPKManagedObject] ?? []
@@ -48,9 +52,4 @@ public class STPKManagedObject: NSManagedObject {
     class func entityDescription(inManagedObjectContext context: NSManagedObjectContext) -> NSEntityDescription {
         return NSEntityDescription.entityForName(self.entityName(), inManagedObjectContext: context)!
     }
-    
-    class func entityName() -> String {
-        preconditionFailure("This method must be overridden")
-    }
-    
 }

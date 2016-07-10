@@ -83,7 +83,7 @@ public class STPKTreeDescription: STPKManagedObject {
     //******************************************************************************************************************
     // MARK: - Private Class Functions (to the framework)
 
-    override class func entityName() -> String {
+    override public class func entityName() -> String {
         return "STPKTreeDescription"
     }
     

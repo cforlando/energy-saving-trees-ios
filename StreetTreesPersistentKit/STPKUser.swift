@@ -17,7 +17,7 @@ public class STPKUser: STPKManagedObject {
     //******************************************************************************************************************
     // MARK: - Class overrides
     
-    override class func entityName() -> String {
+    override public class func entityName() -> String {
         return "STPKUser"
     }
 

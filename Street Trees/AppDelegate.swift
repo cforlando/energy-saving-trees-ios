@@ -34,19 +34,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-    
-
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
-        STPKCoreData.sharedInstance.setupCoreData({ (coreDataStack) in
-            STPKCoreData.sharedInstance.createUser({ (user, anError) in
-                STPKCoreData.sharedInstance.refreshAll({ (anError) in
-                    // Nothing to do here... yet?
-                })
-            })
-            }) { (error) in
-                //TODO: handle error
-        }
+        
         return true
     }
 
