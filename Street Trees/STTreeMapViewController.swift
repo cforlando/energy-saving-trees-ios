@@ -111,6 +111,7 @@ class STTreeMapViewController: UIViewController, MKMapViewDelegate, CLLocationMa
         self.mapView.delegate = self
         let application = UIApplication.sharedApplication()
         application.networkActivityIndicatorVisible = true
+        self.navigationItem.title = STLoadingMessage
         STPKCoreData.sharedInstance.refreshAll { (anError) in
             
             self.loadPinsToMap()
@@ -131,19 +132,13 @@ class STTreeMapViewController: UIViewController, MKMapViewDelegate, CLLocationMa
         self.setupLocation()
     }
     
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        if self.fetchedResultsController.fetchedObjects?.count == 0 {
-            self.navigationItem.title = STLoadingMessage
-        }
-    }
-    
     //******************************************************************************************************************
     // MARK: - FetchedResultsController Delegate
     
     func controllerDidChangeContent(controller: NSFetchedResultsController) {
         self.loadPinsToMap()
         if self.fetchedResultsController.fetchedObjects?.count != 0 {
+            // The navigation title cannot be updated until the fetched results controller has been given the content.
             self.navigationItem.title = STViewControllerTitle
         }
     }
@@ -249,7 +244,6 @@ class STTreeMapViewController: UIViewController, MKMapViewDelegate, CLLocationMa
     }
     
     
-
     //******************************************************************************************************************
     // MARK: - CLLocationManager Delegates
     
