@@ -13,6 +13,7 @@
 		5DDC17971D034D0500AA272B /* STTKStreetTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DDC17961D034D0500AA272B /* STTKStreetTree.swift */; };
 		5DDC17991D0356F100AA272B /* STFKStreetTreeDateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DDC17981D0356F100AA272B /* STFKStreetTreeDateFormatter.swift */; };
 		5DDC179B1D0361F900AA272B /* testData.json in Resources */ = {isa = PBXBuildFile; fileRef = 5DDC179A1D0361F900AA272B /* testData.json */; };
+		D41424AC1D3AD11200863B38 /* STTKWufooRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41424AB1D3AD11200863B38 /* STTKWufooRequest.swift */; };
 		D420E37B1D1729A0007E23C8 /* STPKTreeDescription+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D420E3791D1729A0007E23C8 /* STPKTreeDescription+CoreDataProperties.swift */; };
 		D420E37C1D1729A0007E23C8 /* STPKTreeDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = D420E37A1D1729A0007E23C8 /* STPKTreeDescription.swift */; };
 		D420E3861D1731EC007E23C8 /* STPKManageObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = D420E3851D1731EC007E23C8 /* STPKManageObject.swift */; };
@@ -45,6 +46,10 @@
 		D46D99581D2005ED0038617B /* TreeDetails.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D46D99571D2005ED0038617B /* TreeDetails.storyboard */; };
 		D46D995B1D20068F0038617B /* StoryboardSegueIdentifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46D995A1D20068F0038617B /* StoryboardSegueIdentifiers.swift */; };
 		D46D995D1D20251A0038617B /* STTreeDetailsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46D995C1D20251A0038617B /* STTreeDetailsTableViewController.swift */; };
+		D49B11661D3BD50200449612 /* STFKDictionaryExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49B11651D3BD50200449612 /* STFKDictionaryExtension.swift */; };
+		D49B11681D3BD6E900449612 /* STTKContact.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49B11671D3BD6E900449612 /* STTKContact.swift */; };
+		D49B116B1D3BD71600449612 /* STTKStreetAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49B116A1D3BD71600449612 /* STTKStreetAddress.swift */; };
+		D49B116D1D3BD79E00449612 /* STTKWufooForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49B116C1D3BD79E00449612 /* STTKWufooForm.swift */; };
 		D4AADE4C1D2C880C00481FD0 /* InitializerStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D4AADE4B1D2C880C00481FD0 /* InitializerStoryboard.storyboard */; };
 		D4AADE4E1D2C886D00481FD0 /* STInitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4AADE4D1D2C886D00481FD0 /* STInitialViewController.swift */; };
 		D4B543581D0322BB0000CBFF /* STPKModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D4B543561D0322BB0000CBFF /* STPKModel.xcdatamodeld */; };
@@ -164,6 +169,7 @@
 		5DDC17981D0356F100AA272B /* STFKStreetTreeDateFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STFKStreetTreeDateFormatter.swift; sourceTree = "<group>"; };
 		5DDC179A1D0361F900AA272B /* testData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = testData.json; sourceTree = "<group>"; };
 		D154145AC64686495A3F5874 /* Pods_Street_Trees.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Street_Trees.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D41424AB1D3AD11200863B38 /* STTKWufooRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STTKWufooRequest.swift; sourceTree = "<group>"; };
 		D420E3791D1729A0007E23C8 /* STPKTreeDescription+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "STPKTreeDescription+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		D420E37A1D1729A0007E23C8 /* STPKTreeDescription.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STPKTreeDescription.swift; sourceTree = "<group>"; };
 		D420E3851D1731EC007E23C8 /* STPKManageObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STPKManageObject.swift; sourceTree = "<group>"; };
@@ -204,6 +210,11 @@
 		D46D99571D2005ED0038617B /* TreeDetails.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = TreeDetails.storyboard; sourceTree = "<group>"; };
 		D46D995A1D20068F0038617B /* StoryboardSegueIdentifiers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryboardSegueIdentifiers.swift; sourceTree = "<group>"; };
 		D46D995C1D20251A0038617B /* STTreeDetailsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STTreeDetailsTableViewController.swift; sourceTree = "<group>"; };
+		D49B11641D3AE04000449612 /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; };
+		D49B11651D3BD50200449612 /* STFKDictionaryExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STFKDictionaryExtension.swift; sourceTree = "<group>"; };
+		D49B11671D3BD6E900449612 /* STTKContact.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STTKContact.swift; sourceTree = "<group>"; };
+		D49B116A1D3BD71600449612 /* STTKStreetAddress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STTKStreetAddress.swift; sourceTree = "<group>"; };
+		D49B116C1D3BD79E00449612 /* STTKWufooForm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STTKWufooForm.swift; sourceTree = "<group>"; };
 		D4AADE4B1D2C880C00481FD0 /* InitializerStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = InitializerStoryboard.storyboard; sourceTree = "<group>"; };
 		D4AADE4D1D2C886D00481FD0 /* STInitialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STInitialViewController.swift; sourceTree = "<group>"; };
 		D4B543571D0322BB0000CBFF /* STPKModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = STPKModel.xcdatamodel; sourceTree = "<group>"; };
@@ -346,6 +357,7 @@
 			isa = PBXGroup;
 			children = (
 				D45F07421D0258320025F8F0 /* AppDelegate.swift */,
+				D49B11641D3AE04000449612 /* MyPlayground.playground */,
 				D45F07441D0258320025F8F0 /* STTreeMapViewController.swift */,
 				D46D995C1D20251A0038617B /* STTreeDetailsTableViewController.swift */,
 				D4AADE4D1D2C886D00481FD0 /* STInitialViewController.swift */,
@@ -398,6 +410,10 @@
 				5DDC17921D0341A700AA272B /* STTKDownloadManager.swift */,
 				5DDC17961D034D0500AA272B /* STTKStreetTree.swift */,
 				D420E3871D1738BE007E23C8 /* STTKTreeDescription.swift */,
+				D41424AB1D3AD11200863B38 /* STTKWufooRequest.swift */,
+				D49B116C1D3BD79E00449612 /* STTKWufooForm.swift */,
+				D49B11671D3BD6E900449612 /* STTKContact.swift */,
+				D49B116A1D3BD71600449612 /* STTKStreetAddress.swift */,
 			);
 			path = StreetTreesTransportKit;
 			sourceTree = "<group>";
@@ -443,6 +459,7 @@
 				5DDC17981D0356F100AA272B /* STFKStreetTreeDateFormatter.swift */,
 				D4EE1FE11D2BF7FE007E6C01 /* UIColorExtension.swift */,
 				D4EE1FDF1D2BF79A007E6C01 /* UIViewControllerExtension.swift */,
+				D49B11651D3BD50200449612 /* STFKDictionaryExtension.swift */,
 			);
 			path = StreetTreesFoundationKit;
 			sourceTree = "<group>";
@@ -916,6 +933,10 @@
 				5DDC17971D034D0500AA272B /* STTKStreetTree.swift in Sources */,
 				D420E3881D1738BE007E23C8 /* STTKTreeDescription.swift in Sources */,
 				5DDC17931D0341A700AA272B /* STTKDownloadManager.swift in Sources */,
+				D49B11681D3BD6E900449612 /* STTKContact.swift in Sources */,
+				D49B116D1D3BD79E00449612 /* STTKWufooForm.swift in Sources */,
+				D41424AC1D3AD11200863B38 /* STTKWufooRequest.swift in Sources */,
+				D49B116B1D3BD71600449612 /* STTKStreetAddress.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -959,6 +980,7 @@
 				5DDC17991D0356F100AA272B /* STFKStreetTreeDateFormatter.swift in Sources */,
 				D4EE1FE01D2BF79A007E6C01 /* UIViewControllerExtension.swift in Sources */,
 				D4EE1FE21D2BF7FE007E6C01 /* UIColorExtension.swift in Sources */,
+				D49B11661D3BD50200449612 /* STFKDictionaryExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
