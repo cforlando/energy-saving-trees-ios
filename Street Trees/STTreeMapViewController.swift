@@ -113,7 +113,7 @@ class STTreeMapViewController: UIViewController, MKMapViewDelegate, CLLocationMa
         application.networkActivityIndicatorVisible = true
         self.navigationItem.title = STLoadingMessage
         STPKCoreData.sharedInstance.refreshAll { (anError) in
-            
+            self.navigationItem.title = STViewControllerTitle
             self.loadPinsToMap()
             STTKDownloadManager.fetch(cityGeoPoints: { (response: [AnyObject]) in
                 if let polygons = response as? [MKPolygon] {
@@ -137,10 +137,6 @@ class STTreeMapViewController: UIViewController, MKMapViewDelegate, CLLocationMa
     
     func controllerDidChangeContent(controller: NSFetchedResultsController) {
         self.loadPinsToMap()
-        if self.fetchedResultsController.fetchedObjects?.count != 0 {
-            // The navigation title cannot be updated until the fetched results controller has been given the content.
-            self.navigationItem.title = STViewControllerTitle
-        }
     }
     
     //******************************************************************************************************************

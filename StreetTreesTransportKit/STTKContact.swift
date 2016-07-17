@@ -1,5 +1,5 @@
 //
-//  STFKStreetTreeDateFormatter.swift
+//  STTKContact.swift
 //  Street Trees
 //
 //  Copyright © 2016 Code for Orlando.
@@ -26,20 +26,36 @@
 //
 
 import Foundation
+import StreetTreesFoundationKit
 
-public final class STFKStreetTreeDateFormatter: NSDateFormatter {
+public struct STTKContact {
     
-    public static let sharedInstance = STFKStreetTreeDateFormatter()
+    //******************************************************************************************************************
+    // MARK: - Public Properties
     
-    override init() {
-        super.init()
-        locale = NSLocale(localeIdentifier: "en_US_POSIX")
-        timeZone = NSTimeZone(forSecondsFromGMT: 0)
-        dateStyle = .MediumStyle
-        dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSS"
-    }
+    public let address: STTKStreetAddress
+    public let email: String
+    public let firstName: String
+    public let lastName: String
+    public let phoneNumber: UInt
     
-    public required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+    //******************************************************************************************************************
+    // MARK: - Internal Functions
+    
+    /**
+     Converts all of the properties in this struct to be in a format that the Wufoo form expects.
+     
+     - returns: A `Dictionary<String: String>` with keys that match the Ids for the Wufoo form, and values that are
+                the properties of this struct
+     */
+    func wufooJson() -> [String: String] {
+        
+        let contactJSON = ["Field8": "\(self.firstName) \(self.lastName)",
+                           "Field21": "\(self.phoneNumber)",
+                           "Field22": self.email]
+        
+        let addressJSON = self.address.wufooJson()
+        
+        return contactJSON + addressJSON
     }
 }

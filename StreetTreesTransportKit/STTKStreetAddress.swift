@@ -1,5 +1,5 @@
 //
-//  UIViewControllerExtension.swift
+//  STTKStreetAddress.swift
 //  Street Trees
 //
 //  Copyright © 2016 Code for Orlando.
@@ -25,13 +25,35 @@
 //  SOFTWARE.
 //
 
-import UIKit
+import Foundation
 
-public extension UIViewController {
-    public func showAlert(title: String, message: String) {
-        let alertViewController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
-        let cancelAction = UIAlertAction(title: "OK", style: .Cancel, handler: nil)
-        alertViewController.addAction(cancelAction)
-        self.presentViewController(alertViewController, animated: true, completion: nil)
+public struct STTKStreetAddress {
+    
+    //******************************************************************************************************************
+    // MARK: - Public Properties
+    
+    public let streetAddress: String
+    public let secondaryAddress: String
+    public let city: String
+    public let state: String
+    public let zipCode: UInt
+    public let country: String
+    
+    //******************************************************************************************************************
+    // MARK: - Internal Functions
+    
+    /**
+     Converts all of the properties in this struct to be in a format that the Wufoo form expects.
+     
+     - returns: A `Dictionary<String: String>` with keys that match the Ids for the Wufoo form, and values that are
+     the properties of this struct
+     */
+    func wufooJson() -> [String: String] {
+        return ["Field15": self.streetAddress,
+                "Field16": self.secondaryAddress,
+                "Field17": self.city,
+                "Field18": self.state,
+                "Field19": "\(self.zipCode)",
+                "Field20": self.country]
     }
 }
