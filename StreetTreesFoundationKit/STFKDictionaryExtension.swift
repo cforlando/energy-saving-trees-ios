@@ -1,5 +1,5 @@
 //
-//  UIViewControllerExtension.swift
+//  STFKDictionaryExtension.swift
 //  Street Trees
 //
 //  Copyright © 2016 Code for Orlando.
@@ -27,11 +27,16 @@
 
 import UIKit
 
-public extension UIViewController {
-    public func showAlert(title: String, message: String) {
-        let alertViewController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
-        let cancelAction = UIAlertAction(title: "OK", style: .Cancel, handler: nil)
-        alertViewController.addAction(cancelAction)
-        self.presentViewController(alertViewController, animated: true, completion: nil)
+public func +=<K: Hashable,V>(inout lhs: [K: V], rhs: [K: V]) {
+    lhs = lhs + rhs
+}
+
+public func +<K: Hashable,V>(lhs: [K: V], rhs: [K: V]) -> [K: V] {
+    var completeDictionary = lhs
+    
+    for (key, value) in rhs {
+        completeDictionary[key] = value
     }
+    
+    return completeDictionary
 }
