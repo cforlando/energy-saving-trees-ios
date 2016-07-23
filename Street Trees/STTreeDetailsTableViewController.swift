@@ -47,12 +47,13 @@ enum STDetailRows {
     case Shape
     case Soil
     case Width
+    case Birthday
     
     func sectionHeader() -> String? {
         switch self {
         case .Additional:
             return "Additional"
-        case .OpenInMaps:
+        case .OpenInMaps, .Birthday:
             return nil
         case .Name, .Description:
             return nil
@@ -78,7 +79,7 @@ class STTreeDetailsTableViewController: UITableViewController, MKMapViewDelegate
     
     lazy var datasource: [[STDetailRows]] = {
     
-        var source: [[STDetailRows]] = [[.Name, .Description],
+        var source: [[STDetailRows]] = [[.Name, .Description, .Birthday],
                                         [.OpenInMaps],
                                         [.Height, .Width, .Shape]]
         
@@ -207,6 +208,13 @@ class STTreeDetailsTableViewController: UITableViewController, MKMapViewDelegate
             subtitle = "Moisture"
         case .Additional:
             content = self.treeDescription?.additional ?? "Additional information missing"
+        case .Birthday:
+            if let date = self.annotation?.tree.date {
+                let dateString = NSDateFormatter.localizedStringFromDate(date, dateStyle: .MediumStyle, timeStyle: .NoStyle)
+                content = dateString
+            } else {
+                content = "No Date Available"
+            }
         }
         
         basicCell.textLabel?.text = content

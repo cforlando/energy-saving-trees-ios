@@ -56,9 +56,9 @@
 		D4B543621D0326440000CBFF /* STPKCoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B543611D0326440000CBFF /* STPKCoreDataStack.swift */; };
 		D4B543651D0326690000CBFF /* BNRCoreDataStack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4B543631D0326690000CBFF /* BNRCoreDataStack.framework */; };
 		D4B543661D0326690000CBFF /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4B543641D0326690000CBFF /* CoreData.framework */; };
-		D4B5436B1D032D020000CBFF /* STPKTree+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B543691D032D020000CBFF /* STPKTree+CoreDataProperties.swift */; };
 		D4B5436C1D032D020000CBFF /* STPKTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B5436A1D032D020000CBFF /* STPKTree.swift */; };
 		D4B5436E1D0339C50000CBFF /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4B5436D1D0339C50000CBFF /* Alamofire.framework */; };
+		D4DD29481D426EB200ABDDBB /* STPKTree+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4DD29471D426EB200ABDDBB /* STPKTree+CoreDataProperties.swift */; };
 		D4EE1FDB1D2B3EDC007E6C01 /* STPKUser+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EE1FD91D2B3EDC007E6C01 /* STPKUser+CoreDataProperties.swift */; };
 		D4EE1FDC1D2B3EDC007E6C01 /* STPKUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EE1FDA1D2B3EDC007E6C01 /* STPKUser.swift */; };
 		D4EE1FE01D2BF79A007E6C01 /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EE1FDF1D2BF79A007E6C01 /* UIViewControllerExtension.swift */; };
@@ -221,10 +221,10 @@
 		D4B543611D0326440000CBFF /* STPKCoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STPKCoreDataStack.swift; sourceTree = "<group>"; };
 		D4B543631D0326690000CBFF /* BNRCoreDataStack.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BNRCoreDataStack.framework; path = "../../../Library/Developer/Xcode/DerivedData/Street_Trees-dmyahyozksacllaehqxolnnibfxo/Build/Products/Debug-iphonesimulator/BNRCoreDataStack.framework"; sourceTree = "<group>"; };
 		D4B543641D0326690000CBFF /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
-		D4B543691D032D020000CBFF /* STPKTree+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "STPKTree+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		D4B5436A1D032D020000CBFF /* STPKTree.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STPKTree.swift; sourceTree = "<group>"; };
 		D4B5436D1D0339C50000CBFF /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = "../../../Library/Developer/Xcode/DerivedData/Street_Trees-dmyahyozksacllaehqxolnnibfxo/Build/Products/Debug-iphonesimulator/Alamofire.framework"; sourceTree = "<group>"; };
 		D4B543711D03445B0000CBFF /* STPKCoreData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STPKCoreData.swift; path = "../Street Trees/STPKCoreData.swift"; sourceTree = "<group>"; };
+		D4DD29471D426EB200ABDDBB /* STPKTree+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "STPKTree+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		D4EE1FD91D2B3EDC007E6C01 /* STPKUser+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "STPKUser+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		D4EE1FDA1D2B3EDC007E6C01 /* STPKUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STPKUser.swift; sourceTree = "<group>"; };
 		D4EE1FDF1D2BF79A007E6C01 /* UIViewControllerExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtension.swift; sourceTree = "<group>"; };
@@ -486,9 +486,9 @@
 		D4B543671D032C630000CBFF /* Machine */ = {
 			isa = PBXGroup;
 			children = (
+				D4DD29471D426EB200ABDDBB /* STPKTree+CoreDataProperties.swift */,
 				D4EE1FD91D2B3EDC007E6C01 /* STPKUser+CoreDataProperties.swift */,
 				D420E3791D1729A0007E23C8 /* STPKTreeDescription+CoreDataProperties.swift */,
-				D4B543691D032D020000CBFF /* STPKTree+CoreDataProperties.swift */,
 			);
 			name = Machine;
 			sourceTree = "<group>";
@@ -957,9 +957,9 @@
 				D4B543621D0326440000CBFF /* STPKCoreDataStack.swift in Sources */,
 				D420E3891D174C60007E23C8 /* STPKCoreData.swift in Sources */,
 				D4EE1FDB1D2B3EDC007E6C01 /* STPKUser+CoreDataProperties.swift in Sources */,
+				D4DD29481D426EB200ABDDBB /* STPKTree+CoreDataProperties.swift in Sources */,
 				D420E3861D1731EC007E23C8 /* STPKManageObject.swift in Sources */,
 				D420E37B1D1729A0007E23C8 /* STPKTreeDescription+CoreDataProperties.swift in Sources */,
-				D4B5436B1D032D020000CBFF /* STPKTree+CoreDataProperties.swift in Sources */,
 				D420E37C1D1729A0007E23C8 /* STPKTreeDescription.swift in Sources */,
 				D4B5436C1D032D020000CBFF /* STPKTree.swift in Sources */,
 			);
@@ -1162,11 +1162,14 @@
 			baseConfigurationReference = 01EFB84C410B6CBCB4498E34 /* Pods-Street Trees.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = "Street Trees/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.CodeForOrlando.Street-Trees";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -1175,11 +1178,14 @@
 			baseConfigurationReference = DB0867AD3C985EBC75B8FB0A /* Pods-Street Trees.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = "Street Trees/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.CodeForOrlando.Street-Trees";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
