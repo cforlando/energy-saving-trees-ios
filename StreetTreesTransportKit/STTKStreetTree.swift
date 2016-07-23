@@ -65,12 +65,18 @@ public struct STTKStreetTree {
         
         // Make sure the json object passed to this initializer
         //has all the properties needed else return nil
-        guard let airString = json["air"] as? String, carbonString = json["carbon"] as? String,
-            kWhString = json["kwh"] as? String, orderString = json["order"] as? String,
-            savingsString = json["savings"] as? String, stormwaterString = json["stormwater"] as? String,
-            thermsString = json["therms"] as? String, name = json["tree_name"] as? String,
-            dateString = json["date"] as? String, location = json["location"] as? [NSObject: AnyObject],
-            coordinates = location["coordinates"] as? [AnyObject], long = coordinates[0] as? Double,
+        guard let airString = json["air"] as? String,
+                carbonString = json["carbon"] as? String,
+            kWhString = json["kwh"] as? String,
+            orderString = json["order"] as? String,
+            savingsString = json["savings"] as? String,
+            stormwaterString = json["stormwater"] as? String,
+            thermsString = json["therms"] as? String,
+            name = json["tree_name"] as? String,
+            dateString = json["date"] as? String,
+            location = json["location"] as? [NSObject: AnyObject],
+            coordinates = location["coordinates"] as? [AnyObject],
+            long = coordinates[0] as? Double,
             lat = coordinates[1] as? Double else {
                 // Did not meet the required fields
                 return nil
@@ -82,7 +88,7 @@ public struct STTKStreetTree {
         guard let air = Double(airString), carbon = Double(carbonString),
             kWh = Double(kWhString), order = Int(orderString),
             savings = Double(savingsString), stormwater = Double(stormwaterString),
-            therms = Double(thermsString), date =  STFKStreetTreeDateFormatter.sharedInstance.dateFromString(dateString) else {
+            therms = Double(thermsString), date = STFKStreetTreeDateFormatter.sharedInstance.dateFromString(dateString) else {
                 // While we loaded the correct fields, the values did not convert properly
                 return nil
         }

@@ -193,6 +193,7 @@ public class STPKCoreData: NSObject {
                     newTree.speciesName = treeData.name
                     newTree.longitude = treeData.long
                     newTree.latitude = treeData.lat
+                    newTree.date = treeData.date
                 }
             }
             
