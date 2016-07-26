@@ -79,9 +79,13 @@ class STTreeDetailsTableViewController: UITableViewController, MKMapViewDelegate
     
     lazy var datasource: [[STDetailRows]] = {
     
-        var source: [[STDetailRows]] = [[.Name, .Description, .Birthday],
+        var source: [[STDetailRows]] = [[.Name, .Description],
                                         [.OpenInMaps],
                                         [.Height, .Width, .Shape]]
+        
+        if self.annotation?.tree.date != nil {
+            source[0].append(.Birthday)
+        }
         
         var foilageAndEnvironment: [STDetailRows] = [.Leaf, .Soil]
         if self.treeDescription?.moisture != nil {

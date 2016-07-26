@@ -33,12 +33,10 @@
 		D45F078C1D0260B00025F8F0 /* StreetTreesTransportKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45F078B1D0260B00025F8F0 /* StreetTreesTransportKitTests.swift */; };
 		D45F07901D0260B00025F8F0 /* StreetTreesTransportKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D45F077B1D0260B00025F8F0 /* StreetTreesTransportKit.framework */; };
 		D45F07911D0260B00025F8F0 /* StreetTreesTransportKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D45F077B1D0260B00025F8F0 /* StreetTreesTransportKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		D45F07A11D0260CA0025F8F0 /* StreetTreesPersistentKit.h in Headers */ = {isa = PBXBuildFile; fileRef = D45F07A01D0260CA0025F8F0 /* StreetTreesPersistentKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D45F07A81D0260CA0025F8F0 /* StreetTreesPersistentKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D45F079E1D0260CA0025F8F0 /* StreetTreesPersistentKit.framework */; };
 		D45F07AF1D0260CA0025F8F0 /* StreetTreesPersistentKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45F07AE1D0260CA0025F8F0 /* StreetTreesPersistentKitTests.swift */; };
 		D45F07B31D0260CA0025F8F0 /* StreetTreesPersistentKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D45F079E1D0260CA0025F8F0 /* StreetTreesPersistentKit.framework */; };
 		D45F07B41D0260CA0025F8F0 /* StreetTreesPersistentKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D45F079E1D0260CA0025F8F0 /* StreetTreesPersistentKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		D45F07CB1D02614A0025F8F0 /* StreetTreesFoundationKit.h in Headers */ = {isa = PBXBuildFile; fileRef = D45F07CA1D02614A0025F8F0 /* StreetTreesFoundationKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D45F07D21D02614A0025F8F0 /* StreetTreesFoundationKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D45F07C81D02614A0025F8F0 /* StreetTreesFoundationKit.framework */; };
 		D45F07D91D02614A0025F8F0 /* StreetTreesFoundationKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45F07D81D02614A0025F8F0 /* StreetTreesFoundationKitTests.swift */; };
 		D45F07DD1D02614A0025F8F0 /* StreetTreesFoundationKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D45F07C81D02614A0025F8F0 /* StreetTreesFoundationKit.framework */; };
@@ -54,15 +52,19 @@
 		D4AADE4E1D2C886D00481FD0 /* STInitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4AADE4D1D2C886D00481FD0 /* STInitialViewController.swift */; };
 		D4B543581D0322BB0000CBFF /* STPKModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D4B543561D0322BB0000CBFF /* STPKModel.xcdatamodeld */; };
 		D4B543621D0326440000CBFF /* STPKCoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B543611D0326440000CBFF /* STPKCoreDataStack.swift */; };
-		D4B543651D0326690000CBFF /* BNRCoreDataStack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4B543631D0326690000CBFF /* BNRCoreDataStack.framework */; };
 		D4B543661D0326690000CBFF /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4B543641D0326690000CBFF /* CoreData.framework */; };
 		D4B5436C1D032D020000CBFF /* STPKTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B5436A1D032D020000CBFF /* STPKTree.swift */; };
-		D4B5436E1D0339C50000CBFF /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4B5436D1D0339C50000CBFF /* Alamofire.framework */; };
 		D4DD29481D426EB200ABDDBB /* STPKTree+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4DD29471D426EB200ABDDBB /* STPKTree+CoreDataProperties.swift */; };
 		D4EE1FDB1D2B3EDC007E6C01 /* STPKUser+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EE1FD91D2B3EDC007E6C01 /* STPKUser+CoreDataProperties.swift */; };
 		D4EE1FDC1D2B3EDC007E6C01 /* STPKUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EE1FDA1D2B3EDC007E6C01 /* STPKUser.swift */; };
 		D4EE1FE01D2BF79A007E6C01 /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EE1FDF1D2BF79A007E6C01 /* UIViewControllerExtension.swift */; };
 		D4EE1FE21D2BF7FE007E6C01 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EE1FE11D2BF7FE007E6C01 /* UIColorExtension.swift */; };
+		D4F030291D46E3A400E936DD /* BNRCoreDataStack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4B543631D0326690000CBFF /* BNRCoreDataStack.framework */; };
+		D4F0302A1D46E3AB00E936DD /* StreetTreesFoundationKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D45F07C81D02614A0025F8F0 /* StreetTreesFoundationKit.framework */; };
+		D4F0302B1D46E3B800E936DD /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4B5436D1D0339C50000CBFF /* Alamofire.framework */; };
+		D4F0302C1D46E3BF00E936DD /* StreetTreesFoundationKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D45F07C81D02614A0025F8F0 /* StreetTreesFoundationKit.framework */; };
+		D4F0302D1D46E43F00E936DD /* StreetTreesPersistentKit.h in Headers */ = {isa = PBXBuildFile; fileRef = D45F07A01D0260CA0025F8F0 /* StreetTreesPersistentKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D4F0302E1D46E44C00E936DD /* StreetTreesFoundationKit.h in Headers */ = {isa = PBXBuildFile; fileRef = D45F07CA1D02614A0025F8F0 /* StreetTreesFoundationKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -263,7 +265,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D4B5436E1D0339C50000CBFF /* Alamofire.framework in Frameworks */,
+				D4F0302C1D46E3BF00E936DD /* StreetTreesFoundationKit.framework in Frameworks */,
+				D4F0302B1D46E3B800E936DD /* Alamofire.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -279,7 +282,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D4B543651D0326690000CBFF /* BNRCoreDataStack.framework in Frameworks */,
+				D4F0302A1D46E3AB00E936DD /* StreetTreesFoundationKit.framework in Frameworks */,
+				D4F030291D46E3A400E936DD /* BNRCoreDataStack.framework in Frameworks */,
 				D4B543661D0326690000CBFF /* CoreData.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -512,8 +516,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D45F077E1D0260B00025F8F0 /* StreetTreesTransportKit.h in Headers */,
-				D45F07A11D0260CA0025F8F0 /* StreetTreesPersistentKit.h in Headers */,
-				D45F07CB1D02614A0025F8F0 /* StreetTreesFoundationKit.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -521,6 +523,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D4F0302D1D46E43F00E936DD /* StreetTreesPersistentKit.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -528,6 +531,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D4F0302E1D46E44C00E936DD /* StreetTreesFoundationKit.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
