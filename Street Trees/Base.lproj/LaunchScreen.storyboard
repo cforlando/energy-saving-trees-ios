@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8150" systemVersion="15A204g" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" initialViewController="01J-lp-oVM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" initialViewController="01J-lp-oVM">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8122"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -15,8 +16,30 @@
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <animations/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="floridaTrees" translatesAutoresizingMaskIntoConstraints="NO" id="jrU-uT-Pbs">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            </imageView>
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Faq-W6-64L">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="ctC-up-dIJ">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </view>
+                                <blurEffect style="light"/>
+                            </visualEffectView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="jrU-uT-Pbs" secondAttribute="trailing" id="9V3-di-w8P"/>
+                            <constraint firstItem="jrU-uT-Pbs" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="EbS-xB-db8"/>
+                            <constraint firstItem="Faq-W6-64L" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="Qnj-eV-OTb"/>
+                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="jrU-uT-Pbs" secondAttribute="bottom" id="XzI-gy-Cvv"/>
+                            <constraint firstItem="Faq-W6-64L" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="dg8-r1-Br5"/>
+                            <constraint firstAttribute="trailing" secondItem="Faq-W6-64L" secondAttribute="trailing" id="uCP-hT-NFZ"/>
+                            <constraint firstItem="jrU-uT-Pbs" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="ujl-gq-DJ0"/>
+                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="Faq-W6-64L" secondAttribute="bottom" id="vuD-RY-i6f"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -24,4 +47,7 @@
             <point key="canvasLocation" x="53" y="375"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="floridaTrees" width="4000" height="3000"/>
+    </resources>
 </document>
