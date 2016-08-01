@@ -1,39 +1,94 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="IPi-87-C0e">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="1G1-r5-svf">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <scenes>
         <!--Initial View Controller-->
-        <scene sceneID="5yt-Ms-1fs">
+        <scene sceneID="izp-iZ-YkK">
             <objects>
-                <viewController id="IPi-87-C0e" customClass="STInitialViewController" customModule="Street_Trees" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="1G1-r5-svf" customClass="STInitialViewController" customModule="Street_Trees" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="dtT-ET-fOm"/>
-                        <viewControllerLayoutGuide type="bottom" id="Uzd-uc-NLV"/>
+                        <viewControllerLayoutGuide type="top" id="EMQ-6z-XMz"/>
+                        <viewControllerLayoutGuide type="bottom" id="JX2-bD-q9d"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="mxq-kG-hYP">
+                    <view key="view" contentMode="scaleToFill" id="xyC-03-942">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Trees for Orlando" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="edB-vG-Gbk">
-                                <rect key="frame" x="233" y="289" width="134" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="floridaTrees" translatesAutoresizingMaskIntoConstraints="NO" id="sDA-xs-825">
+                                <rect key="frame" x="-180" y="-20" width="960" height="640"/>
+                            </imageView>
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9SO-kj-8pj">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="b9N-JM-Dtt">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="orlandoHeart" translatesAutoresizingMaskIntoConstraints="NO" id="04U-dw-DnZ">
+                                            <rect key="frame" x="193.5" y="215" width="213" height="170"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="170" id="DB0-bF-D2O"/>
+                                                <constraint firstAttribute="width" constant="213" id="YU3-XI-8GV"/>
+                                            </constraints>
+                                        </imageView>
+                                        <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="3xO-Oo-Xoe">
+                                            <rect key="frame" x="165" y="536" width="271" height="44"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="CFO-logo" translatesAutoresizingMaskIntoConstraints="NO" id="b1u-cG-JEL">
+                                                    <rect key="frame" x="0.0" y="0.0" width="110" height="44"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="44" id="E4P-KN-CMD"/>
+                                                        <constraint firstAttribute="width" constant="110" id="uek-5R-bME"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="citylogo" translatesAutoresizingMaskIntoConstraints="NO" id="GJw-i8-aDN">
+                                                    <rect key="frame" x="120" y="0.0" width="151" height="44"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="44" id="cQX-Bv-Brh"/>
+                                                        <constraint firstAttribute="width" constant="151" id="chG-Oa-IXE"/>
+                                                    </constraints>
+                                                </imageView>
+                                            </subviews>
+                                        </stackView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="04U-dw-DnZ" firstAttribute="centerY" secondItem="b9N-JM-Dtt" secondAttribute="centerY" id="7QO-jG-NNh"/>
+                                        <constraint firstItem="04U-dw-DnZ" firstAttribute="centerX" secondItem="b9N-JM-Dtt" secondAttribute="centerX" id="Fbb-yx-8js"/>
+                                        <constraint firstItem="3xO-Oo-Xoe" firstAttribute="centerX" secondItem="b9N-JM-Dtt" secondAttribute="centerX" id="o1E-Pg-qb9"/>
+                                        <constraint firstAttribute="bottom" secondItem="3xO-Oo-Xoe" secondAttribute="bottom" constant="20" symbolic="YES" id="oJ1-O2-QXT"/>
+                                    </constraints>
+                                </view>
+                                <blurEffect style="light"/>
+                            </visualEffectView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="edB-vG-Gbk" firstAttribute="centerY" secondItem="mxq-kG-hYP" secondAttribute="centerY" id="2oR-1t-H4d"/>
-                            <constraint firstItem="edB-vG-Gbk" firstAttribute="centerX" secondItem="mxq-kG-hYP" secondAttribute="centerX" id="HVD-Fb-eNB"/>
+                            <constraint firstAttribute="trailing" secondItem="9SO-kj-8pj" secondAttribute="trailing" id="Rae-QS-H7s"/>
+                            <constraint firstItem="sDA-xs-825" firstAttribute="centerX" secondItem="xyC-03-942" secondAttribute="centerX" id="YyK-Gs-OE9"/>
+                            <constraint firstItem="9SO-kj-8pj" firstAttribute="leading" secondItem="xyC-03-942" secondAttribute="leading" id="bGV-4P-Gfk"/>
+                            <constraint firstItem="9SO-kj-8pj" firstAttribute="top" secondItem="xyC-03-942" secondAttribute="top" id="fma-pJ-D51"/>
+                            <constraint firstItem="JX2-bD-q9d" firstAttribute="top" secondItem="9SO-kj-8pj" secondAttribute="bottom" id="kve-It-JE8"/>
+                            <constraint firstItem="sDA-xs-825" firstAttribute="centerY" secondItem="xyC-03-942" secondAttribute="centerY" id="w6M-3w-rFp"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="backgroundImageView" destination="sDA-xs-825" id="qHm-Bj-EKw"/>
+                        <outlet property="cityImageView" destination="GJw-i8-aDN" id="8gt-C7-4ui"/>
+                        <outlet property="codeImageView" destination="b1u-cG-JEL" id="J97-ud-pHS"/>
+                        <outlet property="heartImageView" destination="04U-dw-DnZ" id="j7C-2d-Hl6"/>
+                    </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dhf-ap-eIK" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zaP-N9-ymL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1848" y="929"/>
+            <point key="canvasLocation" x="1861" y="1583"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="CFO-logo" width="110" height="44"/>
+        <image name="citylogo" width="151" height="44"/>
+        <image name="floridaTrees" width="4000" height="3000"/>
+        <image name="orlandoHeart" width="213" height="170"/>
+    </resources>
 </document>

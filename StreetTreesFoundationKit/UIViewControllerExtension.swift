@@ -34,4 +34,24 @@ public extension UIViewController {
         alertViewController.addAction(cancelAction)
         self.presentViewController(alertViewController, animated: true, completion: nil)
     }
+    
+    public func add(motionToView aView: UIView, movement travelDistance: CGFloat) {
+        // Set vertical effect
+        let vMotionEffect = UIInterpolatingMotionEffect(keyPath: "center.y",
+                                                        type: .TiltAlongVerticalAxis)
+        vMotionEffect.minimumRelativeValue = -travelDistance
+        vMotionEffect.maximumRelativeValue = travelDistance
+        
+        // Set horizontal effect
+        let hMotionEffect = UIInterpolatingMotionEffect(keyPath: "center.x",
+                                                        type: .TiltAlongHorizontalAxis)
+        hMotionEffect.minimumRelativeValue = -travelDistance
+        hMotionEffect.maximumRelativeValue = travelDistance
+        
+        // Create group to combine both
+        let motionGroup = UIMotionEffectGroup()
+        motionGroup.motionEffects = [hMotionEffect, vMotionEffect]
+        
+        aView.addMotionEffect(motionGroup)
+    }
 }
