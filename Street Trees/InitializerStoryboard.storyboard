@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Initial View Controller-->
@@ -17,8 +18,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="floridaTrees" translatesAutoresizingMaskIntoConstraints="NO" id="sDA-xs-825">
-                                <rect key="frame" x="-180" y="-20" width="960" height="640"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="floridaTrees" translatesAutoresizingMaskIntoConstraints="NO" id="sDA-xs-825">
+                                <rect key="frame" x="-180" y="-50" width="960" height="700"/>
                             </imageView>
                             <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9SO-kj-8pj">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
@@ -65,12 +66,16 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="sDA-xs-825" firstAttribute="leading" secondItem="xyC-03-942" secondAttribute="leadingMargin" constant="-200" id="Adv-E4-SOJ"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="sDA-xs-825" secondAttribute="bottom" constant="-50" id="BZb-Xb-MtI"/>
                             <constraint firstAttribute="trailing" secondItem="9SO-kj-8pj" secondAttribute="trailing" id="Rae-QS-H7s"/>
+                            <constraint firstItem="sDA-xs-825" firstAttribute="top" secondItem="xyC-03-942" secondAttribute="topMargin" constant="-50" id="W52-T8-zRf"/>
                             <constraint firstItem="sDA-xs-825" firstAttribute="centerX" secondItem="xyC-03-942" secondAttribute="centerX" id="YyK-Gs-OE9"/>
                             <constraint firstItem="9SO-kj-8pj" firstAttribute="leading" secondItem="xyC-03-942" secondAttribute="leading" id="bGV-4P-Gfk"/>
                             <constraint firstItem="9SO-kj-8pj" firstAttribute="top" secondItem="xyC-03-942" secondAttribute="top" id="fma-pJ-D51"/>
                             <constraint firstItem="JX2-bD-q9d" firstAttribute="top" secondItem="9SO-kj-8pj" secondAttribute="bottom" id="kve-It-JE8"/>
                             <constraint firstItem="sDA-xs-825" firstAttribute="centerY" secondItem="xyC-03-942" secondAttribute="centerY" id="w6M-3w-rFp"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="sDA-xs-825" secondAttribute="trailing" constant="-200" id="yK2-xL-VX3"/>
                         </constraints>
                     </view>
                     <connections>
@@ -88,7 +93,7 @@
     <resources>
         <image name="CFO-logo" width="110" height="44"/>
         <image name="citylogo" width="151" height="44"/>
-        <image name="floridaTrees" width="4000" height="3000"/>
+        <image name="floridaTrees" width="960" height="640"/>
         <image name="orlandoHeart" width="213" height="170"/>
     </resources>
 </document>

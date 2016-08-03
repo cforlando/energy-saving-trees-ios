@@ -109,19 +109,13 @@ class STTreeMapViewController: UIViewController, MKMapViewDelegate, CLLocationMa
     override func viewDidLoad() {
         super.viewDidLoad()
         self.mapView.delegate = self
-        let application = UIApplication.sharedApplication()
-        application.networkActivityIndicatorVisible = true
-        self.navigationItem.title = STLoadingMessage
-        STPKCoreData.sharedInstance.refreshAll { (anError) in
-            self.navigationItem.title = STViewControllerTitle
-            self.loadPinsToMap()
-            STTKDownloadManager.fetch(cityGeoPoints: { (response: [AnyObject]) in
-                if let polygons = response as? [MKPolygon] {
-                    self.mapView.addOverlays(polygons)
-                }
-                application.networkActivityIndicatorVisible = false
-            })
-        }
+        self.loadPinsToMap()
+        STTKDownloadManager.fetch(cityGeoPoints: { (response: [AnyObject]) in
+            if let polygons = response as? [MKPolygon] {
+                self.mapView.addOverlays(polygons)
+            }
+            UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+        })
     }
     
     override func viewWillAppear(animated: Bool) {
