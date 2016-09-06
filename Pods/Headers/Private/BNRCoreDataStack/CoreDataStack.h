@@ -1,1 +1,0 @@
-../../../BNRCoreDataStack/Sources/CoreDataStack.h

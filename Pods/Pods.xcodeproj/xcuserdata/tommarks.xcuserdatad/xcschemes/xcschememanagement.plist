@@ -29,6 +29,16 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Pods-Street TreesTests.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-Street TreesUITests.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
@@ -52,7 +62,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>BBEADA089404EAC7386224366796CDD8</key>
+		<key>A2511ECCBBA1095B23DF8F981FCB93E1</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>D703542347393D5E49C4788EF88E0948</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E930F3501020B9EF686A4BDA96A0AB61</key>
 		<dict>
 			<key>primary</key>
 			<true/>
