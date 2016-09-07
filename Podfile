@@ -4,10 +4,7 @@ platform :ios, '9.0'
 use_frameworks!
 
 target 'Street Trees' do
-pod 'BNRCoreDataStack'
-pod 'Alamofire'
 pod 'FBAnnotationClusteringSwift'
-pod 'GeoJSONSerialization'
 end
 
 target 'Street TreesTests' do
@@ -18,3 +15,11 @@ target 'Street TreesUITests' do
 
 end
 
+target 'StreetTreesPersistentKit' do
+  pod 'BNRCoreDataStack'
+end
+
+target 'StreetTreesTransportKit' do
+  pod 'Alamofire'
+  pod 'GeoJSONSerialization'
+end

@@ -39,15 +39,35 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Pods-StreetTreesPersistentKit.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-StreetTreesTransportKit.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>193C83E2100E51D3ED10C48F30E2B8D9</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>366C9858F94BE184943D3EDCCBDC6F0D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>423C10F04A172BB11C7A3702F8F09B90</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>6568F0F3196E5A4EF9653E1956AF0E85</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -67,7 +87,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>D703542347393D5E49C4788EF88E0948</key>
+		<key>B85F36E4640A3662004CB72A651F3814</key>
 		<dict>
 			<key>primary</key>
 			<true/>
