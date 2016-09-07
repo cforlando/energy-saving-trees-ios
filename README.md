@@ -27,7 +27,7 @@ Tom Marks<br>
 <hr>
 ## Using
 <hr>
-For this project, it is recommended to use Cocoapods version 0.39.0.  We have found that using a newer version, such as 1.0.1, continues to cause issues in the building process for project frameworks.
+For this project, it is recommended to use Cocoapods version 1.0.1.
 
 <hr>
 ## Installing Cocoapods
