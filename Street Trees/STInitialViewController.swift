@@ -57,7 +57,7 @@ class STInitialViewController: UIViewController {
                 UIApplication.sharedApplication().networkActivityIndicatorVisible = true
                 STPKCoreData.sharedInstance.refreshAll { (anError) in
                     NSOperationQueue.mainQueue().addOperationWithBlock({
-                        let storyboard = UIStoryboard(name: "Address", bundle: nil)
+                        let storyboard = UIStoryboard(name: "Main", bundle: nil)
                         UIApplication.sharedApplication().keyWindow?.rootViewController = storyboard.instantiateInitialViewController()
                     })
                 }
