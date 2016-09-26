@@ -82,3 +82,16 @@ strip_invalid_archs() {
   fi
 }
 
+
+if [[ "$CONFIGURATION" == "Debug" ]]; then
+  install_framework "$BUILT_PRODUCTS_DIR/Alamofire/Alamofire.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/BNRCoreDataStack/BNRCoreDataStack.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/FBAnnotationClusteringSwift/FBAnnotationClusteringSwift.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/GeoJSONSerialization/GeoJSONSerialization.framework"
+fi
+if [[ "$CONFIGURATION" == "Release" ]]; then
+  install_framework "$BUILT_PRODUCTS_DIR/Alamofire/Alamofire.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/BNRCoreDataStack/BNRCoreDataStack.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/FBAnnotationClusteringSwift/FBAnnotationClusteringSwift.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/GeoJSONSerialization/GeoJSONSerialization.framework"
+fi

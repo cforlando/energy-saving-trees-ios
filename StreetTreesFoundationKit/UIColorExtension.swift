@@ -28,7 +28,22 @@
 import UIKit
 
 public extension UIColor {
+    public class func orlandoBlueColor(alpha: CGFloat = 1.0) -> UIColor {
+        return UIColor(red: 31.colorValue(), green: 41.colorValue(), blue: 63.colorValue(), alpha: alpha)
+    }
+    
+    public class func orlandoGrayColor(alpha: CGFloat = 1.0) -> UIColor {
+        return UIColor(red: 88.colorValue(), green: 89.colorValue(), blue: 91.colorValue(), alpha: alpha)
+    }
+    
     public class func orlandoGreenColor(alpha: CGFloat = 1.0) -> UIColor {
-        return UIColor(red: 0.5294117647, green: 0.7333333333, blue: 0.3960784314, alpha: alpha)
+        return UIColor(red: 135.colorValue(), green: 186.colorValue(), blue: 101.colorValue(), alpha: alpha)
+    }
+    
+}
+
+extension Int {
+    func colorValue() -> CGFloat {
+        return CGFloat(self) / 255.0
     }
 }
