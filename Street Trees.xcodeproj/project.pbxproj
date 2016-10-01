@@ -23,6 +23,9 @@
 		D420E3881D1738BE007E23C8 /* STTKTreeDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = D420E3871D1738BE007E23C8 /* STTKTreeDescription.swift */; };
 		D420E3891D174C60007E23C8 /* STPKCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B543711D03445B0000CBFF /* STPKCoreData.swift */; };
 		D420E38B1D176C30007E23C8 /* Trees.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D420E38A1D176C30007E23C8 /* Trees.xcassets */; };
+		D443A52F1D984C11008F60DE /* STFKLocationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D443A52E1D984C11008F60DE /* STFKLocationRequest.swift */; };
+		D453A53F1D983987008BE29F /* Address.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D453A53E1D983987008BE29F /* Address.storyboard */; };
+		D453A5421D983D0E008BE29F /* STAddressFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D453A5411D983D0E008BE29F /* STAddressFormViewController.swift */; };
 		D45F07431D0258320025F8F0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45F07421D0258320025F8F0 /* AppDelegate.swift */; };
 		D45F07451D0258320025F8F0 /* STTreeMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45F07441D0258320025F8F0 /* STTreeMapViewController.swift */; };
 		D45F07481D0258320025F8F0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D45F07461D0258320025F8F0 /* Main.storyboard */; };
@@ -47,6 +50,7 @@
 		D46D99581D2005ED0038617B /* TreeDetails.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D46D99571D2005ED0038617B /* TreeDetails.storyboard */; };
 		D46D995B1D20068F0038617B /* StoryboardSegueIdentifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46D995A1D20068F0038617B /* StoryboardSegueIdentifiers.swift */; };
 		D46D995D1D20251A0038617B /* STTreeDetailsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46D995C1D20251A0038617B /* STTreeDetailsTableViewController.swift */; };
+		D47C01FD1D985FC700104ED6 /* STFKMapSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47C01FC1D985FC700104ED6 /* STFKMapSnapshot.swift */; };
 		D49B11661D3BD50200449612 /* STFKDictionaryExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49B11651D3BD50200449612 /* STFKDictionaryExtension.swift */; };
 		D49B11681D3BD6E900449612 /* STTKContact.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49B11671D3BD6E900449612 /* STTKContact.swift */; };
 		D49B116B1D3BD71600449612 /* STTKStreetAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49B116A1D3BD71600449612 /* STTKStreetAddress.swift */; };
@@ -193,6 +197,9 @@
 		D420E3851D1731EC007E23C8 /* STPKManageObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STPKManageObject.swift; sourceTree = "<group>"; };
 		D420E3871D1738BE007E23C8 /* STTKTreeDescription.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STTKTreeDescription.swift; sourceTree = "<group>"; };
 		D420E38A1D176C30007E23C8 /* Trees.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Trees.xcassets; sourceTree = "<group>"; };
+		D443A52E1D984C11008F60DE /* STFKLocationRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STFKLocationRequest.swift; sourceTree = "<group>"; };
+		D453A53E1D983987008BE29F /* Address.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Address.storyboard; sourceTree = "<group>"; };
+		D453A5411D983D0E008BE29F /* STAddressFormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STAddressFormViewController.swift; sourceTree = "<group>"; };
 		D45F073F1D0258320025F8F0 /* Street Trees.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Street Trees.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D45F07421D0258320025F8F0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D45F07441D0258320025F8F0 /* STTreeMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STTreeMapViewController.swift; sourceTree = "<group>"; };
@@ -228,6 +235,7 @@
 		D46D99571D2005ED0038617B /* TreeDetails.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = TreeDetails.storyboard; sourceTree = "<group>"; };
 		D46D995A1D20068F0038617B /* StoryboardSegueIdentifiers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryboardSegueIdentifiers.swift; sourceTree = "<group>"; };
 		D46D995C1D20251A0038617B /* STTreeDetailsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STTreeDetailsTableViewController.swift; sourceTree = "<group>"; };
+		D47C01FC1D985FC700104ED6 /* STFKMapSnapshot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STFKMapSnapshot.swift; sourceTree = "<group>"; };
 		D49B11641D3AE04000449612 /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; };
 		D49B11651D3BD50200449612 /* STFKDictionaryExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STFKDictionaryExtension.swift; sourceTree = "<group>"; };
 		D49B11671D3BD6E900449612 /* STTKContact.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STTKContact.swift; sourceTree = "<group>"; };
@@ -351,6 +359,14 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		D453A5401D983CEE008BE29F /* Form */ = {
+			isa = PBXGroup;
+			children = (
+				D453A5411D983D0E008BE29F /* STAddressFormViewController.swift */,
+			);
+			name = Form;
+			sourceTree = "<group>";
+		};
 		D45F07361D0258320025F8F0 = {
 			isa = PBXGroup;
 			children = (
@@ -394,6 +410,7 @@
 				D46D995C1D20251A0038617B /* STTreeDetailsTableViewController.swift */,
 				D4AADE4D1D2C886D00481FD0 /* STInitialViewController.swift */,
 				D46D995A1D20068F0038617B /* StoryboardSegueIdentifiers.swift */,
+				D453A5401D983CEE008BE29F /* Form */,
 				D46D99591D2005F20038617B /* Storyboards */,
 				D45F074C1D0258320025F8F0 /* Assets.xcassets */,
 				D45F074E1D0258320025F8F0 /* LaunchScreen.storyboard */,
@@ -496,6 +513,8 @@
 				D4EE1FE11D2BF7FE007E6C01 /* UIColorExtension.swift */,
 				D4EE1FDF1D2BF79A007E6C01 /* UIViewControllerExtension.swift */,
 				D49B11651D3BD50200449612 /* STFKDictionaryExtension.swift */,
+				D443A52E1D984C11008F60DE /* STFKLocationRequest.swift */,
+				D47C01FC1D985FC700104ED6 /* STFKMapSnapshot.swift */,
 			);
 			path = StreetTreesFoundationKit;
 			sourceTree = "<group>";
@@ -515,6 +534,7 @@
 				D45F07461D0258320025F8F0 /* Main.storyboard */,
 				D4AADE4B1D2C880C00481FD0 /* InitializerStoryboard.storyboard */,
 				D46D99571D2005ED0038617B /* TreeDetails.storyboard */,
+				D453A53E1D983987008BE29F /* Address.storyboard */,
 			);
 			name = Storyboards;
 			sourceTree = "<group>";
@@ -826,6 +846,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D45F07501D0258320025F8F0 /* LaunchScreen.storyboard in Resources */,
+				D453A53F1D983987008BE29F /* Address.storyboard in Resources */,
 				D4AADE4C1D2C880C00481FD0 /* InitializerStoryboard.storyboard in Resources */,
 				D45F074D1D0258320025F8F0 /* Assets.xcassets in Resources */,
 				D45F07481D0258320025F8F0 /* Main.storyboard in Resources */,
@@ -1087,6 +1108,7 @@
 				52256F541D033548004D8CE2 /* STTreeAnnotation.swift in Sources */,
 				D46D995B1D20068F0038617B /* StoryboardSegueIdentifiers.swift in Sources */,
 				D45F07431D0258320025F8F0 /* AppDelegate.swift in Sources */,
+				D453A5421D983D0E008BE29F /* STAddressFormViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1157,7 +1179,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D47C01FD1D985FC700104ED6 /* STFKMapSnapshot.swift in Sources */,
 				5DDC17991D0356F100AA272B /* STFKStreetTreeDateFormatter.swift in Sources */,
+				D443A52F1D984C11008F60DE /* STFKLocationRequest.swift in Sources */,
 				D4EE1FE01D2BF79A007E6C01 /* UIViewControllerExtension.swift in Sources */,
 				D4EE1FE21D2BF7FE007E6C01 /* UIColorExtension.swift in Sources */,
 				D49B11661D3BD50200449612 /* STFKDictionaryExtension.swift in Sources */,

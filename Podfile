@@ -3,23 +3,30 @@ platform :ios, '9.0'
 # Uncomment this line if you're using Swift
 use_frameworks!
 
+def install_pods
+    pod 'FBAnnotationClusteringSwift'
+    pod 'BNRCoreDataStack'
+    pod 'Alamofire'
+    pod 'GeoJSONSerialization'
+    
+end
+
 target 'Street Trees' do
-pod 'FBAnnotationClusteringSwift'
+    install_pods
 end
 
 target 'Street TreesTests' do
-
+    install_pods
 end
 
 target 'Street TreesUITests' do
-
+    install_pods
 end
 
 target 'StreetTreesPersistentKit' do
-  pod 'BNRCoreDataStack'
+    install_pods
 end
 
 target 'StreetTreesTransportKit' do
-  pod 'Alamofire'
-  pod 'GeoJSONSerialization'
+    install_pods
 end

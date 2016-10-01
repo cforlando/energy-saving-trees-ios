@@ -39,6 +39,15 @@ public struct STTKStreetAddress {
     public let zipCode: UInt
     public let country: String
     
+    public init(streetAddress: String, secondaryAddress: String, city: String, state: String, zipCode: UInt, country: String) {
+        self.streetAddress = streetAddress
+        self.secondaryAddress = secondaryAddress
+        self.city = city
+        self.state = state
+        self.zipCode = zipCode
+        self.country = country
+    }
+    
     //******************************************************************************************************************
     // MARK: - Internal Functions
     
