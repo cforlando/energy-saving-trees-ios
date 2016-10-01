@@ -50,16 +50,19 @@ public class STFKMapSnapshot: NSObject {
     private let handler: STFKMapSnapshotHandler
     private let location: CLLocation
     
-    /// The distance from the ground the snapshot will be taken from. By default it is 4Km
+    /// The distance from the ground the snapshot will be taken from. By default it is 4Km.
     public var distance = STFKCameraDistance
     
-    /// The heading of the map. By default it is `0.0` which is due North
+    /// The heading of the map. By default it is `0.0` which is due North.
     public var heading = STFKCameraHeading
     
     public var mapType = MKMapType.Standard
     
     /// The viewing angle of the map, measured in degrees. By default the angle is `0.0` which is straight down.
     public var pitch = STFKCameraPitch
+    
+    /// When the snapshot is taken, should a drop pin be added to the coordinate location. By default this is true.
+    public var showDropPin = true
     
     /// Should the snapshot include points of interest on the map. By default this is set to `true`.
     public var showPointsOfInterest = true
@@ -88,6 +91,12 @@ public class STFKMapSnapshot: NSObject {
             
             guard let image = snapshot?.image else {
                 self.handler(image: nil, error: error)
+                return
+            }
+            
+            // Don't add the drop pin to the image.
+            if !self.showDropPin {
+                self.handler(image: image, error: error)
                 return
             }
             
