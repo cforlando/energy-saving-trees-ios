@@ -206,14 +206,18 @@ class STAddressFormViewController: UIViewController, UITextFieldDelegate {
     // MARK: - Private Functions
     
     func createSnapshot(fromLocation aLocation: CLLocation) {
-        STFKMapSnapshot.snapshot(fromLocation: aLocation, snapshotHandler: { [unowned self] (image: UIImage?, error: NSError?) in
+        
+        let snapshot = STFKMapSnapshot(location: aLocation) { [unowned self] (image: UIImage?, error: NSError?) in
             guard let mapImage = image else {
                 return
             }
             self.mapImageView.hidden = false
             self.mapImageView.contentMode = .Center
             self.mapImageView.image = mapImage
-            })
+        }
+        
+        snapshot.takeSnapshot()
+        
         self.requestGeolocation(aLocation)
     }
     

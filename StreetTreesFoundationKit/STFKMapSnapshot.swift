@@ -47,24 +47,53 @@ public typealias STFKMapSnapshotHandler = (image: UIImage?, error: NSError?) -> 
 
 public class STFKMapSnapshot: NSObject {
     
-    //******************************************************************************************************************
-    // MARK: - Public Class Functions
+    private let handler: STFKMapSnapshotHandler
+    private let location: CLLocation
     
-    public class func snapshot(fromLocation aLocation: CLLocation, snapshotHandler: STFKMapSnapshotHandler) {
+    /// The distance from the ground the snapshot will be taken from. By default it is 4Km
+    public var distance = STFKCameraDistance
+    
+    /// The heading of the map. By default it is `0.0` which is due North
+    public var heading = STFKCameraHeading
+    
+    public var mapType = MKMapType.Standard
+    
+    /// The viewing angle of the map, measured in degrees. By default the angle is `0.0` which is straight down.
+    public var pitch = STFKCameraPitch
+    
+    /// Should the snapshot include points of interest on the map. By default this is set to `true`.
+    public var showPointsOfInterest = true
+    
+    //******************************************************************************************************************
+    // MARK: - Initializers
+    
+    public init(location aLocation: CLLocation, complete aCompletionHandler: STFKMapSnapshotHandler) {
+        self.location = aLocation
+        self.handler = aCompletionHandler
+        super.init()
+    }
+    
+    //******************************************************************************************************************
+    // MARK: - Public Functions
+    
+    /**
+     Begin creating a snapshot with the initialized location.
+     */
+    public func takeSnapshot() {
         
-        let mapOptions = self.mapOptions(forCoordinate: aLocation.coordinate)
+        let mapOptions = self.mapOptions()
         let snapshotter = MKMapSnapshotter(options: mapOptions)
         
         snapshotter.startWithCompletionHandler { (snapshot: MKMapSnapshot?, error: NSError?) in
             
             guard let image = snapshot?.image else {
-                snapshotHandler(image: nil, error: error)
+                self.handler(image: nil, error: error)
                 return
             }
             
             let annotationView = MKPinAnnotationView(annotation: nil, reuseIdentifier: nil)
             
-            var point = snapshot?.pointForCoordinate(aLocation.coordinate) ?? CGPoint.zero
+            var point = snapshot?.pointForCoordinate(self.location.coordinate) ?? CGPoint.zero
             point.y -= annotationView.frame.size.height
             point.x -= annotationView.frame.size.width * STFKSnapshotPointMultiplier // used to centre the pin
             
@@ -79,23 +108,23 @@ public class STFKMapSnapshot: NSObject {
             
             UIGraphicsEndImageContext()
             
-            snapshotHandler(image: finalImage, error: error)
+            self.handler(image: finalImage, error: error)
         }
     }
     
     //******************************************************************************************************************
-    // MARK: - Private Class Functions
+    // MARK: - Private Functions
     
-    private class func mapOptions(forCoordinate aCoordinate: CLLocationCoordinate2D) -> MKMapSnapshotOptions {
+    private func mapOptions() -> MKMapSnapshotOptions {
         let mapOptions = MKMapSnapshotOptions()
-        let camera = MKMapCamera(lookingAtCenterCoordinate: aCoordinate,
-                                 fromDistance: STFKCameraDistance,
-                                 pitch: STFKCameraPitch,
-                                 heading: STFKCameraHeading)
+        let camera = MKMapCamera(lookingAtCenterCoordinate: self.location.coordinate,
+                                 fromDistance: self.distance,
+                                 pitch: self.pitch,
+                                 heading: self.heading)
         mapOptions.camera = camera
-        mapOptions.mapType = .Standard
+        mapOptions.mapType = self.mapType
         mapOptions.scale = UIScreen.mainScreen().scale
-        mapOptions.showsPointsOfInterest = true
+        mapOptions.showsPointsOfInterest = self.showPointsOfInterest
         
         return mapOptions
     }
