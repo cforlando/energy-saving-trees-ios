@@ -55,6 +55,8 @@
 		D49B11681D3BD6E900449612 /* STTKContact.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49B11671D3BD6E900449612 /* STTKContact.swift */; };
 		D49B116B1D3BD71600449612 /* STTKStreetAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49B116A1D3BD71600449612 /* STTKStreetAddress.swift */; };
 		D49B116D1D3BD79E00449612 /* STTKWufooForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49B116C1D3BD79E00449612 /* STTKWufooForm.swift */; };
+		D4A6F74F1D9FFF11003F6EEE /* UserDetails.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D4A6F74E1D9FFF11003F6EEE /* UserDetails.storyboard */; };
+		D4A6F7511D9FFF8A003F6EEE /* STUserDetailsFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A6F7501D9FFF8A003F6EEE /* STUserDetailsFormViewController.swift */; };
 		D4AADE4C1D2C880C00481FD0 /* InitializerStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D4AADE4B1D2C880C00481FD0 /* InitializerStoryboard.storyboard */; };
 		D4AADE4E1D2C886D00481FD0 /* STInitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4AADE4D1D2C886D00481FD0 /* STInitialViewController.swift */; };
 		D4B543581D0322BB0000CBFF /* STPKModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D4B543561D0322BB0000CBFF /* STPKModel.xcdatamodeld */; };
@@ -241,6 +243,8 @@
 		D49B11671D3BD6E900449612 /* STTKContact.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STTKContact.swift; sourceTree = "<group>"; };
 		D49B116A1D3BD71600449612 /* STTKStreetAddress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STTKStreetAddress.swift; sourceTree = "<group>"; };
 		D49B116C1D3BD79E00449612 /* STTKWufooForm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STTKWufooForm.swift; sourceTree = "<group>"; };
+		D4A6F74E1D9FFF11003F6EEE /* UserDetails.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = UserDetails.storyboard; sourceTree = "<group>"; };
+		D4A6F7501D9FFF8A003F6EEE /* STUserDetailsFormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STUserDetailsFormViewController.swift; sourceTree = "<group>"; };
 		D4AADE4B1D2C880C00481FD0 /* InitializerStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = InitializerStoryboard.storyboard; sourceTree = "<group>"; };
 		D4AADE4D1D2C886D00481FD0 /* STInitialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STInitialViewController.swift; sourceTree = "<group>"; };
 		D4B543571D0322BB0000CBFF /* STPKModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = STPKModel.xcdatamodel; sourceTree = "<group>"; };
@@ -363,6 +367,7 @@
 			isa = PBXGroup;
 			children = (
 				D453A5411D983D0E008BE29F /* STAddressFormViewController.swift */,
+				D4A6F7501D9FFF8A003F6EEE /* STUserDetailsFormViewController.swift */,
 			);
 			name = Form;
 			sourceTree = "<group>";
@@ -535,6 +540,7 @@
 				D4AADE4B1D2C880C00481FD0 /* InitializerStoryboard.storyboard */,
 				D46D99571D2005ED0038617B /* TreeDetails.storyboard */,
 				D453A53E1D983987008BE29F /* Address.storyboard */,
+				D4A6F74E1D9FFF11003F6EEE /* UserDetails.storyboard */,
 			);
 			name = Storyboards;
 			sourceTree = "<group>";
@@ -851,6 +857,7 @@
 				D45F074D1D0258320025F8F0 /* Assets.xcassets in Resources */,
 				D45F07481D0258320025F8F0 /* Main.storyboard in Resources */,
 				D46D99581D2005ED0038617B /* TreeDetails.storyboard in Resources */,
+				D4A6F74F1D9FFF11003F6EEE /* UserDetails.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1109,6 +1116,7 @@
 				D46D995B1D20068F0038617B /* StoryboardSegueIdentifiers.swift in Sources */,
 				D45F07431D0258320025F8F0 /* AppDelegate.swift in Sources */,
 				D453A5421D983D0E008BE29F /* STAddressFormViewController.swift in Sources */,
+				D4A6F7511D9FFF8A003F6EEE /* STUserDetailsFormViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

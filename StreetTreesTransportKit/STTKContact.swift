@@ -35,9 +35,15 @@ public struct STTKContact {
     
     public let address: STTKStreetAddress
     public let email: String
-    public let firstName: String
-    public let lastName: String
-    public let phoneNumber: UInt
+    public let name: String
+    public let phoneNumber: String
+    
+    public init(name aName: String, email anEmail: String, phoneNumber aPhoneNumber: String, address anAddress: STTKStreetAddress) {
+        self.address = anAddress
+        self.email = anEmail
+        self.name = aName
+        self.phoneNumber = aPhoneNumber
+    }
     
     //******************************************************************************************************************
     // MARK: - Internal Functions
@@ -50,8 +56,8 @@ public struct STTKContact {
      */
     func wufooJson() -> [String: String] {
         
-        let contactJSON = ["Field8": "\(self.firstName) \(self.lastName)",
-                           "Field21": "\(self.phoneNumber)",
+        let contactJSON = ["Field8": self.name,
+                           "Field21": self.phoneNumber,
                            "Field22": self.email]
         
         let addressJSON = self.address.wufooJson()
