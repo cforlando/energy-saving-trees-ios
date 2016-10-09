@@ -266,29 +266,38 @@ class STTreeDetailsTableViewController: UITableViewController, MKMapViewDelegate
             return (subtitle:"Error", content: "Getting maximum height")
         }
         
-        return (subtitle:"Average Height", content: self.localizedLength(minimum, maximum: maximum, unitType: .Meter))
+        return (subtitle:"Average Height", content: self.localizedLength(minimum, maximum: maximum))
     }
     
-    func localizedLength(minimum: Double, maximum: Double, unitType aType: NSLengthFormatterUnit) -> String {
+    func localizedLength(minimum: Double, maximum: Double) -> String {
         let formatter = NSLengthFormatter()
         formatter.forPersonHeightUse = true
         formatter.unitStyle = .Medium
         
-        let minimumString = formatter.stringFromValue(minimum, unit: aType)
-        let maximumString = formatter.stringFromValue(maximum, unit: aType)
+        let unitType: NSLengthFormatterUnit
+        let locale = NSLocale.autoupdatingCurrentLocale()
+        let isMetric = locale.objectForKey(NSLocaleUsesMetricSystem) as? Bool
+        if isMetric == true {
+            unitType = .Meter
+        } else {
+            unitType = .Foot
+        }
+        
+        let minimumString = formatter.stringFromValue(minimum, unit: unitType)
+        let maximumString = formatter.stringFromValue(maximum, unit: unitType)
         
         return "\(minimumString) - \(maximumString)"
     }
     
     func localizedWidth() -> (subtitle: String, content: String) {
-        guard let minimum = self.annotation?.tree.treeDescription?.minHeight?.doubleValue else {
+        guard let minimum = self.annotation?.tree.treeDescription?.minWidth?.doubleValue else {
             return (subtitle:"Error", content: "Getting minimum width")
         }
-        guard let maximum = self.annotation?.tree.treeDescription?.maxHeight?.doubleValue else {
+        guard let maximum = self.annotation?.tree.treeDescription?.maxWidth?.doubleValue else {
             return (subtitle:"Error", content: "Getting maximum weight")
         }
         
-        return (subtitle:"Average Weight", content: self.localizedLength(minimum, maximum: maximum, unitType: .Meter))
+        return (subtitle:"Average Weight", content: self.localizedLength(minimum, maximum: maximum))
     }
     
     func openInMaps() {

@@ -31,6 +31,18 @@ import UIKit
 private let STBorderCornerRadius: CGFloat = 4.0
 private let STSelectedBorderWidth: CGFloat = 3.0
 private let STUnselectedBorderWidth: CGFloat = 0.0
+private let STDecimalPlaces: Double = 0.01
+
+func average(numbers:Double...) -> Double {
+    let initialValue: Double = 0
+    let total = numbers.reduce(initialValue, combine:{ $0 + $1 })
+    return total / Double(numbers.count)
+}
+
+func round(number:Double, toNearest nearest: Double) -> Double {
+    return round(number / nearest) * nearest
+}
+
 
 protocol STSelectTreeViewControllerDelegate: NSObjectProtocol {
     func selectTreeViewController(selectTreeViewController: STSelectTreeViewController, didSelectTreeDescription aTreeDescription: STPKTreeDescription)
@@ -39,7 +51,10 @@ protocol STSelectTreeViewControllerDelegate: NSObjectProtocol {
 class STSelectTreeViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 
     @IBOutlet weak var collectionView: UICollectionView!
-    @IBOutlet weak var treeDescription: UILabel!
+    @IBOutlet weak var height: UILabel!
+    @IBOutlet weak var leaf: UILabel!
+    @IBOutlet weak var shape: UILabel!
+    @IBOutlet weak var width: UILabel!
     
     lazy var datasource: [STPKTreeDescription] = {
         return STPKTreeDescription.rightOfWayTrees().sort {$0.name < $1.name}
@@ -68,7 +83,9 @@ class STSelectTreeViewController: UIViewController, UICollectionViewDelegate, UI
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        self.treeDescription.text = self.datasource.first?.treeDescription
+        if let treeDescription = self.datasource.first {
+            self.updateLabels(withTreeDescription: treeDescription)
+        }
     }
     
     //******************************************************************************************************************
@@ -156,7 +173,7 @@ class STSelectTreeViewController: UIViewController, UICollectionViewDelegate, UI
             itemIndex = self.mediumIndex(visibleIndexPaths)
         }
         
-        self.treeDescription.text = self.datasource[itemIndex].treeDescription
+        self.updateLabels(withTreeDescription: self.datasource[itemIndex])
     }
 
     //******************************************************************************************************************
@@ -187,6 +204,47 @@ class STSelectTreeViewController: UIViewController, UICollectionViewDelegate, UI
         })
     }
     
+    func localizedHeight(withTreeDescription treeDescription: STPKTreeDescription) -> String {
+        guard let minimum = treeDescription.minHeight?.doubleValue else {
+            return "Error"
+        }
+        guard let maximum = treeDescription.maxHeight?.doubleValue else {
+            return "Error"
+        }
+        
+        let avg = round(average(minimum, maximum), toNearest: STDecimalPlaces)
+        return self.localizedLength(avg)
+    }
+    
+    func localizedLength(average: Double) -> String {
+        let formatter = NSLengthFormatter()
+        formatter.forPersonHeightUse = true
+        formatter.unitStyle = .Medium
+        
+        let unitType: NSLengthFormatterUnit
+        let locale = NSLocale.autoupdatingCurrentLocale()
+        let isMetric = locale.objectForKey(NSLocaleUsesMetricSystem) as? Bool
+        if isMetric == true {
+            unitType = .Meter
+        } else {
+            unitType = .Foot
+        }
+        
+        return formatter.stringFromValue(average, unit: unitType)
+    }
+    
+    func localizedWidth(withTreeDescription treeDescription: STPKTreeDescription) -> String {
+        guard let minimum = treeDescription.minWidth?.doubleValue else {
+            return "Error"
+        }
+        guard let maximum = treeDescription.maxWidth?.doubleValue else {
+            return "Error"
+        }
+        
+        let avg = round(average(minimum, maximum), toNearest: STDecimalPlaces)
+        return self.localizedLength(avg)
+    }
+    
     func mediumIndex(indexes: [NSIndexPath]) -> Int {
         
         let total = indexes.reduce(0) { (result: Int, indexPath: NSIndexPath) -> Int in
@@ -203,5 +261,13 @@ class STSelectTreeViewController: UIViewController, UICollectionViewDelegate, UI
                 cell.layer.borderWidth = STUnselectedBorderWidth
             }
         }
+    }
+    
+    func updateLabels(withTreeDescription treeDescription: STPKTreeDescription) {
+        self.height.text = self.localizedHeight(withTreeDescription: treeDescription)
+        self.width.text = self.localizedWidth(withTreeDescription: treeDescription)
+        self.leaf.text = treeDescription.leaf
+        self.shape.text = treeDescription.shape
+        self.view.setNeedsLayout()
     }
 }
