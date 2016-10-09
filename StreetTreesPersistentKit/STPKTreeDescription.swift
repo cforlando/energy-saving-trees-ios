@@ -29,11 +29,25 @@ import Foundation
 import CoreData
 import UIKit
 
+private let STPKRightOfWayTrees = ["Live Oak",
+                                 "Nuttall Oak",
+                                 "Magnolia",
+                                 "Winged Elm",
+                                 "Tabebuia Ipe",
+                                 "Eagleston Holly",
+                                 "Yaupon Holly",
+                                 "Crape Myrtle",
+                                 "Yellow Tabebuia",
+                                 "Elaeocarpus"]
 
 public class STPKTreeDescription: STPKManagedObject {
     
     //******************************************************************************************************************
     // MARK: - Public Class Functions
+    
+    override public class func entityName() -> String {
+        return "STPKTreeDescription"
+    }
     
     public class func fetch(descriptionForName name: String, context: NSManagedObjectContext) throws -> STPKTreeDescription? {
         let fetchRequest = NSFetchRequest(entityName: self.entityName())
@@ -41,6 +55,43 @@ public class STPKTreeDescription: STPKManagedObject {
         fetchRequest.fetchLimit = 1
         
         return try context.executeFetchRequest(fetchRequest).first as? STPKTreeDescription
+    }
+    
+    public class func icon(treeName aName: String) -> UIImage? {
+        var imageName: String
+        switch aName {
+        case "Chinese Pistache":
+            imageName = "cfo-chinese_pistache-icon"
+        case "Crape Myrtle":
+            imageName = "cfo-myrtle-icon"
+        case "Dahoon Holly":
+            imageName = "cfo-dahoon_holly-icon"
+        case "Eagleston Holly":
+            imageName = "cfo-eagleston_holly-icon"
+        case "Japanese Blueberry":
+            imageName = "cfo-japanese_blueberry-icon"
+        case "Live Oak":
+            imageName = "cfo-live_oak-icon"
+        case "Nuttall Oak":
+            imageName = "cfo-nuttal_oak-icon"
+        case "Southern Magnolia":
+            imageName = "cfo-magnolia-icon"
+        case "Tabebuia Ipe":
+            imageName = "cfo-tabebuia_ipe-icon"
+        case "Tulip Poplar":
+            imageName = "cfo-tulip_poplar-icon"
+        case "Winged Elm":
+            imageName = "cfo-elm-icon"
+        case "Yaupon Holly":
+            imageName = "cfo-yaupon_holly-icon"
+        case "Yellow Tabebuia":
+            imageName = "cfo-yellow_trumpet-icon"
+        default:
+            return nil
+        }
+        
+        let bundle = NSBundle(forClass: self)
+        return UIImage(named: imageName, inBundle: bundle, compatibleWithTraitCollection: nil)
     }
     
     public class func image(treeName aName: String) -> UIImage? {
@@ -63,7 +114,7 @@ public class STPKTreeDescription: STPKManagedObject {
         case "Southern Magnolia":
             imageName = "cfo-magnolia"
         case "Tabebuia Ipe":
-            imageName = "cfo-elm" //TODO: Get correct Image
+            imageName = "cfo-tabebuia_ipe"
         case "Tulip Poplar":
             imageName = "cfo-tulip_poplar"
         case "Winged Elm":
@@ -80,17 +131,18 @@ public class STPKTreeDescription: STPKManagedObject {
         return UIImage(named: imageName, inBundle: bundle, compatibleWithTraitCollection: nil)
     }
     
-    //******************************************************************************************************************
-    // MARK: - Private Class Functions (to the framework)
-
-    override public class func entityName() -> String {
-        return "STPKTreeDescription"
-    }
-    
     override public class func insert(context context: NSManagedObjectContext) -> STPKTreeDescription {
         let newTree = STPKTreeDescription(entity: self.entityDescription(inManagedObjectContext: context),
                                           insertIntoManagedObjectContext: context)
         return newTree
+    }
+    
+    public class func rightOfWayTrees() -> [STPKTreeDescription] {
+        let allTrees = STPKCoreData.sharedInstance.fetchTreeDescriptions()
+        
+        return allTrees.filter({
+            STPKRightOfWayTrees.contains($0.name ?? "")
+        })
     }
     
     //******************************************************************************************************************
@@ -100,6 +152,10 @@ public class STPKTreeDescription: STPKManagedObject {
         guard let minimum = self.minWidth?.doubleValue else { return 0.0 }
         guard let maximum = self.maxWidth?.doubleValue else { return 0.0 }
         return (minimum + maximum) / 2
+    }
+    
+    public func icon() -> UIImage? {
+        return STPKTreeDescription.icon(treeName: self.name ?? "")
     }
     
     public func image() -> UIImage? {
