@@ -48,7 +48,7 @@ protocol STSelectTreeViewControllerDelegate: NSObjectProtocol {
     func selectTreeViewController(selectTreeViewController: STSelectTreeViewController, didSelectTreeDescription aTreeDescription: STPKTreeDescription)
 }
 
-class STSelectTreeViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+class STSelectTreeViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, TreeDescription {
 
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var height: UILabel!
@@ -62,10 +62,23 @@ class STSelectTreeViewController: UIViewController, UICollectionViewDelegate, UI
     
     weak var delegate: STSelectTreeViewControllerDelegate?
     
-    var selectedTree: STPKTreeDescription?
+    var treeDescription: STPKTreeDescription?
     
     //******************************************************************************************************************
     // MARK: - Class Overrides
+    
+    override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
+
+        // Override if required.
+        guard let treeDescription = self.treeDescription else {
+            self.showSelectTreeAlert()
+            return false
+        }
+        
+        self.delegate?.selectTreeViewController(self, didSelectTreeDescription: treeDescription)
+        
+        return super.shouldPerformSegueWithIdentifier(identifier, sender: sender)
+    }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -93,7 +106,7 @@ class STSelectTreeViewController: UIViewController, UICollectionViewDelegate, UI
     
     @IBAction func nextButton(sender: UIButton) {
         
-        guard let treeDescription = self.selectedTree else {
+        guard let treeDescription = self.treeDescription else {
             self.showAlert("No Tree Selected", message: "Please tap on a tree before moving on.")
             return
         }
@@ -128,7 +141,7 @@ class STSelectTreeViewController: UIViewController, UICollectionViewDelegate, UI
     
     func collectionView(collectionView: UICollectionView, willDisplayCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath) {
         
-        if selectedTree == self.datasource[indexPath.row] {
+        if self.treeDescription == self.datasource[indexPath.row] {
             cell.layer.borderWidth = STSelectedBorderWidth
         } else {
             cell.layer.borderWidth = STUnselectedBorderWidth
@@ -143,12 +156,12 @@ class STSelectTreeViewController: UIViewController, UICollectionViewDelegate, UI
         
         let cell = collectionView.cellForItemAtIndexPath(indexPath)
         let selectedTree = self.datasource[indexPath.row]
-        if self.selectedTree == selectedTree {
+        if self.treeDescription == selectedTree {
             cell?.layer.borderWidth = STUnselectedBorderWidth
-            self.selectedTree = nil
+            self.treeDescription = nil
         } else {
             cell?.layer.borderWidth = STSelectedBorderWidth
-            self.selectedTree = selectedTree
+            self.treeDescription = selectedTree
         }
     }
     
@@ -252,6 +265,10 @@ class STSelectTreeViewController: UIViewController, UICollectionViewDelegate, UI
         }
         
         return total / indexes.count
+    }
+    
+    func showSelectTreeAlert() {
+        self.showAlert("Select a Tree", message: "Please select a tree before progressing to the next step.")
     }
     
     func resetAllCells() {
