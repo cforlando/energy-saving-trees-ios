@@ -4,11 +4,10 @@ platform :ios, '9.0'
 use_frameworks!
 
 def install_pods
-    pod 'FBAnnotationClusteringSwift'
-    pod 'BNRCoreDataStack'
     pod 'Alamofire'
+    pod 'BNRCoreDataStack'
+    pod 'FBAnnotationClusteringSwift'
     pod 'GeoJSONSerialization'
-    
 end
 
 target 'Street Trees' do
