@@ -1,5 +1,5 @@
 //
-//  STTreeCollectionViewCell.swift
+//  TreeDescriptionProtocol.swift
 //  Street Trees
 //
 //  Copyright © 2016 Code for Orlando.
@@ -25,9 +25,8 @@
 //  SOFTWARE.
 //
 
-import UIKit
+import Foundation
 
-class STTreeCollectionViewCell: UICollectionViewCell {
-    @IBOutlet weak var imageView: UIImageView!
-    @IBOutlet weak var nameLabel: UILabel!
+public protocol TreeDescription {
+    var treeDescription: STPKTreeDescription? { get set }
 }

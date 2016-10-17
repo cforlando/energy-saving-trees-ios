@@ -76,7 +76,7 @@ protocol STAddressFormViewControllerDelegate: NSObjectProtocol {
 //**********************************************************************************************************************
 // MARK: - Class Impletementation
 
-class STAddressFormViewController: UIViewController, UITextFieldDelegate {
+class STAddressFormViewController: UIViewController, UITextFieldDelegate, Address {
     
     @IBOutlet weak var currentLocationLabel: UILabel!
     @IBOutlet weak var mapImageView: UIImageView! {
@@ -95,15 +95,10 @@ class STAddressFormViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
+    var address: STTKStreetAddress?
     weak var delegate: STAddressFormViewControllerDelegate?
     
-    private lazy var timer: NSTimer? = {
-        return NSTimer.scheduledTimerWithTimeInterval(STTimerInterval,
-                                                      target: self,
-                                                      selector: #selector(self.updateLocation),
-                                                      userInfo: nil,
-                                                      repeats: true)
-    }()
+    private var timer: NSTimer?
     
     private var activeTextField: UITextField?
     private var locationRequest: STFKLocationRequest?
@@ -113,10 +108,28 @@ class STAddressFormViewController: UIViewController, UITextFieldDelegate {
     //******************************************************************************************************************
     // MARK: - ViewController Overrides
     
+    override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
+        
+        if !self.confirmAddress() {
+            return false
+        }
+        
+        return super.shouldPerformSegueWithIdentifier(identifier, sender: sender)
+    }
+    
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
+        self.startLocationTimer()
         self.timer?.fire()
+        
+        self.streetAddressTextField.text = self.address?.streetAddress
+        self.streetAddressTwoTextField.text = self.address?.secondaryAddress
+        
+        if let zipcode = self.address?.zipCode {
+            self.zipCodeTextField.text = "\(zipcode)"
+        }
+        
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -134,35 +147,6 @@ class STAddressFormViewController: UIViewController, UITextFieldDelegate {
         self.streetAddressTextField.resignFirstResponder()
         self.streetAddressTwoTextField.resignFirstResponder()
         self.zipCodeTextField.resignFirstResponder()
-    }
-    
-    @IBAction func nextButton(sender: UIButton) {
-        
-        guard let streetAddress = self.streetAddressTextField.text where streetAddress.isEmpty == false else {
-            self.showAlert(STAddressWarningTitle, message: STAddressWarningMessage)
-            return
-        }
-        
-        guard let zipCodeString = self.zipCodeTextField.text where zipCodeString.isEmpty == false else {
-            self.showAlert(STZipCodeWarningTitle, message: STZipCodeWarningMessage)
-            return
-        }
-        
-        guard let zipCode = UInt(zipCodeString) where zipCodeString.characters.count == STZipCodeCount else {
-            self.showAlert(STZipCodeInvalidWarningTitle, message: STZipCodeInvalidWarningMessage)
-            return
-        }
-        
-        let streetAddressTwo = self.streetAddressTwoTextField.text ?? ""
-        
-        let address = STTKStreetAddress(streetAddress: streetAddress,
-                                        secondaryAddress: streetAddressTwo,
-                                        city: self.postalAddress.city,
-                                        state: self.postalAddress.state,
-                                        zipCode: zipCode,
-                                        country: self.postalAddress.country)
-        
-        self.delegate?.addressFormViewController(self, didCompleteWithAddress: address)
     }
     
     @IBAction func requestAddress(sender: UIButton) {
@@ -204,6 +188,39 @@ class STAddressFormViewController: UIViewController, UITextFieldDelegate {
     
     //******************************************************************************************************************
     // MARK: - Private Functions
+    
+    func confirmAddress() -> Bool {
+        
+        guard let streetAddress = self.streetAddressTextField.text where streetAddress.isEmpty == false else {
+            self.showAlert(STAddressWarningTitle, message: STAddressWarningMessage)
+            return false
+        }
+        
+        guard let zipCodeString = self.zipCodeTextField.text where zipCodeString.isEmpty == false else {
+            self.showAlert(STZipCodeWarningTitle, message: STZipCodeWarningMessage)
+            return false
+        }
+        
+        guard let zipCode = UInt(zipCodeString) where zipCodeString.characters.count == STZipCodeCount else {
+            self.showAlert(STZipCodeInvalidWarningTitle, message: STZipCodeInvalidWarningMessage)
+            return false
+        }
+        
+        let streetAddressTwo = self.streetAddressTwoTextField.text ?? ""
+        
+        let address = STTKStreetAddress(streetAddress: streetAddress,
+                                        secondaryAddress: streetAddressTwo,
+                                        city: self.postalAddress.city,
+                                        state: self.postalAddress.state,
+                                        zipCode: zipCode,
+                                        country: self.postalAddress.country)
+        
+        self.address = address
+        
+        self.delegate?.addressFormViewController(self, didCompleteWithAddress: address)
+        
+        return true
+    }
     
     func createSnapshot(fromLocation aLocation: CLLocation) {
         
@@ -260,6 +277,14 @@ class STAddressFormViewController: UIViewController, UITextFieldDelegate {
         }
         
         self.showAlert(title, message: message)
+    }
+    
+    func startLocationTimer() {
+        self.timer = NSTimer.scheduledTimerWithTimeInterval(STTimerInterval,
+                                               target: self,
+                                               selector: #selector(self.updateLocation),
+                                               userInfo: nil,
+                                               repeats: true)
     }
     
     func updateAddress(placeMark: CLPlacemark) {

@@ -1,5 +1,5 @@
 //
-//  STTreeCollectionViewCell.swift
+//  ContactProtocol.swift
 //  Street Trees
 //
 //  Copyright © 2016 Code for Orlando.
@@ -25,9 +25,8 @@
 //  SOFTWARE.
 //
 
-import UIKit
+import Foundation
 
-class STTreeCollectionViewCell: UICollectionViewCell {
-    @IBOutlet weak var imageView: UIImageView!
-    @IBOutlet weak var nameLabel: UILabel!
+public protocol Contact {
+    var contact: STTKContact? { get set }
 }
