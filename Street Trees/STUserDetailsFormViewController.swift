@@ -2,8 +2,27 @@
 //  STUserDetailsFormViewController.swift
 //  Street Trees
 //
-//  Created by Tom Marks on 1/10/2016.
-//  Copyright © 2016 Code for Orlando. All rights reserved.
+//  Copyright © 2016 Code for Orlando.
+//
+//  MIT License
+//
+//  Permission is hereby granted, free of charge, to any person obtaining a copy
+//  of this software and associated documentation files (the "Software"), to deal
+//  in the Software without restriction, including without limitation the rights
+//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//  copies of the Software, and to permit persons to whom the Software is
+//  furnished to do so, subject to the following conditions:
+//
+//  The above copyright notice and this permission notice shall be included in all
+//  copies or substantial portions of the Software.
+//
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+//  SOFTWARE.
 //
 
 import StreetTreesTransportKit
@@ -43,10 +62,11 @@ protocol STContactDetailsFormViewControllerDelegate: NSObjectProtocol {
 //**********************************************************************************************************************
 // MARK: - Class Implementation
 
-class STContactDetailsFormViewController: UIViewController {
+class STContactDetailsFormViewController: UIViewController, Address, Contact {
     
     var activeTextField: UITextField?
     var address: STTKStreetAddress?
+    var contact: STTKContact?
     
     weak var delegate: STContactDetailsFormViewControllerDelegate?
     
@@ -59,6 +79,25 @@ class STContactDetailsFormViewController: UIViewController {
     }
     @IBOutlet weak var toolbar: UIToolbar!
     
+    //******************************************************************************************************************
+    // MARK: - ViewController Overrides
+    
+    override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
+        
+        if !self.confirmUser() {
+            return false
+        }
+        
+        return super.shouldPerformSegueWithIdentifier(identifier, sender: sender)
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.nameTextField.text = self.contact?.name
+        self.phoneNumberTextField.text = self.contact?.phoneNumber
+        self.emailTextField.text = self.contact?.email
+    }
 
     //******************************************************************************************************************
     // MARK: - TextField Delegate
@@ -96,21 +135,24 @@ class STContactDetailsFormViewController: UIViewController {
         self.phoneNumberTextField.resignFirstResponder()
     }
     
-    @IBAction func nextButton(sender: UIButton) {
+    //******************************************************************************************************************
+    // MARK: - Private Functions
+    
+    func confirmUser() -> Bool {
         
         guard let name = self.nameTextField.text where !name.isEmpty else {
             self.showAlert(STContactErrorTitle, message: STContactErrorNameMessage)
-            return
+            return false
         }
         
         guard let email = self.emailTextField.text where self.validate(string: email, validation: .Email) else {
             self.showAlert(STContactErrorTitle, message: STContactErrorEmailMessage)
-            return
+            return false
         }
         
         guard let phoneNumber = self.phoneNumberTextField.text where self.validate(string: phoneNumber, validation: .PhoneNumber) else {
             self.showAlert(STContactErrorTitle, message: STContactErrorNumberMessage)
-            return
+            return false
         }
         
         guard let safeAddress = self.address else {
@@ -118,11 +160,10 @@ class STContactDetailsFormViewController: UIViewController {
         }
         
         let contact = STTKContact(name: name, email: email, phoneNumber: phoneNumber, address: safeAddress)
+        self.contact = contact
         self.delegate?.contactDetailsFormViewController(self, didCompleteWithContact: contact)
+        return true
     }
-    
-    //******************************************************************************************************************
-    // MARK: - Private Functions
 
     func validate(string aString: String, validation: STValidation) -> Bool {
         return NSPredicate(format: "SELF MATCHES %@", validation.regex()).evaluateWithObject(aString)

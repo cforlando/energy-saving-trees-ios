@@ -276,7 +276,7 @@ class STTreeMapViewController: UIViewController, MKMapViewDelegate, CLLocationMa
         var clusters:[FBAnnotation] = []
         for tree in self.fetchedResultsController.fetchedObjects as? [STPKTree] ?? [] {
             
-            let image = STPKTreeDescription.image(treeName: tree.speciesName ?? "")
+            let image = STPKTreeDescription.icon(treeName: tree.speciesName ?? "")
             let pin = STTreeAnnotation(tree: tree, image: image)
             
             self.mapView.addAnnotation(pin)
