@@ -61,6 +61,10 @@ STAddressFormViewControllerDelegate {
             userController.delegate = self
         }
         
+        if let addressViewController = viewController as? STAddressFormViewController {
+            addressViewController.delegate = self
+        }
+        
         if let treeViewController = viewController as? STSelectTreeViewController {
             treeViewController.delegate = self
         }

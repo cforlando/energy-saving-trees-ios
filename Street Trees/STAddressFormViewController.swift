@@ -76,7 +76,7 @@ protocol STAddressFormViewControllerDelegate: NSObjectProtocol {
 //**********************************************************************************************************************
 // MARK: - Class Impletementation
 
-class STAddressFormViewController: UIViewController, UITextFieldDelegate, Address {
+class STAddressFormViewController: STBaseOrderFormViewController, UITextFieldDelegate, Address {
     
     @IBOutlet weak var currentLocationLabel: UILabel!
     @IBOutlet weak var mapImageView: UIImageView! {
@@ -86,6 +86,7 @@ class STAddressFormViewController: UIViewController, UITextFieldDelegate, Addres
             mapImageView.layer.borderWidth = STBorderWidth
         }
     }
+
     @IBOutlet weak var streetAddressTextField: UITextField!
     @IBOutlet weak var streetAddressTwoTextField: UITextField!
     @IBOutlet weak var toolBar: UIToolbar!
@@ -97,13 +98,10 @@ class STAddressFormViewController: UIViewController, UITextFieldDelegate, Addres
     
     var address: STTKStreetAddress?
     weak var delegate: STAddressFormViewControllerDelegate?
-    
     private var timer: NSTimer?
-    
-    private var activeTextField: UITextField?
     private var locationRequest: STFKLocationRequest?
     private var postalAddress = CNMutablePostalAddress()
-    private(set) var updatingAddress = CNPostalAddress()
+    private var updatingAddress = CNPostalAddress()
     
     //******************************************************************************************************************
     // MARK: - ViewController Overrides
@@ -129,7 +127,6 @@ class STAddressFormViewController: UIViewController, UITextFieldDelegate, Addres
         if let zipcode = self.address?.zipCode {
             self.zipCodeTextField.text = "\(zipcode)"
         }
-        
     }
     
     override func viewWillDisappear(animated: Bool) {
