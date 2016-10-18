@@ -72,38 +72,58 @@ class STConfirmationPageViewController: UIViewController, UITableViewDataSource,
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
     {
-        let cell = tableView.dequeueReusableCellWithIdentifier("treeInfoCell", forIndexPath: indexPath)
+        let cell = tableView.dequeueReusableCellWithIdentifier("emptyCell", forIndexPath: indexPath)
+
         
         if  indexPath.row == 0
         {
+            let cell = tableView.dequeueReusableCellWithIdentifier("treeInfoCell", forIndexPath: indexPath)
+
             cell.textLabel?.text = treeName
             //cell.imageView?.image = treeImage
         }
         if  indexPath.row == 1 {
             
+            let cell = tableView.dequeueReusableCellWithIdentifier("locationCell", forIndexPath: indexPath)
+
             cell.textLabel?.text = "Location:"
         }
         if  indexPath.row == 3 {
             
+            let cell = tableView.dequeueReusableCellWithIdentifier("addressCell", forIndexPath: indexPath)
+
             cell.textLabel?.text = address
         }
         if  indexPath.row == 4 {
             
+            let cell = tableView.dequeueReusableCellWithIdentifier("cityStateZipCell", forIndexPath: indexPath)
+
             cell.textLabel?.text = cityStateZip
         }
         if  indexPath.row == 5 {
+            
+            let cell = tableView.dequeueReusableCellWithIdentifier("contactCell", forIndexPath: indexPath)
             
             cell.textLabel?.text = "Contact:"
         }
         if  indexPath.row == 6 {
             
+            let cell = tableView.dequeueReusableCellWithIdentifier("userNameCell", forIndexPath: indexPath)
+
+            
             cell.textLabel?.text = name
         }
         if  indexPath.row == 7 {
             
+            let cell = tableView.dequeueReusableCellWithIdentifier("phoneCell", forIndexPath: indexPath)
+
+            
             cell.textLabel?.text = phone
         }
         if  indexPath.row == 8 {
+            
+            let cell = tableView.dequeueReusableCellWithIdentifier("emailCell", forIndexPath: indexPath)
+
             
             cell.textLabel?.text = email
         }
