@@ -111,5 +111,11 @@ class STConfirmationPageViewController: UIViewController, UITableViewDataSource,
         
         return cell
     }
+    
+    @IBAction func sendInformationTouchUpInside(sender: AnyObject)
+    {
+        
+    }
+    
 
 }
