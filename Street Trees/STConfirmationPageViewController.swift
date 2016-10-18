@@ -11,8 +11,12 @@ import StreetTreesTransportKit
 
 class STConfirmationPageViewController: UIViewController, UITableViewDataSource, UITableViewDelegate
 {
-    var aWufooForm:STTKWufooForm?
 
+    
+    var aTree:STTKStreetTree?
+    var anAddress: STTKStreetAddress?
+    var aContact: STTKContact?
+    
     var treeName = "Example Tree"
     var treeImage : UIImage?
     var address = "101 Example Ave"
@@ -21,6 +25,8 @@ class STConfirmationPageViewController: UIViewController, UITableViewDataSource,
     var phone = "407-555-5550"
     var email = "bob@google.com"
     
+    var aWufooForm:STTKWufooForm?
+
     
 
     override func viewDidLoad()
@@ -30,15 +36,17 @@ class STConfirmationPageViewController: UIViewController, UITableViewDataSource,
         // Do any additional setup after loading the view.
         
         
-    // MARK: Get information from Wufoo Form
+    // MARK: Get information from Wufoo Form:
         
-        treeName = (aWufooForm?.treeName)!
-        //treeImage =  aWufooForm?
-        address = (aWufooForm?.contact.address.streetAddress)! + " " + (aWufooForm?.contact.address.secondaryAddress)! //"101 Example Ave"
-        cityStateZip = (aWufooForm?.contact.address.city)! + ", " + (aWufooForm?.contact.address.state)! + " " + String((aWufooForm?.contact.address.zipCode)!) //"Orlando, Fl 32801"
-        name = (aWufooForm?.contact.name)! //"Bob Bobington"
-        phone = (aWufooForm?.contact.phoneNumber)! //"407-555-5550"
-        email = (aWufooForm?.contact.email)! //"bob@google.com"
+        treeName = (aTree?.name)!
+        //treeImage =  aTree.
+        address = (anAddress?.streetAddress)!  + " " +  (anAddress?.secondaryAddress)!
+        cityStateZip = "\(anAddress?.city), \(anAddress?.state) \(String((anAddress?.zipCode)!))"
+        name = (aContact?.name)!
+        phone = (aContact?.phoneNumber)!
+        email = (aContact?.email)!
+        
+        aWufooForm = STTKWufooForm(tree: treeName, forContact: aContact!)
     }
 
     override func didReceiveMemoryWarning()
@@ -58,7 +66,7 @@ class STConfirmationPageViewController: UIViewController, UITableViewDataSource,
     }
     */
     
-    // MARK: - Table View Methods 
+    // MARK: - Table View Methods:
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int
     {
@@ -123,7 +131,6 @@ class STConfirmationPageViewController: UIViewController, UITableViewDataSource,
         if  indexPath.row == 8 {
             
             let cell = tableView.dequeueReusableCellWithIdentifier("emailCell", forIndexPath: indexPath)
-
             
             cell.textLabel?.text = email
         }
@@ -132,9 +139,11 @@ class STConfirmationPageViewController: UIViewController, UITableViewDataSource,
         return cell
     }
     
+    // MARK: Action handlers:
+    
     @IBAction func sendInformationTouchUpInside(sender: AnyObject)
     {
-        
+
     }
     
 
