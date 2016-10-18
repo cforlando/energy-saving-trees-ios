@@ -6,10 +6,10 @@
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Confirmation Page View Controller-->
         <scene sceneID="4er-8I-nyD">
             <objects>
-                <viewController id="Qhd-d6-vZT" sceneMemberID="viewController">
+                <viewController id="Qhd-d6-vZT" customClass="STConfirmationPageViewController" customModule="Street_Trees" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="pg3-Lw-bkz"/>
                         <viewControllerLayoutGuide type="bottom" id="xu0-Zg-FeJ"/>
@@ -35,7 +35,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="540" height="110"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="qtb-8M-fXR">
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Tree Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="qtb-8M-fXR">
                                                     <rect key="frame" x="140" y="0.0" width="385" height="110"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="22"/>
@@ -49,7 +49,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="YRd-BJ-mQt" style="IBUITableViewCellStyleDefault" id="7iu-v8-r0R">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="locationCell" textLabel="YRd-BJ-mQt" style="IBUITableViewCellStyleDefault" id="7iu-v8-r0R">
                                         <rect key="frame" x="0.0" y="138" width="540" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="7iu-v8-r0R" id="1Ng-tb-KIa">
@@ -170,6 +170,10 @@
                                     </tableViewCell>
                                 </prototypes>
                                 <sections/>
+                                <connections>
+                                    <outlet property="dataSource" destination="Qhd-d6-vZT" id="cZu-Ma-HBu"/>
+                                    <outlet property="delegate" destination="Qhd-d6-vZT" id="bYM-V8-8Qh"/>
+                                </connections>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Bn-C0-Wfa">
                                 <rect key="frame" x="180" y="546" width="240" height="34"/>

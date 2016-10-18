@@ -81,7 +81,8 @@
 		D4F0302D1D46E43F00E936DD /* StreetTreesPersistentKit.h in Headers */ = {isa = PBXBuildFile; fileRef = D45F07A01D0260CA0025F8F0 /* StreetTreesPersistentKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D4F0302E1D46E44C00E936DD /* StreetTreesFoundationKit.h in Headers */ = {isa = PBXBuildFile; fileRef = D45F07CA1D02614A0025F8F0 /* StreetTreesFoundationKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E6DCA1C698E3D7CCF1C0FB8D /* Pods_StreetTreesTransportKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FF19B3753F5DFC594325A6D /* Pods_StreetTreesTransportKit.framework */; };
-		EB615CC71DB5519F004F6547 /*  ConfirmationPage.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB615CC61DB5519F004F6547 /*  ConfirmationPage.storyboard */; };
+		EB615CC71DB5519F004F6547 /* ConfirmationPage.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB615CC61DB5519F004F6547 /* ConfirmationPage.storyboard */; };
+		EB615CC91DB58A90004F6547 /* STConfirmationPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB615CC81DB58A90004F6547 /* STConfirmationPageViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -272,7 +273,8 @@
 		D4EE1FDA1D2B3EDC007E6C01 /* STPKUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STPKUser.swift; sourceTree = "<group>"; };
 		D4EE1FDF1D2BF79A007E6C01 /* UIViewControllerExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtension.swift; sourceTree = "<group>"; };
 		D4EE1FE11D2BF7FE007E6C01 /* UIColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
-		EB615CC61DB5519F004F6547 /*  ConfirmationPage.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = " ConfirmationPage.storyboard"; sourceTree = "<group>"; };
+		EB615CC61DB5519F004F6547 /* ConfirmationPage.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ConfirmationPage.storyboard; sourceTree = "<group>"; };
+		EB615CC81DB58A90004F6547 /* STConfirmationPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STConfirmationPageViewController.swift; sourceTree = "<group>"; };
 		EEC9D16C6101E934CDFBAD25 /* Pods_Street_TreesTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Street_TreesTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -386,6 +388,7 @@
 				D45EB76C1DB285F9006F23F2 /* STOrderFormNavigationViewController.swift */,
 				D45B02CD1DA17B82007D1A02 /* STTreeCollectionViewCell.swift */,
 				D45B02CF1DA1931C007D1A02 /* STCenterCellFlowLayout.swift */,
+				EB615CC81DB58A90004F6547 /* STConfirmationPageViewController.swift */,
 			);
 			name = Form;
 			sourceTree = "<group>";
@@ -577,7 +580,7 @@
 				D4AADE4B1D2C880C00481FD0 /* InitializerStoryboard.storyboard */,
 				D46D99571D2005ED0038617B /* TreeDetails.storyboard */,
 				D45EB76A1DB272D3006F23F2 /* OrderForm.storyboard */,
-				EB615CC61DB5519F004F6547 /*  ConfirmationPage.storyboard */,
+				EB615CC61DB5519F004F6547 /* ConfirmationPage.storyboard */,
 			);
 			name = Storyboards;
 			sourceTree = "<group>";
@@ -888,7 +891,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EB615CC71DB5519F004F6547 /*  ConfirmationPage.storyboard in Resources */,
+				EB615CC71DB5519F004F6547 /* ConfirmationPage.storyboard in Resources */,
 				D45F07501D0258320025F8F0 /* LaunchScreen.storyboard in Resources */,
 				D4AADE4C1D2C880C00481FD0 /* InitializerStoryboard.storyboard in Resources */,
 				D45F074D1D0258320025F8F0 /* Assets.xcassets in Resources */,
@@ -1152,6 +1155,7 @@
 				D45B02CE1DA17B82007D1A02 /* STTreeCollectionViewCell.swift in Sources */,
 				D4AADE4E1D2C886D00481FD0 /* STInitialViewController.swift in Sources */,
 				52256F541D033548004D8CE2 /* STTreeAnnotation.swift in Sources */,
+				EB615CC91DB58A90004F6547 /* STConfirmationPageViewController.swift in Sources */,
 				D46D995B1D20068F0038617B /* StoryboardSegueIdentifiers.swift in Sources */,
 				D45F07431D0258320025F8F0 /* AppDelegate.swift in Sources */,
 				D453A5421D983D0E008BE29F /* STAddressFormViewController.swift in Sources */,
