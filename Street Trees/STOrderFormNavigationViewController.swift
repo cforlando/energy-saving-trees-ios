@@ -31,11 +31,13 @@ import UIKit
 
 class STOrderFormNavigationViewController: UINavigationController, UINavigationControllerDelegate,
 TreeDescription, Address, Contact, STContactDetailsFormViewControllerDelegate, STSelectTreeViewControllerDelegate,
-STAddressFormViewControllerDelegate {
+STAddressFormViewControllerDelegate,STConfirmationPageViewControllerDelegate {
 
     var treeDescription: STPKTreeDescription?
     var address: STTKStreetAddress?
     var contact: STTKContact?
+    
+    var wufooForm: STTKWufooForm?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,6 +66,12 @@ STAddressFormViewControllerDelegate {
         if let treeViewController = viewController as? STSelectTreeViewController {
             treeViewController.delegate = self
         }
+        
+        if let confirmationViewController = viewController as? STConfirmationPageViewController {
+            confirmationViewController.anAddress = self.address
+            confirmationViewController.aContact = self.contact
+            confirmationViewController.delegate = self
+        }
     }
     
     //******************************************************************************************************************
@@ -85,5 +93,12 @@ STAddressFormViewControllerDelegate {
     
     func addressFormViewController(form: STAddressFormViewController, didCompleteWithAddress anAddress: STTKStreetAddress) {
         self.address = anAddress
+    }
+    
+    //******************************************************************************************************************
+    // MARK: - STConfirmationPageViewController Delegate
+    
+    func ConfirmationFormViewController(form: STConfirmationPageViewController, didCompleteWithWufooForm anWufooForm: STTKWufooForm) {
+        self.wufooForm = anWufooForm
     }
 }

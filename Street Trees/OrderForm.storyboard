@@ -484,7 +484,11 @@
                         </connections>
                     </view>
                     <navigationItem key="navigationItem" title="Your Details" id="8hX-cn-JGY">
-                        <barButtonItem key="rightBarButtonItem" title="Next" id="NdL-hc-NkI"/>
+                        <barButtonItem key="rightBarButtonItem" title="Next" id="NdL-hc-NkI">
+                            <connections>
+                                <segue destination="6BE-pA-N37" kind="show" id="aKt-r9-iqy"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="emailTextField" destination="rcT-Ik-cOb" id="Ygl-eG-Lca"/>
@@ -518,6 +522,14 @@
                 </toolbar>
             </objects>
             <point key="canvasLocation" x="2120" y="420"/>
+        </scene>
+        <!--ConfirmationPage-->
+        <scene sceneID="N9X-cr-7aP">
+            <objects>
+                <viewControllerPlaceholder storyboardName="ConfirmationPage" id="6BE-pA-N37" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8gq-Wk-afx" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2606.5" y="107"/>
         </scene>
     </scenes>
     <resources>

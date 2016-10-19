@@ -9,14 +9,24 @@
 import UIKit
 import StreetTreesTransportKit
 
+
+//**********************************************************************************************************************
+// MARK: - Protocol
+
+protocol STConfirmationPageViewControllerDelegate: NSObjectProtocol {
+    func ConfirmationFormViewController(form: STConfirmationPageViewController, didCompleteWithWufooForm anWufooForm: STTKWufooForm)
+}
+
+//**********************************************************************************************************************
+
 class STConfirmationPageViewController: UIViewController, UITableViewDataSource, UITableViewDelegate
 {
-
     
     var aTree:STTKStreetTree?
     var anAddress: STTKStreetAddress?
     var aContact: STTKContact?
     
+    //just initial test values for vars
     var treeName = "Example Tree"
     var treeImage : UIImage?
     var address = "101 Example Ave"
@@ -25,8 +35,7 @@ class STConfirmationPageViewController: UIViewController, UITableViewDataSource,
     var phone = "407-555-5550"
     var email = "bob@google.com"
     
-    var aWufooForm:STTKWufooForm?
-
+    weak var  delegate:STConfirmationPageViewControllerDelegate?
     
 
     override func viewDidLoad()
@@ -46,7 +55,6 @@ class STConfirmationPageViewController: UIViewController, UITableViewDataSource,
         phone = (aContact?.phoneNumber)!
         email = (aContact?.email)!
         
-        aWufooForm = STTKWufooForm(tree: treeName, forContact: aContact!)
     }
 
     override func didReceiveMemoryWarning()
@@ -143,6 +151,7 @@ class STConfirmationPageViewController: UIViewController, UITableViewDataSource,
     
     @IBAction func sendInformationTouchUpInside(sender: AnyObject)
     {
+        self.delegate?.ConfirmationFormViewController(self, didCompleteWithWufooForm: STTKWufooForm(tree: treeName, forContact: aContact!))
 
     }
     

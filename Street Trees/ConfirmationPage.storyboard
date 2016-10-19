@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Qhd-d6-vZT">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
-        <!--Confirmation Page View Controller-->
+        <!--Confirmation Page-->
         <scene sceneID="4er-8I-nyD">
             <objects>
-                <viewController id="Qhd-d6-vZT" customClass="STConfirmationPageViewController" customModule="Street_Trees" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Confirmation Page" id="Qhd-d6-vZT" customClass="STConfirmationPageViewController" customModule="Street_Trees" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="pg3-Lw-bkz"/>
                         <viewControllerLayoutGuide type="bottom" id="xu0-Zg-FeJ"/>
