@@ -68,6 +68,9 @@ STAddressFormViewControllerDelegate,STConfirmationPageViewControllerDelegate {
         }
         
         if let confirmationViewController = viewController as? STConfirmationPageViewController {
+            
+            confirmationViewController.treeName = (self.treeDescription?.name)!
+            confirmationViewController.treeImage = self.treeDescription?.image()
             confirmationViewController.anAddress = self.address
             confirmationViewController.aContact = self.contact
             confirmationViewController.delegate = self

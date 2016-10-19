@@ -22,7 +22,7 @@ protocol STConfirmationPageViewControllerDelegate: NSObjectProtocol {
 class STConfirmationPageViewController: UIViewController, UITableViewDataSource, UITableViewDelegate
 {
     
-    var aTree:STTKStreetTree?
+    //var aTree:STTKStreetTree?
     var anAddress: STTKStreetAddress?
     var aContact: STTKContact?
     
@@ -47,7 +47,7 @@ class STConfirmationPageViewController: UIViewController, UITableViewDataSource,
         
     // MARK: Get information from Wufoo Form:
         
-        treeName = (aTree?.name)!
+        //treeName = (aTree?.name)!
         //treeImage =  aTree.
         address = (anAddress?.streetAddress)!  + " " +  (anAddress?.secondaryAddress)!
         cityStateZip = "\(anAddress?.city), \(anAddress?.state) \(String((anAddress?.zipCode)!))"
@@ -96,7 +96,7 @@ class STConfirmationPageViewController: UIViewController, UITableViewDataSource,
             let cell = tableView.dequeueReusableCellWithIdentifier("treeInfoCell", forIndexPath: indexPath)
 
             cell.textLabel?.text = treeName
-            //cell.imageView?.image = treeImage
+            cell.imageView?.image = treeImage
         }
         if  indexPath.row == 1 {
             
@@ -151,7 +151,16 @@ class STConfirmationPageViewController: UIViewController, UITableViewDataSource,
     
     @IBAction func sendInformationTouchUpInside(sender: AnyObject)
     {
+        let alertConfimationMessage = UIAlertController(title: "Confirmation", message: "Thank You! Your request has been sent", preferredStyle: .Alert)
+        let sentImage = UIImage(named: "sent")
+        let sentAction = UIAlertAction(title: "Ok", style: .Default, handler: nil)
+        sentAction.setValue(sentImage, forKey: "image")
+        
+        alertConfimationMessage.addAction(sentAction)
+        
+        self.presentViewController(alertConfimationMessage, animated: true, completion: nil)
         self.delegate?.ConfirmationFormViewController(self, didCompleteWithWufooForm: STTKWufooForm(tree: treeName, forContact: aContact!))
+
 
     }
     
