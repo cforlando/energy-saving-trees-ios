@@ -62,9 +62,8 @@ protocol STContactDetailsFormViewControllerDelegate: NSObjectProtocol {
 //**********************************************************************************************************************
 // MARK: - Class Implementation
 
-class STContactDetailsFormViewController: UIViewController, Address, Contact {
+class STContactDetailsFormViewController: STBaseOrderFormViewController, Address, Contact {
     
-    var activeTextField: UITextField?
     var address: STTKStreetAddress?
     var contact: STTKContact?
     
