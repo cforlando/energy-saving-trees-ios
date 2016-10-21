@@ -8,145 +8,125 @@
 
 import UIKit
 import StreetTreesTransportKit
+import StreetTreesPersistentKit
 
+
+enum STConfirmationDetailRows
+{
+    case TreeName
+    case Address
+    case CityStateZip
+    case UserName
+    case Phone
+    case email
+    
+    func sectionHeader() -> String?
+    {
+        switch self
+        {
+        case .TreeName:
+            return "Tree Information"
+        case .Address, .CityStateZip:
+            return "Location"
+        case .UserName, .Phone, .email:
+            return "Contact"
+        }
+    }
+}
+
+struct DataSource
+{
+    
+    private let dataSource: [[STConfirmationDetailRows]]
+    
+    var sections: Int {
+        return self.dataSource.count
+    }
+    
+    func itemsForSection(atIndex anIndex: Int) -> Int {
+        return self.dataSource[anIndex].count
+    }
+    
+    func item(forRow aRow: Int, inSection aSection: Int) -> STConfirmationDetailRows {
+        return self.dataSource[aSection][aRow]
+    }
+    
+    init(dataSource:[[STConfirmationDetailRows]]) {
+        self.dataSource = dataSource
+    }
+}
 
 //**********************************************************************************************************************
 // MARK: - Protocol
 
-protocol STConfirmationPageViewControllerDelegate: NSObjectProtocol {
-    func ConfirmationFormViewController(form: STConfirmationPageViewController, didCompleteWithWufooForm anWufooForm: STTKWufooForm)
+protocol STConfirmationPageViewControllerDelegate: NSObjectProtocol
+{
+    func confirmationFormViewController(form: STConfirmationPageViewController, didCompleteWithWufooForm anWufooForm: STTKWufooForm)
 }
 
 //**********************************************************************************************************************
 
-class STConfirmationPageViewController: UIViewController, UITableViewDataSource, UITableViewDelegate
+class STConfirmationPageViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, TreeDescription, Address, Contact
 {
     
-    //var aTree:STTKStreetTree?
-    var anAddress: STTKStreetAddress?
-    var aContact: STTKContact?
+    var treeDescription:STPKTreeDescription?
+    var address: STTKStreetAddress?
+    var contact: STTKContact?
+ 
     
-    //just initial test values for vars
-    var treeName = "Example Tree"
-    var treeImage : UIImage?
-    var address = "101 Example Ave"
-    var cityStateZip = "Orlando, Fl 32801"
-    var name = "Bob Bobington"
-    var phone = "407-555-5550"
-    var email = "bob@google.com"
+    var dataSource: DataSource = DataSource(dataSource: [[.TreeName], [.Address, .CityStateZip], [.UserName, .Phone, .email]])
     
     weak var  delegate:STConfirmationPageViewControllerDelegate?
-    
 
-    override func viewDidLoad()
-    {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-        
-        
-    // MARK: Get information from Wufoo Form:
-        
-        //treeName = (aTree?.name)!
-        //treeImage =  aTree.
-        address = (anAddress?.streetAddress)!  + " " +  (anAddress?.secondaryAddress)!
-        cityStateZip = "\(anAddress?.city), \(anAddress?.state) \(String((anAddress?.zipCode)!))"
-        name = (aContact?.name)!
-        phone = (aContact?.phoneNumber)!
-        email = (aContact?.email)!
-        
-    }
-
-    override func didReceiveMemoryWarning()
-    {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-    
     // MARK: - Table View Methods:
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int
     {
-        return 1
+        return dataSource.sections
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-        return 8
+        return dataSource.itemsForSection(atIndex: section)
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
     {
         let cell = tableView.dequeueReusableCellWithIdentifier("emptyCell", forIndexPath: indexPath)
 
+        let kindOfRow = dataSource.item(forRow: indexPath.row, inSection: indexPath.section)
         
-        if  indexPath.row == 0
+        var textLabel:String? = nil
+        var imageView:UIImage? = nil
+        
+        switch kindOfRow
         {
-            let cell = tableView.dequeueReusableCellWithIdentifier("treeInfoCell", forIndexPath: indexPath)
-
-            cell.textLabel?.text = treeName
-            cell.imageView?.image = treeImage
+        case .TreeName:
+            textLabel = treeDescription?.name ?? "Error retrieving tree name"
+            imageView = treeDescription?.image() ?? UIImage(named: "blankMap")
+        case .Address:
+            textLabel = (address?.streetAddress)!  + " " +  (address?.secondaryAddress)! ?? "Error retrieving address"
+        case .CityStateZip:
+            textLabel = "\(address?.city), \(address?.state) \(String((address?.zipCode)!))" ?? "Error retrieving location"
+        case .UserName:
+            textLabel = (contact?.name)! ?? "Error retrieving name"
+        case .Phone:
+            textLabel = (contact?.phoneNumber)! ?? "Error retrieving phone number"
+        case .email:
+            textLabel = (contact?.email)! ?? "Error retrieving email"
         }
-        if  indexPath.row == 1 {
-            
-            let cell = tableView.dequeueReusableCellWithIdentifier("locationCell", forIndexPath: indexPath)
-
-            cell.textLabel?.text = "Location:"
-        }
-        if  indexPath.row == 3 {
-            
-            let cell = tableView.dequeueReusableCellWithIdentifier("addressCell", forIndexPath: indexPath)
-
-            cell.textLabel?.text = address
-        }
-        if  indexPath.row == 4 {
-            
-            let cell = tableView.dequeueReusableCellWithIdentifier("cityStateZipCell", forIndexPath: indexPath)
-
-            cell.textLabel?.text = cityStateZip
-        }
-        if  indexPath.row == 5 {
-            
-            let cell = tableView.dequeueReusableCellWithIdentifier("contactCell", forIndexPath: indexPath)
-            
-            cell.textLabel?.text = "Contact:"
-        }
-        if  indexPath.row == 6 {
-            
-            let cell = tableView.dequeueReusableCellWithIdentifier("userNameCell", forIndexPath: indexPath)
-
-            
-            cell.textLabel?.text = name
-        }
-        if  indexPath.row == 7 {
-            
-            let cell = tableView.dequeueReusableCellWithIdentifier("phoneCell", forIndexPath: indexPath)
-
-            
-            cell.textLabel?.text = phone
-        }
-        if  indexPath.row == 8 {
-            
-            let cell = tableView.dequeueReusableCellWithIdentifier("emailCell", forIndexPath: indexPath)
-            
-            cell.textLabel?.text = email
-        }
-
         
+        cell.textLabel?.text = textLabel
+        cell.imageView?.image = imageView
+       
         return cell
     }
     
+    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return dataSource.item(forRow: 0, inSection: section).sectionHeader()
+    }
+    
+
     // MARK: Action handlers:
     
     @IBAction func sendInformationTouchUpInside(sender: AnyObject)
@@ -159,8 +139,7 @@ class STConfirmationPageViewController: UIViewController, UITableViewDataSource,
         alertConfimationMessage.addAction(sentAction)
         
         self.presentViewController(alertConfimationMessage, animated: true, completion: nil)
-        self.delegate?.ConfirmationFormViewController(self, didCompleteWithWufooForm: STTKWufooForm(tree: treeName, forContact: aContact!))
-
+        self.delegate?.confirmationFormViewController(self, didCompleteWithWufooForm: STTKWufooForm(tree: self.treeDescription!.name!, forContact: contact!))
 
     }
     

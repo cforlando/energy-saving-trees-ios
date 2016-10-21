@@ -68,11 +68,6 @@ STAddressFormViewControllerDelegate,STConfirmationPageViewControllerDelegate {
         }
         
         if let confirmationViewController = viewController as? STConfirmationPageViewController {
-            
-            confirmationViewController.treeName = (self.treeDescription?.name)!
-            confirmationViewController.treeImage = self.treeDescription?.image()
-            confirmationViewController.anAddress = self.address
-            confirmationViewController.aContact = self.contact
             confirmationViewController.delegate = self
         }
     }
@@ -101,7 +96,7 @@ STAddressFormViewControllerDelegate,STConfirmationPageViewControllerDelegate {
     //******************************************************************************************************************
     // MARK: - STConfirmationPageViewController Delegate
     
-    func ConfirmationFormViewController(form: STConfirmationPageViewController, didCompleteWithWufooForm anWufooForm: STTKWufooForm) {
+    func confirmationFormViewController(form: STConfirmationPageViewController, didCompleteWithWufooForm anWufooForm: STTKWufooForm) {
         self.wufooForm = anWufooForm
     }
 }
