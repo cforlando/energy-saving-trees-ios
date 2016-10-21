@@ -11,6 +11,15 @@ import StreetTreesTransportKit
 import StreetTreesPersistentKit
 
 
+//**********************************************************************************************************************
+// MARK: - Constants
+
+private let STTreeErrorTitle = "Error"
+private let STTreeErrorNameMessage = "Tree name has not been passed."
+
+//**********************************************************************************************************************
+// MARK: - Enumerations
+
 enum STConfirmationDetailRows
 {
     case TreeName
@@ -33,6 +42,10 @@ enum STConfirmationDetailRows
         }
     }
 }
+
+
+//**********************************************************************************************************************
+// MARK: - DataSource
 
 struct DataSource
 {
@@ -129,19 +142,38 @@ class STConfirmationPageViewController: UIViewController, UITableViewDataSource,
 
     // MARK: Action handlers:
     
-    @IBAction func sendInformationTouchUpInside(sender: AnyObject)
+    @IBAction func confirmButtonItemTouchUpInside(sender: AnyObject)
     {
-        let alertConfimationMessage = UIAlertController(title: "Confirmation", message: "Thank You! Your request has been sent", preferredStyle: .Alert)
-        let sentImage = UIImage(named: "sent")
-        let sentAction = UIAlertAction(title: "Ok", style: .Default, handler: nil)
-        sentAction.setValue(sentImage, forKey: "image")
         
-        alertConfimationMessage.addAction(sentAction)
-        
-        self.presentViewController(alertConfimationMessage, animated: true, completion: nil)
-        self.delegate?.confirmationFormViewController(self, didCompleteWithWufooForm: STTKWufooForm(tree: self.treeDescription!.name!, forContact: contact!))
-
+        if confrim()
+        {
+            let alertConfimationMessage = UIAlertController(title: "Confirmation", message: "Thank You! Your request has been sent", preferredStyle: .Alert)
+            let sentImage = UIImage(named: "sent")
+            let sentAction = UIAlertAction(title: "Ok", style: .Default, handler: nil)
+            sentAction.setValue(sentImage, forKey: "image")
+            alertConfimationMessage.addAction(sentAction)
+            self.presentViewController(alertConfimationMessage, animated: true, completion: nil)
+        }
     }
     
+    //******************************************************************************************************************
+    // MARK: - Private Functions
+    
+    func confrim() -> Bool
+    {
+        guard let treeName = treeDescription?.name where treeName.isEmpty else
+        {
+            self.showAlert(STTreeErrorTitle, message: STTreeErrorNameMessage)
+            return false
+        }
+        
+        guard let safeContact = self.contact else
+        {
+            fatalError("Contact has not been passed.")
+        }
+        
+        self.delegate?.confirmationFormViewController(self, didCompleteWithWufooForm: STTKWufooForm(tree: treeName, forContact: safeContact))
+        return true
+    }
 
 }

@@ -62,30 +62,16 @@
                         </variation>
                     </view>
                     <navigationItem key="navigationItem" title="Confirmation Page" id="aay-Lb-dV6">
-                        <barButtonItem key="rightBarButtonItem" title="Confirm" id="e0B-8f-vhf"/>
+                        <barButtonItem key="rightBarButtonItem" title="Confirm" id="e0B-8f-vhf">
+                            <connections>
+                                <action selector="confirmButtonItemTouchUpInside:" destination="Qhd-d6-vZT" id="OqR-23-HzE"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XAF-SS-Rzi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="973" y="324"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="70X-pX-ctR">
-            <objects>
-                <viewController id="3Ck-4a-H2p" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="nIP-Wi-S2R"/>
-                        <viewControllerLayoutGuide type="bottom" id="FOD-zI-3Wa"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="XUw-B3-uxk">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="FcN-Vp-eND" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1610" y="324"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="l5g-ho-gxr">
