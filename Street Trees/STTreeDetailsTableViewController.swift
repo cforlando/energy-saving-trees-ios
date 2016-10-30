@@ -72,9 +72,8 @@ class STTreeDetailsTableViewController: UITableViewController {
 
     @IBOutlet weak var mapImageView: UIImageView!
     
-    var headerView: UIView?
-    
     var annotation: STTreeAnnotation?
+    var headerView: UIView?
     var treeDescription: STPKTreeDescription? {
         return self.annotation?.tree.treeDescription
     }
