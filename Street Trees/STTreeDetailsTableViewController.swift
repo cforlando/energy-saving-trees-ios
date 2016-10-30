@@ -26,15 +26,18 @@
 //
 
 import MapKit
-import StreetTreesPersistentKit
 import StreetTreesFoundationKit
+import StreetTreesPersistentKit
 import UIKit
 
+private let STCellAccessorySize = CGSize(width: 40, height: 40)
+private let STDefaultOffset: CGFloat = -64.0
+private let STDefaultTableViewHeaderHeight: CGFloat = 150.0
 private let STEstimateRowHeight: CGFloat = 44.0
 private let STGoldenRatio: CGFloat = 0.618
 private let STRegionOffset: CLLocationDegrees = 0.0004
 private let STRegionRadius: CLLocationDistance = 0.001
-private let STDefaultOffset: CGFloat = -64.0
+private let STSnapshotDistance: CLLocationDistance = 500.0
 
 enum STDetailRows {
     case Additional
@@ -65,12 +68,11 @@ enum STDetailRows {
     }
 }
 
-class STTreeDetailsTableViewController: UITableViewController, MKMapViewDelegate {
+class STTreeDetailsTableViewController: UITableViewController {
 
-    @IBOutlet weak var bottomLayoutConstraint: NSLayoutConstraint!
-    @IBOutlet weak var containerView: UIView!
-    @IBOutlet weak var heightLayoutConstraint: NSLayoutConstraint!
-    @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var mapImageView: UIImageView!
+    
+    var headerView: UIView?
     
     var annotation: STTreeAnnotation?
     var treeDescription: STPKTreeDescription? {
@@ -105,6 +107,26 @@ class STTreeDetailsTableViewController: UITableViewController, MKMapViewDelegate
     //******************************************************************************************************************
     // MARK: - Class Overrides
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        self.headerView = self.tableView.tableHeaderView
+        self.tableView.tableHeaderView = nil
+        
+        if let headerView = self.headerView {
+            self.tableView.addSubview(headerView)
+            
+            var contentInset = UIEdgeInsets()
+            contentInset.top = STDefaultTableViewHeaderHeight
+            
+            self.tableView.contentInset = contentInset
+            self.tableView.contentOffset = CGPoint(x: 0, y: -STDefaultTableViewHeaderHeight)
+            
+            self.updateHeaderView()
+        }
+        
+    }
+    
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationItem.title = self.annotation?.tree.speciesName
@@ -115,52 +137,13 @@ class STTreeDetailsTableViewController: UITableViewController, MKMapViewDelegate
     }
     
     override func scrollViewDidScroll(scrollView: UIScrollView) {        
-        if scrollView.contentOffset.y > STDefaultOffset {
-            return
-        }
-        
-        let offsetY = abs(scrollView.contentOffset.y + scrollView.contentInset.top)
-        self.containerView.clipsToBounds = offsetY <= 0
-        
-        self.bottomLayoutConstraint.constant = offsetY >= 0 ? 0 : -offsetY / 2
-        let screenHeight = UIScreen.mainScreen().bounds.size.height
-        let contentMinimumHeight = screenHeight - (screenHeight * STGoldenRatio)
-        let contentInset = scrollView.contentInset.top + contentMinimumHeight
-        self.heightLayoutConstraint.constant = max(offsetY + contentInset, scrollView.contentInset.top)
+        self.updateHeaderView()
     }
     
     override func traitCollectionDidChange(previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         
-        self.updateMapRegion()
-    }
-    
-    //******************************************************************************************************************
-    // MARK: - MapView Delegate
-    
-    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
-        let reuseId = "TreePin"
-        var annotationView = mapView.dequeueReusableAnnotationViewWithIdentifier(reuseId)
-        
-        if annotationView == nil {
-            annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
-        }
-        
-        annotationView?.canShowCallout = false
-        
-        return annotationView
-    }
-    
-    func mapView(mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer {
-        if let circleOverlay = overlay as? MKCircle {
-            let circleView = MKCircleRenderer(circle: circleOverlay)
-            circleView.lineWidth = 3.0
-            circleView.strokeColor = UIColor.orlandoGreenColor()
-            circleView.fillColor = UIColor.orlandoGreenColor(0.2)
-            return circleView
-        }
-        
-        return MKOverlayRenderer()
+        self.setupMapView()
     }
     
     //******************************************************************************************************************
@@ -185,6 +168,10 @@ class STTreeDetailsTableViewController: UITableViewController, MKMapViewDelegate
         switch row {
         case .Name:
             content = self.treeDescription?.name ?? "Error retrieving name"
+            if var image = self.treeDescription?.image() {
+                self.resize(image: &image)
+                basicCell.accessoryView = UIImageView(image: image)
+            }
         case .Description:
             content = self.treeDescription?.treeDescription ?? "Tree Description Missing"
         case .Height:
@@ -192,9 +179,9 @@ class STTreeDetailsTableViewController: UITableViewController, MKMapViewDelegate
             content = height.content
             subtitle = height.subtitle
         case .Width:
-            let height = self.localizedWidth()
-            content = height.content
-            subtitle = height.subtitle
+            let width = self.localizedWidth()
+            content = width.content
+            subtitle = width.subtitle
         case .OpenInMaps:
             content = "Open in Maps"
         case .Leaf:
@@ -294,10 +281,10 @@ class STTreeDetailsTableViewController: UITableViewController, MKMapViewDelegate
             return (subtitle:"Error", content: "Getting minimum width")
         }
         guard let maximum = self.annotation?.tree.treeDescription?.maxWidth?.doubleValue else {
-            return (subtitle:"Error", content: "Getting maximum weight")
+            return (subtitle:"Error", content: "Getting maximum width")
         }
         
-        return (subtitle:"Average Weight", content: self.localizedLength(minimum, maximum: maximum))
+        return (subtitle:"Average Width", content: self.localizedLength(minimum, maximum: maximum))
     }
     
     func openInMaps() {
@@ -315,32 +302,40 @@ class STTreeDetailsTableViewController: UITableViewController, MKMapViewDelegate
         }
     }
     
-    func setupMapView() {
-        
-        self.updateMapRegion()
-        
-        // Add annotation to map
-        if let annotation = self.annotation {
-            let distance: CLLocationDistance = self.treeDescription?.averageWidth() ?? 0.0
-            let circleOverlay = MKCircle(centerCoordinate: annotation.coordinate, radius: distance)
-            self.mapView.addAnnotation(annotation)
-            self.mapView.addOverlay(circleOverlay)
-        }
+    func resize(inout image anImage: UIImage) {
+        let newSize = STCellAccessorySize
+        let newImageFrame = CGRect(origin: .zero, size: newSize)
+        UIGraphicsBeginImageContextWithOptions(newSize, true, UIScreen.mainScreen().scale)
+        anImage.drawInRect(newImageFrame)
+        anImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
     }
     
-    func updateMapRegion() {
-        // Set up map position
-        var latitude: CLLocationDegrees = self.annotation?.tree.latitude?.doubleValue ?? 0.0
-        let longitude: CLLocationDegrees = self.annotation?.tree.longitude?.doubleValue ?? 0.0
+    func setupMapView() {
+        guard let annotation = self.annotation else { return }
         
-        latitude += self.traitCollection.verticalSizeClass == .Compact ? 0.0 : STRegionOffset
+        let snapshot = STFKMapSnapshot(coordinate: annotation.coordinate) { (image, error) in
+            self.mapImageView.image = image
+        }
         
-        let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-        self.mapView.setCenterCoordinate(coordinate, animated: false)
+        snapshot.showDropPin = true
+        snapshot.showPointsOfInterest = false
+        snapshot.mapType = .Hybrid
+        snapshot.distance = STSnapshotDistance
+        snapshot.size = UIScreen.mainScreen().bounds.size
+        snapshot.takeSnapshot()
+
+    }
+    
+    
+    func updateHeaderView() {
+        var headerRect = CGRect(x: 0.0, y: -STDefaultTableViewHeaderHeight, width: self.tableView.bounds.width, height: STDefaultTableViewHeaderHeight)
         
-        // Set region
-        let coordinateSpan = MKCoordinateSpan(latitudeDelta: STRegionRadius, longitudeDelta: STRegionRadius)
-        let region = MKCoordinateRegion(center: coordinate, span: coordinateSpan)
-        self.mapView.setRegion(region, animated: true)
+        if self.tableView.contentOffset.y < STDefaultTableViewHeaderHeight {
+            headerRect.origin.y = self.tableView.contentOffset.y
+            headerRect.size.height = -self.tableView.contentOffset.y
+        }
+        
+        self.headerView?.frame = headerRect
     }
 }
