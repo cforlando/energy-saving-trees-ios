@@ -105,6 +105,7 @@ class STConfirmationPageViewController: UIViewController, UITableViewDataSource,
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
     {
+        
         let cell = tableView.dequeueReusableCellWithIdentifier("emptyCell", forIndexPath: indexPath)
         let kindOfRow = self.dataSource.item(forIndexPath: indexPath)
         

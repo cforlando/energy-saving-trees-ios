@@ -22,7 +22,7 @@
                                 <rect key="frame" x="30" y="69" width="540" height="526"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="KJL-Q7-Q3V" style="IBUITableViewCellStyleDefault" id="vbk-WD-LGN">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="emptyCell" textLabel="KJL-Q7-Q3V" style="IBUITableViewCellStyleDefault" id="vbk-WD-LGN">
                                         <rect key="frame" x="0.0" y="92" width="540" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="vbk-WD-LGN" id="I0T-O5-1v9">
