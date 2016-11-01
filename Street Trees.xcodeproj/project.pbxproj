@@ -28,7 +28,6 @@
 		D45B02CC1DA174EE007D1A02 /* STSelectTreeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45B02CB1DA174EE007D1A02 /* STSelectTreeViewController.swift */; };
 		D45B02CE1DA17B82007D1A02 /* STTreeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45B02CD1DA17B82007D1A02 /* STTreeCollectionViewCell.swift */; };
 		D45B02D01DA1931C007D1A02 /* STCenterCellFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45B02CF1DA1931C007D1A02 /* STCenterCellFlowLayout.swift */; };
-		D45EB76B1DB272D3006F23F2 /* OrderForm.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D45EB76A1DB272D3006F23F2 /* OrderForm.storyboard */; };
 		D45EB76D1DB285F9006F23F2 /* STOrderFormNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45EB76C1DB285F9006F23F2 /* STOrderFormNavigationViewController.swift */; };
 		D45EB76F1DB29ECC006F23F2 /* ContactProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45EB76E1DB29ECC006F23F2 /* ContactProtocol.swift */; };
 		D45EB7711DB29ED6006F23F2 /* AddressProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45EB7701DB29ED6006F23F2 /* AddressProtocol.swift */; };
@@ -214,7 +213,6 @@
 		D45B02CB1DA174EE007D1A02 /* STSelectTreeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STSelectTreeViewController.swift; sourceTree = "<group>"; };
 		D45B02CD1DA17B82007D1A02 /* STTreeCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STTreeCollectionViewCell.swift; sourceTree = "<group>"; };
 		D45B02CF1DA1931C007D1A02 /* STCenterCellFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STCenterCellFlowLayout.swift; sourceTree = "<group>"; };
-		D45EB76A1DB272D3006F23F2 /* OrderForm.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = OrderForm.storyboard; sourceTree = "<group>"; };
 		D45EB76C1DB285F9006F23F2 /* STOrderFormNavigationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STOrderFormNavigationViewController.swift; sourceTree = "<group>"; };
 		D45EB76E1DB29ECC006F23F2 /* ContactProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactProtocol.swift; sourceTree = "<group>"; };
 		D45EB7701DB29ED6006F23F2 /* AddressProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressProtocol.swift; sourceTree = "<group>"; };
@@ -585,7 +583,6 @@
 				D45F07461D0258320025F8F0 /* Main.storyboard */,
 				D4AADE4B1D2C880C00481FD0 /* InitializerStoryboard.storyboard */,
 				D46D99571D2005ED0038617B /* TreeDetails.storyboard */,
-				D45EB76A1DB272D3006F23F2 /* OrderForm.storyboard */,
 				EB615CC61DB5519F004F6547 /* ConfirmationPage.storyboard */,
 			);
 			name = Storyboards;
@@ -903,7 +900,6 @@
 				D45F074D1D0258320025F8F0 /* Assets.xcassets in Resources */,
 				D45F07481D0258320025F8F0 /* Main.storyboard in Resources */,
 				D46D99581D2005ED0038617B /* TreeDetails.storyboard in Resources */,
-				D45EB76B1DB272D3006F23F2 /* OrderForm.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
