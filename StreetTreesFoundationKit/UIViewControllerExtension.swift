@@ -28,12 +28,6 @@
 import UIKit
 
 public extension UIViewController {
-    public func showAlert(title: String, message: String) {
-        let alertViewController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
-        let cancelAction = UIAlertAction(title: "OK", style: .Cancel, handler: nil)
-        alertViewController.addAction(cancelAction)
-        self.presentViewController(alertViewController, animated: true, completion: nil)
-    }
     
     public func add(motionToView aView: UIView, movement travelDistance: CGFloat) {
         // Set vertical effect
@@ -53,5 +47,31 @@ public extension UIViewController {
         motionGroup.motionEffects = [hMotionEffect, vMotionEffect]
         
         aView.addMotionEffect(motionGroup)
+    }
+    
+    public func intersectAmount(betweenView aView: UIView, andRect aRect: CGRect) -> CGPoint {
+        
+        if !self.view(intersects: aView, rect: aRect) {
+            return CGPoint.zero
+        }
+        
+        let viewFrame = self.view.convertRect(aView.frame, fromView: aView.superview)
+        
+        let xDifference = abs(viewFrame.minX - aRect.minX)
+        let yDifference = abs(viewFrame.maxY - aRect.minY)
+        
+        return CGPoint(x: xDifference, y: yDifference)
+    }
+    
+    public func showAlert(title: String, message: String) {
+        let alertViewController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
+        let cancelAction = UIAlertAction(title: "OK", style: .Cancel, handler: nil)
+        alertViewController.addAction(cancelAction)
+        self.presentViewController(alertViewController, animated: true, completion: nil)
+    }
+    
+    public func view(intersects aView: UIView, rect aRect: CGRect) -> Bool {
+        let viewRect = self.view.convertRect(aView.frame, fromView: aView.superview)
+        return CGRectIntersectsRect(aRect, viewRect)
     }
 }
