@@ -122,13 +122,16 @@ class STConfirmationPageViewController: UIViewController, UITableViewDataSource,
             let anAddress2 = address?.secondaryAddress ?? ""
             textLabel =  "\(anAddress) \(anAddress2)"
         case .CityStateZip:
-            textLabel = "\(address?.city), \(address?.state) \(String((address?.zipCode)!))" ?? "Error retrieving location"
+            let aCity = address?.city ?? "No city specified"
+            let aState = address?.state ?? "No state specified"
+            let aZip = address?.state ?? "No zip specified"
+            textLabel = "\(aCity), \(aState) \(String(aZip))"
         case .UserName:
-            textLabel = (contact?.name)! ?? "Error retrieving name"
+            textLabel = contact?.name ?? "Error retrieving name"
         case .Phone:
-            textLabel = contact!.phoneNumber ?? "Error retrieving phone number"
+            textLabel = contact?.phoneNumber ?? "Error retrieving phone number"
         case .Email:
-            textLabel = (contact?.email)! ?? "Error retrieving email"
+            textLabel = contact?.email ?? "Error retrieving email"
         }
         
         cell.textLabel?.text = textLabel
