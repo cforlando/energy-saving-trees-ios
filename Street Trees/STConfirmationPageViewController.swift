@@ -140,8 +140,19 @@ class STConfirmationPageViewController: UIViewController, UITableViewDataSource,
         return cell
     }
     
-    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String?
+    {
         return self.dataSource.item(forIndexPath: NSIndexPath(forRow: 0, inSection: section)).sectionHeader()
+    }
+    
+    func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int)
+    {
+        let aHeader:UITableViewHeaderFooterView = view as! UITableViewHeaderFooterView
+        
+        aHeader.textLabel?.textColor = UIColor.grayColor()
+        aHeader.textLabel?.backgroundColor = UIColor.clearColor()
+        aHeader.textLabel?.font = UIFont.boldSystemFontOfSize(20)
+        
     }
     
 //**********************************************************************************************************************
