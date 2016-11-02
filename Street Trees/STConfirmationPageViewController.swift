@@ -35,7 +35,7 @@ enum STConfirmationDetailRows
         switch self
         {
         case .TreeName:
-            return "Tree Information"
+            return ""
         case .Address, .CityStateZip:
             return "Location"
         case .UserName, .Phone, .Email:
@@ -115,9 +115,14 @@ class STConfirmationPageViewController: UIViewController, UITableViewDataSource,
         switch kindOfRow
         {
         case .TreeName:
-            textLabel = treeDescription?.name ?? "Error retrieving tree name"
+            
             imageView = treeDescription?.image() ?? UIImage(named: "blankMap")
+            textLabel = treeDescription?.name ?? "Error retrieving tree name"
+            cell.textLabel?.font = UIFont.systemFontOfSize(24)
+            cell.imageView?.frame = CGRectMake(0, 0, 100, 150)
             cell.imageView?.image = imageView
+            
+
         case .Address:
             let anAddress = address?.streetAddress ?? "No address specified"
             let anAddress2 = address?.secondaryAddress ?? ""
@@ -149,10 +154,21 @@ class STConfirmationPageViewController: UIViewController, UITableViewDataSource,
     {
         let aHeader:UITableViewHeaderFooterView = view as! UITableViewHeaderFooterView
         
-        aHeader.textLabel?.textColor = UIColor.grayColor()
+        aHeader.tintColor = UIColor.clearColor()
         aHeader.textLabel?.backgroundColor = UIColor.clearColor()
-        aHeader.textLabel?.font = UIFont.boldSystemFontOfSize(20)
+        aHeader.textLabel?.font = UIFont.systemFontOfSize(22)
+        aHeader.textLabel?.textColor = UIColor.lightGrayColor()
         
+    }
+    
+    func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat
+    {
+        return 50.0
+    }
+    
+    func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView?
+    {
+        return UIView(frame: CGRectZero)
     }
     
 //**********************************************************************************************************************
