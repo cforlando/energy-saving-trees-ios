@@ -83,7 +83,6 @@
 		D4F0302E1D46E44C00E936DD /* StreetTreesFoundationKit.h in Headers */ = {isa = PBXBuildFile; fileRef = D45F07CA1D02614A0025F8F0 /* StreetTreesFoundationKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E6DCA1C698E3D7CCF1C0FB8D /* Pods_StreetTreesTransportKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FF19B3753F5DFC594325A6D /* Pods_StreetTreesTransportKit.framework */; };
 		EB303E771DC92BE500A86D0F /* OrderForm.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB303E761DC92BE500A86D0F /* OrderForm.storyboard */; };
-		EB615CC71DB5519F004F6547 /* ConfirmationPage.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB615CC61DB5519F004F6547 /* ConfirmationPage.storyboard */; };
 		EB615CC91DB58A90004F6547 /* STConfirmationPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB615CC81DB58A90004F6547 /* STConfirmationPageViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -277,7 +276,6 @@
 		D4EE1FDF1D2BF79A007E6C01 /* UIViewControllerExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtension.swift; sourceTree = "<group>"; };
 		D4EE1FE11D2BF7FE007E6C01 /* UIColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		EB303E761DC92BE500A86D0F /* OrderForm.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = OrderForm.storyboard; sourceTree = "<group>"; };
-		EB615CC61DB5519F004F6547 /* ConfirmationPage.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ConfirmationPage.storyboard; sourceTree = "<group>"; };
 		EB615CC81DB58A90004F6547 /* STConfirmationPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STConfirmationPageViewController.swift; sourceTree = "<group>"; };
 		EEC9D16C6101E934CDFBAD25 /* Pods_Street_TreesTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Street_TreesTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -586,7 +584,6 @@
 				D4AADE4B1D2C880C00481FD0 /* InitializerStoryboard.storyboard */,
 				D46D99571D2005ED0038617B /* TreeDetails.storyboard */,
 				EB303E761DC92BE500A86D0F /* OrderForm.storyboard */,
-				EB615CC61DB5519F004F6547 /* ConfirmationPage.storyboard */,
 			);
 			name = Storyboards;
 			sourceTree = "<group>";
@@ -897,7 +894,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EB615CC71DB5519F004F6547 /* ConfirmationPage.storyboard in Resources */,
 				D45F07501D0258320025F8F0 /* LaunchScreen.storyboard in Resources */,
 				D4AADE4C1D2C880C00481FD0 /* InitializerStoryboard.storyboard in Resources */,
 				EB303E771DC92BE500A86D0F /* OrderForm.storyboard in Resources */,

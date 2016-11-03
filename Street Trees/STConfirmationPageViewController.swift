@@ -102,44 +102,60 @@ class STConfirmationPageViewController: UIViewController, UITableViewDataSource,
         return self.dataSource.itemsForSection(atIndex: section)
     }
     
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat
+    {
+        let kindOfRow = self.dataSource.item(forIndexPath: indexPath)
+
+        switch kindOfRow
+        {
+        case .TreeName:
+            return 100
+        default:
+            return 22
+        }
+
+    }
+
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
     {
         
         let cell = tableView.dequeueReusableCellWithIdentifier("emptyCell", forIndexPath: indexPath)
         let kindOfRow = self.dataSource.item(forIndexPath: indexPath)
         
-        var imageView:UIImage? = nil
+        var aImage:UIImage? = nil
         var textLabel:String? = nil
+        
+        cell.textLabel?.font = UIFont.systemFontOfSize(20)
         
         switch kindOfRow
         {
         case .TreeName:
-            
-            imageView = treeDescription?.image() ?? UIImage(named: "blankMap")
+            aImage = treeDescription?.image() ?? UIImage(named: "blankMap")
             textLabel = treeDescription?.name ?? "Error retrieving tree name"
-            cell.textLabel?.font = UIFont.systemFontOfSize(24)
-            var aFrame = cell.imageView?.frame
-            aFrame?.size.height = 150
-            aFrame?.size.width = 200
-            cell.imageView?.image = imageView
-            cell.imageView?.frame = aFrame!//CGRectMake(0, 0, 100, 150)
             
-
+            cell.textLabel?.font = UIFont.systemFontOfSize(24)
+            cell.imageView?.image = aImage
+            
         case .Address:
             let anAddress = address?.streetAddress ?? "No address specified"
             let anAddress2 = address?.secondaryAddress ?? ""
             textLabel =  "\(anAddress) \(anAddress2)"
+            
         case .CityStateZip:
             let aCity = address?.city ?? "No city specified"
             let aState = address?.state ?? "No state specified"
             let aZip = address?.state ?? "No zip specified"
             textLabel = "\(aCity), \(aState) \(String(aZip))"
+            
         case .UserName:
             textLabel = contact?.name ?? "Error retrieving name"
+            
         case .Phone:
             textLabel = contact?.phoneNumber ?? "Error retrieving phone number"
+            
         case .Email:
             textLabel = contact?.email ?? "Error retrieving email"
+            
         }
         
         cell.textLabel?.text = textLabel
@@ -147,30 +163,38 @@ class STConfirmationPageViewController: UIViewController, UITableViewDataSource,
         return cell
     }
     
+    func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat
+    {
+        return 80.0
+    }
+    
+    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat
+    {
+        return 0.01
+    }
+    
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String?
     {
         return self.dataSource.item(forIndexPath: NSIndexPath(forRow: 0, inSection: section)).sectionHeader()
-    }
-    
-    func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int)
-    {
-        let aHeader:UITableViewHeaderFooterView = view as! UITableViewHeaderFooterView
-        
-        aHeader.tintColor = UIColor.clearColor()
-        aHeader.textLabel?.backgroundColor = UIColor.clearColor()
-        aHeader.textLabel?.font = UIFont.systemFontOfSize(22)
-        aHeader.textLabel?.textColor = UIColor.lightGrayColor()
-    }
-    
-    func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat
-    {
-        return 40.0
     }
     
     func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView?
     {
         return UIView(frame: CGRectZero)
     }
+    
+    func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int)
+    {
+        let aHeader:UITableViewHeaderFooterView = view as! UITableViewHeaderFooterView
+        
+        aHeader.textLabel?.backgroundColor = UIColor.clearColor()
+        aHeader.textLabel?.font = UIFont.systemFontOfSize(22)
+        aHeader.textLabel?.textColor = UIColor.lightGrayColor()
+        aHeader.textLabel?.text? = aHeader.textLabel?.text?.capitalizedString ?? ""
+        aHeader.tintColor = UIColor.clearColor()
+    }
+    
+    
     
 //**********************************************************************************************************************
 // MARK: - Actions:
@@ -192,6 +216,7 @@ class STConfirmationPageViewController: UIViewController, UITableViewDataSource,
 //******************************************************************************************************************
 // MARK: - Private Functions:
     
+ 
     func confirm() -> Bool
     {
         guard let treeName = treeDescription?.name where treeName.isEmpty else
