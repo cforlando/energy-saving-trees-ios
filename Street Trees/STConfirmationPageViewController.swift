@@ -37,9 +37,9 @@ enum STConfirmationDetailRows
         case .TreeName:
             return ""
         case .Address, .CityStateZip:
-            return "Location"
+            return "Location:"
         case .UserName, .Phone, .Email:
-            return "Contact"
+            return "Contact:"
         }
     }
 }
@@ -89,7 +89,6 @@ class STConfirmationPageViewController: UIViewController, UITableViewDataSource,
     weak var  delegate:STConfirmationPageViewControllerDelegate?
     var treeDescription:STPKTreeDescription?
  
-    
 //**********************************************************************************************************************
 // MARK: - Table View Methods:
     
@@ -119,8 +118,11 @@ class STConfirmationPageViewController: UIViewController, UITableViewDataSource,
             imageView = treeDescription?.image() ?? UIImage(named: "blankMap")
             textLabel = treeDescription?.name ?? "Error retrieving tree name"
             cell.textLabel?.font = UIFont.systemFontOfSize(24)
-            cell.imageView?.frame = CGRectMake(0, 0, 100, 150)
+            var aFrame = cell.imageView?.frame
+            aFrame?.size.height = 150
+            aFrame?.size.width = 200
             cell.imageView?.image = imageView
+            cell.imageView?.frame = aFrame!//CGRectMake(0, 0, 100, 150)
             
 
         case .Address:
@@ -158,12 +160,11 @@ class STConfirmationPageViewController: UIViewController, UITableViewDataSource,
         aHeader.textLabel?.backgroundColor = UIColor.clearColor()
         aHeader.textLabel?.font = UIFont.systemFontOfSize(22)
         aHeader.textLabel?.textColor = UIColor.lightGrayColor()
-        
     }
     
     func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat
     {
-        return 50.0
+        return 40.0
     }
     
     func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView?
