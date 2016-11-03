@@ -48,7 +48,7 @@ public typealias STFKMapSnapshotHandler = (image: UIImage?, error: NSError?) -> 
 public class STFKMapSnapshot: NSObject {
     
     private let handler: STFKMapSnapshotHandler
-    private let location: CLLocation
+    private let coordinate: CLLocationCoordinate2D
     
     /// The distance from the ground the snapshot will be taken from. By default it is 4Km.
     public var distance = STFKCameraDistance
@@ -67,11 +67,13 @@ public class STFKMapSnapshot: NSObject {
     /// Should the snapshot include points of interest on the map. By default this is set to `true`.
     public var showPointsOfInterest = true
     
+    public var size: CGSize?
+    
     //******************************************************************************************************************
     // MARK: - Initializers
     
-    public init(location aLocation: CLLocation, complete aCompletionHandler: STFKMapSnapshotHandler) {
-        self.location = aLocation
+    public init(coordinate aCoordinate: CLLocationCoordinate2D, complete aCompletionHandler: STFKMapSnapshotHandler) {
+        self.coordinate = aCoordinate
         self.handler = aCompletionHandler
         super.init()
     }
@@ -102,7 +104,7 @@ public class STFKMapSnapshot: NSObject {
             
             let annotationView = MKPinAnnotationView(annotation: nil, reuseIdentifier: nil)
             
-            var point = snapshot?.pointForCoordinate(self.location.coordinate) ?? CGPoint.zero
+            var point = snapshot?.pointForCoordinate(self.coordinate) ?? CGPoint.zero
             point.y -= annotationView.frame.size.height
             point.x -= annotationView.frame.size.width * STFKSnapshotPointMultiplier // used to centre the pin
             
@@ -126,7 +128,7 @@ public class STFKMapSnapshot: NSObject {
     
     private func mapOptions() -> MKMapSnapshotOptions {
         let mapOptions = MKMapSnapshotOptions()
-        let camera = MKMapCamera(lookingAtCenterCoordinate: self.location.coordinate,
+        let camera = MKMapCamera(lookingAtCenterCoordinate: self.coordinate,
                                  fromDistance: self.distance,
                                  pitch: self.pitch,
                                  heading: self.heading)
@@ -134,6 +136,10 @@ public class STFKMapSnapshot: NSObject {
         mapOptions.mapType = self.mapType
         mapOptions.scale = UIScreen.mainScreen().scale
         mapOptions.showsPointsOfInterest = self.showPointsOfInterest
+        
+        if let aSize = self.size {
+            mapOptions.size = aSize
+        }
         
         return mapOptions
     }
