@@ -206,11 +206,23 @@ class STConfirmationPageViewController: UIViewController, UITableViewDataSource,
         
         if self.confirm()
         {
-            let alertConfimationMessage = UIAlertController(title: "Confirmation", message: "Thank You! Your request has been sent", preferredStyle: .Alert)
-            let sentImage = UIImage(named: "sent")
-            let sentAction = UIAlertAction(title: "Ok", style: .Default, handler: nil)
-            sentAction.setValue(sentImage, forKey: "image")
-            alertConfimationMessage.addAction(sentAction)
+            
+
+            let alertConfimationMessage = UIAlertController(title: "Confirmation\n\n\n\n", message: "Thank You! Your request has been sent.", preferredStyle: .Alert)
+            
+            
+            let sentImage = UIImage(named: "sent")!.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal)
+            let imageWidth = sentImage.size.width * 0.6
+            let imageHeight = sentImage.size.height * 0.6
+            let marginLeft:CGFloat = (alertConfimationMessage.view.bounds.size.width * 0.5) - (imageWidth * 0.72)
+            let marginTop:CGFloat = 42.0
+            let rect = CGRectMake(marginLeft, marginTop, imageWidth, imageHeight)
+            let imageView = UIImageView(frame: rect)
+            imageView.image = sentImage
+            
+            alertConfimationMessage.view.addSubview(imageView)
+            let okAction = UIAlertAction(title: "Ok", style: .Default, handler: nil)
+            alertConfimationMessage.addAction(okAction)
             self.presentViewController(alertConfimationMessage, animated: true, completion: nil)
         }
     }
@@ -221,7 +233,6 @@ class STConfirmationPageViewController: UIViewController, UITableViewDataSource,
  
     func confirm() -> Bool
     {
-        print(treeDescription?.name )
         
         guard let treeName = treeDescription?.name else
         {
