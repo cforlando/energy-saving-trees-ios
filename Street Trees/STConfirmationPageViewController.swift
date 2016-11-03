@@ -219,7 +219,6 @@ class STConfirmationPageViewController: UIViewController, UITableViewDataSource,
             let rect = CGRectMake(marginLeft, marginTop, imageWidth, imageHeight)
             let imageView = UIImageView(frame: rect)
             imageView.image = sentImage
-            
             alertConfimationMessage.view.addSubview(imageView)
             let okAction = UIAlertAction(title: "Ok", style: .Default, handler: nil)
             alertConfimationMessage.addAction(okAction)
