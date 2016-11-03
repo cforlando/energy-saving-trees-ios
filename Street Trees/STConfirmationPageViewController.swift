@@ -133,8 +133,10 @@ class STConfirmationPageViewController: UIViewController, UITableViewDataSource,
             aImage = treeDescription?.image() ?? UIImage(named: "blankMap")
             textLabel = treeDescription?.name ?? "Error retrieving tree name"
             
-            cell.textLabel?.font = UIFont.systemFontOfSize(24)
             cell.imageView?.image = aImage
+            cell.textLabel?.adjustsFontSizeToFitWidth = true
+            cell.textLabel?.font = UIFont.systemFontOfSize(24)
+            cell.textLabel?.numberOfLines = 3
             
         case .Address:
             let anAddress = address?.streetAddress ?? "No address specified"
@@ -219,7 +221,9 @@ class STConfirmationPageViewController: UIViewController, UITableViewDataSource,
  
     func confirm() -> Bool
     {
-        guard let treeName = treeDescription?.name where treeName.isEmpty else
+        print(treeDescription?.name )
+        
+        guard let treeName = treeDescription?.name else
         {
             self.showAlert(STTreeErrorTitle, message: STTreeErrorNameMessage)
             return false
