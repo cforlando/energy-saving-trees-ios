@@ -145,9 +145,10 @@ class STConfirmationPageViewController: UIViewController, UITableViewDataSource,
             
         case .CityStateZip:
             let aCity = address?.city ?? "No city specified"
+            print(aCity)
             let aState = address?.state ?? "No state specified"
-            let aZip = address?.state ?? "No zip specified"
-            textLabel = "\(aCity), \(aState) \(String(aZip))"
+            let aZip = "\(address?.zipCode ?? 0)"
+            textLabel = "\(aCity), \(aState) \(aZip)"
             
         case .UserName:
             textLabel = contact?.name ?? "Error retrieving name"
