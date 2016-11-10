@@ -211,10 +211,11 @@ class STConfirmationPageViewController: UIViewController, UITableViewDataSource,
 
             let alertConfimationMessage = UIAlertController(title: "Confirmation\n\n\n\n", message: "Thank You! Your request has been sent.", preferredStyle: .Alert)
             
-            
-            let sentImage = UIImage(named: "sent")!.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal)
-            let imageWidth = sentImage.size.width * 0.6
-            let imageHeight = sentImage.size.height * 0.6
+            let aImage = UIImage(named: "sent")?.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal) ?? UIImage(named: "blankMap")
+
+            let sentImage = aImage
+            let imageWidth = (sentImage?.size.width ?? 0.0 ) * 0.6
+            let imageHeight = (sentImage?.size.height ?? 0.0) * 0.6
             let marginLeft:CGFloat = (alertConfimationMessage.view.bounds.size.width * 0.5) - (imageWidth * 0.72)
             let marginTop:CGFloat = 42.0
             let rect = CGRectMake(marginLeft, marginTop, imageWidth, imageHeight)
