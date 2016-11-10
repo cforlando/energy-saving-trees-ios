@@ -55,6 +55,8 @@
 		D45F07D91D02614A0025F8F0 /* StreetTreesFoundationKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45F07D81D02614A0025F8F0 /* StreetTreesFoundationKitTests.swift */; };
 		D45F07DD1D02614A0025F8F0 /* StreetTreesFoundationKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D45F07C81D02614A0025F8F0 /* StreetTreesFoundationKit.framework */; };
 		D45F07DE1D02614A0025F8F0 /* StreetTreesFoundationKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D45F07C81D02614A0025F8F0 /* StreetTreesFoundationKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D4668A5E1DC6A50F00511C13 /* STFKTiledImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4668A5D1DC6A50F00511C13 /* STFKTiledImageView.swift */; };
+		D4668A5F1DC6A60000511C13 /* StreetTreesTransportKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D45F077B1D0260B00025F8F0 /* StreetTreesTransportKit.framework */; };
 		D46D99581D2005ED0038617B /* TreeDetails.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D46D99571D2005ED0038617B /* TreeDetails.storyboard */; };
 		D46D995B1D20068F0038617B /* StoryboardSegueIdentifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46D995A1D20068F0038617B /* StoryboardSegueIdentifiers.swift */; };
 		D46D995D1D20251A0038617B /* STTreeDetailsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46D995C1D20251A0038617B /* STTreeDetailsTableViewController.swift */; };
@@ -251,6 +253,7 @@
 		D45F07D11D02614A0025F8F0 /* StreetTreesFoundationKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StreetTreesFoundationKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D45F07D81D02614A0025F8F0 /* StreetTreesFoundationKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreetTreesFoundationKitTests.swift; sourceTree = "<group>"; };
 		D45F07DA1D02614A0025F8F0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D4668A5D1DC6A50F00511C13 /* STFKTiledImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STFKTiledImageView.swift; sourceTree = "<group>"; };
 		D46D99571D2005ED0038617B /* TreeDetails.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = TreeDetails.storyboard; sourceTree = "<group>"; };
 		D46D995A1D20068F0038617B /* StoryboardSegueIdentifiers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryboardSegueIdentifiers.swift; sourceTree = "<group>"; };
 		D46D995C1D20251A0038617B /* STTreeDetailsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STTreeDetailsTableViewController.swift; sourceTree = "<group>"; };
@@ -331,6 +334,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D4668A5F1DC6A60000511C13 /* StreetTreesTransportKit.framework in Frameworks */,
 				D4F0302A1D46E3AB00E936DD /* StreetTreesFoundationKit.framework in Frameworks */,
 				D4F030291D46E3A400E936DD /* BNRCoreDataStack.framework in Frameworks */,
 				D4B543661D0326690000CBFF /* CoreData.framework in Frameworks */,
@@ -559,6 +563,7 @@
 				D45F07CC1D02614A0025F8F0 /* Info.plist */,
 				5DDC17981D0356F100AA272B /* STFKStreetTreeDateFormatter.swift */,
 				D4EE1FE11D2BF7FE007E6C01 /* UIColorExtension.swift */,
+				D4668A5D1DC6A50F00511C13 /* STFKTiledImageView.swift */,
 				D4EE1FDF1D2BF79A007E6C01 /* UIViewControllerExtension.swift */,
 				D45EB7761DB465BA006F23F2 /* TextFieldAdjustmentProtocol.swift */,
 				D49B11651D3BD50200449612 /* STFKDictionaryExtension.swift */,
@@ -1241,6 +1246,7 @@
 				D47C01FD1D985FC700104ED6 /* STFKMapSnapshot.swift in Sources */,
 				D45EB7771DB465BA006F23F2 /* TextFieldAdjustmentProtocol.swift in Sources */,
 				5DDC17991D0356F100AA272B /* STFKStreetTreeDateFormatter.swift in Sources */,
+				D4668A5E1DC6A50F00511C13 /* STFKTiledImageView.swift in Sources */,
 				D443A52F1D984C11008F60DE /* STFKLocationRequest.swift in Sources */,
 				D4EE1FE01D2BF79A007E6C01 /* UIViewControllerExtension.swift in Sources */,
 				D4EE1FE21D2BF7FE007E6C01 /* UIColorExtension.swift in Sources */,
