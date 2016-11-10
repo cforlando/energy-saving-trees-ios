@@ -221,7 +221,7 @@ class STAddressFormViewController: STBaseOrderFormViewController, UITextFieldDel
     
     func createSnapshot(fromLocation aLocation: CLLocation) {
         
-        let snapshot = STFKMapSnapshot(coordinate: aLocation) { [weak self] (image: UIImage?, error: NSError?) in
+        let snapshot = STFKMapSnapshot(coordinate: aLocation.coordinate) { [weak self] (image: UIImage?, error: NSError?) in
             guard let mapImage = image, let strongSelf = self else {
                 return
             }
