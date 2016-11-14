@@ -209,20 +209,14 @@ class STConfirmationPageViewController: UIViewController, UITableViewDataSource,
         {
             
 
-            let alertConfimationMessage = UIAlertController(title: "Confirmation\n\n\n\n", message: "Thank You! Your request has been sent.", preferredStyle: .Alert)
-            
-            let aImage = UIImage(named: "sent")?.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal) ?? UIImage(named: "blankMap")
+            let alertConfimationMessage = UIAlertController(title: "Confirmation", message: "Thank You! Your request has been sent.", preferredStyle: .Alert)
+            let okAction = UIAlertAction(title: "Ok", style: .Default)
+            {
+                UIAlertAction in
 
-            let sentImage = aImage
-            let imageWidth = (sentImage?.size.width ?? 0.0 ) * 0.6
-            let imageHeight = (sentImage?.size.height ?? 0.0) * 0.6
-            let marginLeft:CGFloat = (alertConfimationMessage.view.bounds.size.width * 0.5) - (imageWidth * 0.72)
-            let marginTop:CGFloat = 42.0
-            let rect = CGRectMake(marginLeft, marginTop, imageWidth, imageHeight)
-            let imageView = UIImageView(frame: rect)
-            imageView.image = sentImage
-            alertConfimationMessage.view.addSubview(imageView)
-            let okAction = UIAlertAction(title: "Ok", style: .Default, handler: nil)
+                self.navigationController?.popToRootViewControllerAnimated(true)
+                //navigationController?.pushViewController(storyboard?.instantiateViewControllerWithIdentifier("STTreeMapViewController"), animated: true)
+            }
             alertConfimationMessage.addAction(okAction)
             self.presentViewController(alertConfimationMessage, animated: true, completion: nil)
         }
