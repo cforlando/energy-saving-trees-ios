@@ -59,6 +59,7 @@ protocol STContactDetailsFormViewControllerDelegate: NSObjectProtocol {
     func contactDetailsFormViewController(form: STContactDetailsFormViewController, didCompleteWithContact aContact: STTKContact)
 }
 
+
 //**********************************************************************************************************************
 // MARK: - Class Implementation
 
@@ -167,4 +168,6 @@ class STContactDetailsFormViewController: STBaseOrderFormViewController, Address
     func validate(string aString: String, validation: STValidation) -> Bool {
         return NSPredicate(format: "SELF MATCHES %@", validation.regex()).evaluateWithObject(aString)
     }
+  
+
 }
