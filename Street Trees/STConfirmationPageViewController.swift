@@ -214,8 +214,9 @@ class STConfirmationPageViewController: UIViewController, UITableViewDataSource,
             {
                 UIAlertAction in
 
-                self.navigationController?.popToRootViewControllerAnimated(true)
-                //navigationController?.pushViewController(storyboard?.instantiateViewControllerWithIdentifier("STTreeMapViewController"), animated: true)
+                let mainStoryBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                let rootVC = mainStoryBoard.instantiateInitialViewController()
+                UIApplication.sharedApplication().keyWindow?.rootViewController = rootVC
             }
             alertConfimationMessage.addAction(okAction)
             self.presentViewController(alertConfimationMessage, animated: true, completion: nil)
