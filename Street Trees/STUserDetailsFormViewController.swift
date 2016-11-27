@@ -63,10 +63,7 @@ protocol STContactDetailsFormViewControllerDelegate: NSObjectProtocol {
 //**********************************************************************************************************************
 // MARK: - Class Implementation
 
-class STContactDetailsFormViewController: STBaseOrderFormViewController, Address, Contact {
-    
-    var address: STTKStreetAddress?
-    var contact: STTKContact?
+class STContactDetailsFormViewController: STBaseOrderFormViewController {
     
     weak var delegate: STContactDetailsFormViewControllerDelegate?
     
@@ -89,14 +86,6 @@ class STContactDetailsFormViewController: STBaseOrderFormViewController, Address
         }
         
         return super.shouldPerformSegueWithIdentifier(identifier, sender: sender)
-    }
-    
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        self.nameTextField.text = self.contact?.name
-        self.phoneNumberTextField.text = self.contact?.phoneNumber
-        self.emailTextField.text = self.contact?.email
     }
 
     //******************************************************************************************************************

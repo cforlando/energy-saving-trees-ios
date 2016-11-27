@@ -28,27 +28,38 @@
 import StreetTreesPersistentKit
 import UIKit
 
+//**********************************************************************************************************************
+// MARK: - Constants
+
 private let STBorderCornerRadius: CGFloat = 4.0
+private let STDecimalPlaces: Double = 0.01
 private let STSelectedBorderWidth: CGFloat = 3.0
 private let STUnselectedBorderWidth: CGFloat = 0.0
-private let STDecimalPlaces: Double = 0.01
 
-func average(numbers:Double...) -> Double {
+//**********************************************************************************************************************
+// MARK: - Global Functions
+
+private func average(numbers:Double...) -> Double {
     let initialValue: Double = 0
     let total = numbers.reduce(initialValue, combine:{ $0 + $1 })
     return total / Double(numbers.count)
 }
 
-func round(number:Double, toNearest nearest: Double) -> Double {
+private func round(number:Double, toNearest nearest: Double) -> Double {
     return round(number / nearest) * nearest
 }
 
+//**********************************************************************************************************************
+// MARK: - Protocols
 
 protocol STSelectTreeViewControllerDelegate: NSObjectProtocol {
     func selectTreeViewController(selectTreeViewController: STSelectTreeViewController, didSelectTreeDescription aTreeDescription: STPKTreeDescription)
 }
 
-class STSelectTreeViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, TreeDescription {
+//**********************************************************************************************************************
+// MARK: - Class Implementation
+
+class STSelectTreeViewController: STBaseOrderFormViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var height: UILabel!
@@ -56,13 +67,12 @@ class STSelectTreeViewController: UIViewController, UICollectionViewDelegate, UI
     @IBOutlet weak var shape: UILabel!
     @IBOutlet weak var width: UILabel!
     
+    
     lazy var datasource: [STPKTreeDescription] = {
         return STPKTreeDescription.rightOfWayTrees().sort {$0.name < $1.name}
     }()
     
     weak var delegate: STSelectTreeViewControllerDelegate?
-    
-    var treeDescription: STPKTreeDescription?
     
     //******************************************************************************************************************
     // MARK: - Class Overrides
@@ -104,26 +114,12 @@ class STSelectTreeViewController: UIViewController, UICollectionViewDelegate, UI
     //******************************************************************************************************************
     // MARK: - Actions
     
-    @IBAction func nextButton(sender: UIButton) {
-        
-        guard let treeDescription = self.treeDescription else {
-            self.showAlert("No Tree Selected", message: "Please tap on a tree before moving on.")
-            return
-        }
-        
-        self.delegate?.selectTreeViewController(self, didSelectTreeDescription: treeDescription)
+    @IBAction func closeForm(sender: UIButton) {
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
     
     //******************************************************************************************************************
     // MARK: - CollectionView Datasource
-    
-    func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-        return 1
-    }
-    
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.datasource.count
-    }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCellWithReuseIdentifier("treeCell", forIndexPath: indexPath) as? STTreeCollectionViewCell {
@@ -139,6 +135,10 @@ class STSelectTreeViewController: UIViewController, UICollectionViewDelegate, UI
         return UICollectionViewCell()
     }
     
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return self.datasource.count
+    }
+    
     func collectionView(collectionView: UICollectionView, willDisplayCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath) {
         
         if self.treeDescription == self.datasource[indexPath.row] {
@@ -146,6 +146,10 @@ class STSelectTreeViewController: UIViewController, UICollectionViewDelegate, UI
         } else {
             cell.layer.borderWidth = STUnselectedBorderWidth
         }
+    }
+    
+    func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+        return 1
     }
     
     //******************************************************************************************************************
@@ -281,10 +285,14 @@ class STSelectTreeViewController: UIViewController, UICollectionViewDelegate, UI
     }
     
     func updateLabels(withTreeDescription treeDescription: STPKTreeDescription) {
+        
         self.height.text = self.localizedHeight(withTreeDescription: treeDescription)
         self.width.text = self.localizedWidth(withTreeDescription: treeDescription)
         self.leaf.text = treeDescription.leaf
         self.shape.text = treeDescription.shape
-        self.view.setNeedsLayout()
+        UIView.animateWithDuration(0.5, delay: 0.0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.1, options: UIViewAnimationOptions.CurveEaseInOut, animations: {
+            self.view.layoutIfNeeded()
+            }, completion: nil)
     }
 }
+

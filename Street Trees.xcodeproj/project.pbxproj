@@ -24,6 +24,7 @@
 		D420E3891D174C60007E23C8 /* STPKCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B543711D03445B0000CBFF /* STPKCoreData.swift */; };
 		D420E38B1D176C30007E23C8 /* Trees.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D420E38A1D176C30007E23C8 /* Trees.xcassets */; };
 		D443A52F1D984C11008F60DE /* STFKLocationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D443A52E1D984C11008F60DE /* STFKLocationRequest.swift */; };
+		D45221681DEB4F9300617434 /* UIImageViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45221671DEB4F9300617434 /* UIImageViewExtension.swift */; };
 		D453A5421D983D0E008BE29F /* STAddressFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D453A5411D983D0E008BE29F /* STAddressFormViewController.swift */; };
 		D45B02CC1DA174EE007D1A02 /* STSelectTreeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45B02CB1DA174EE007D1A02 /* STSelectTreeViewController.swift */; };
 		D45B02CE1DA17B82007D1A02 /* STTreeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45B02CD1DA17B82007D1A02 /* STTreeCollectionViewCell.swift */; };
@@ -211,6 +212,7 @@
 		D420E3871D1738BE007E23C8 /* STTKTreeDescription.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STTKTreeDescription.swift; sourceTree = "<group>"; };
 		D420E38A1D176C30007E23C8 /* Trees.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Trees.xcassets; sourceTree = "<group>"; };
 		D443A52E1D984C11008F60DE /* STFKLocationRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STFKLocationRequest.swift; sourceTree = "<group>"; };
+		D45221671DEB4F9300617434 /* UIImageViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageViewExtension.swift; sourceTree = "<group>"; };
 		D453A5411D983D0E008BE29F /* STAddressFormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STAddressFormViewController.swift; sourceTree = "<group>"; };
 		D45B02CB1DA174EE007D1A02 /* STSelectTreeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STSelectTreeViewController.swift; sourceTree = "<group>"; };
 		D45B02CD1DA17B82007D1A02 /* STTreeCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STTreeCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -565,6 +567,7 @@
 				D4EE1FE11D2BF7FE007E6C01 /* UIColorExtension.swift */,
 				D4668A5D1DC6A50F00511C13 /* STFKTiledImageView.swift */,
 				D4EE1FDF1D2BF79A007E6C01 /* UIViewControllerExtension.swift */,
+				D45221671DEB4F9300617434 /* UIImageViewExtension.swift */,
 				D45EB7761DB465BA006F23F2 /* TextFieldAdjustmentProtocol.swift */,
 				D49B11651D3BD50200449612 /* STFKDictionaryExtension.swift */,
 				D443A52E1D984C11008F60DE /* STFKLocationRequest.swift */,
@@ -1248,6 +1251,7 @@
 				5DDC17991D0356F100AA272B /* STFKStreetTreeDateFormatter.swift in Sources */,
 				D4668A5E1DC6A50F00511C13 /* STFKTiledImageView.swift in Sources */,
 				D443A52F1D984C11008F60DE /* STFKLocationRequest.swift in Sources */,
+				D45221681DEB4F9300617434 /* UIImageViewExtension.swift in Sources */,
 				D4EE1FE01D2BF79A007E6C01 /* UIViewControllerExtension.swift in Sources */,
 				D4EE1FE21D2BF7FE007E6C01 /* UIColorExtension.swift in Sources */,
 				D49B11661D3BD50200449612 /* STFKDictionaryExtension.swift in Sources */,
@@ -1442,7 +1446,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.CodeForOrlando.Street-Trees";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SWIFT_VERSION = 2.3;
 			};
 			name = Debug;
 		};
@@ -1459,7 +1462,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.CodeForOrlando.Street-Trees";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SWIFT_VERSION = 2.3;
 			};
 			name = Release;
 		};

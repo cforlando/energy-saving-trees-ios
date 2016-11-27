@@ -93,6 +93,12 @@ class STTreeMapViewController: UIViewController, MKMapViewDelegate, CLLocationMa
     }
     
     var selectedAnnotation: STTreeAnnotation?
+    var backgroundQueue = NSOperationQueue() {
+        didSet {
+            self.backgroundQueue.qualityOfService = .Background
+            self.backgroundQueue.name = "Geo Poly Mapping"
+        }
+    }
     
     //******************************************************************************************************************
     // MARK: - Class Overrides
@@ -110,12 +116,7 @@ class STTreeMapViewController: UIViewController, MKMapViewDelegate, CLLocationMa
         super.viewDidLoad()
         self.mapView.delegate = self
         self.loadPinsToMap()
-        STTKDownloadManager.fetch(cityGeoPoints: { (response: [AnyObject]) in
-            if let polygons = response as? [MKPolygon] {
-                self.mapView.addOverlays(polygons)
-            }
-            UIApplication.sharedApplication().networkActivityIndicatorVisible = false
-        })
+       
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -233,6 +234,20 @@ class STTreeMapViewController: UIViewController, MKMapViewDelegate, CLLocationMa
         return annotationView
     }
     
+    func mapViewDidFinishLoadingMap(mapView: MKMapView) {
+        if mapView.overlays.count != 0 {
+            return
+        }
+        
+        self.backgroundQueue.addOperationWithBlock { [weak self] in
+            STTKDownloadManager.fetch(cityGeoPoints: { (response: [AnyObject]) in
+                if let polygons = response as? [MKPolygon] {
+                    self?.mapView.addOverlays(polygons)
+                }
+                UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+            })
+        }
+    }
     
     //******************************************************************************************************************
     // MARK: - CLLocationManager Delegates

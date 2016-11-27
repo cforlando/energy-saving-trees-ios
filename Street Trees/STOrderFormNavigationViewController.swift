@@ -29,27 +29,53 @@ import StreetTreesPersistentKit
 import StreetTreesTransportKit
 import UIKit
 
+//**********************************************************************************************************************
+// MARK: - Constants
+
+private let STConstraintMultiplier: CGFloat = 1.0
+private let STConstraintDefaultConstant: CGFloat = 0.0
+private let STConstraintTopConstant: CGFloat = -0.5
+private let STProgressSelectTree: Float = 0.2
+private let STProgressAddAddress: Float = 0.4
+private let STProgressAddContact: Float = 0.6
+private let STProgressConfirm: Float = 0.8
+
+//**********************************************************************************************************************
+// MARK: - Class Implementation
+
 class STOrderFormNavigationViewController: UINavigationController, UINavigationControllerDelegate,
 TreeDescription, Address, Contact, STContactDetailsFormViewControllerDelegate, STSelectTreeViewControllerDelegate,
-STAddressFormViewControllerDelegate,STConfirmationPageViewControllerDelegate {
-
-    var treeDescription: STPKTreeDescription?
+STAddressFormViewControllerDelegate {
+    
     var address: STTKStreetAddress?
     var contact: STTKContact?
-    
+    var treeDescription: STPKTreeDescription?
     var wufooForm: STTKWufooForm?
+    
+    lazy var progressBar: UIProgressView = {
+        let progress = UIProgressView(progressViewStyle: .Bar)
+        progress.tintColor = UIColor.orlandoGreenColor()
+        progress.translatesAutoresizingMaskIntoConstraints = false
+        progress.setProgress(STProgressSelectTree, animated: false)
+        self.view.addSubview(progress)
+        
+        return progress
+    }()
+    
+    //******************************************************************************************************************
+    // MARK: - Class Overrides
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.delegate = self
-    
-        // Do any additional setup after loading the view.
+        self.addConstraintsToProgressBar()
     }
     
     //******************************************************************************************************************
     // MARK: - NavigationController Delegate
     
     func navigationController(navigationController: UINavigationController, willShowViewController viewController: UIViewController, animated: Bool) {
+        
         var treeController = viewController as? TreeDescription
         treeController?.treeDescription = self.treeDescription
         
@@ -61,19 +87,26 @@ STAddressFormViewControllerDelegate,STConfirmationPageViewControllerDelegate {
         
         if let userController = viewController as? STContactDetailsFormViewController {
             userController.delegate = self
+            userController.emailTextField.text = self.contact?.email
+            userController.nameTextField.text = self.contact?.name
+            userController.phoneNumberTextField.text = self.contact?.phoneNumber
         }
         
         if let addressViewController = viewController as? STAddressFormViewController {
             addressViewController.delegate = self
+            addressViewController.streetAddressTextField.text = self.address?.streetAddress
+            addressViewController.streetAddressTwoTextField.text = self.address?.secondaryAddress
+            addressViewController.zipCodeTextField.text = self.address?.zipCode.description
         }
         
         if let treeViewController = viewController as? STSelectTreeViewController {
             treeViewController.delegate = self
         }
         
-        if let confirmationViewController = viewController as? STConfirmationPageViewController {
-            confirmationViewController.delegate = self
-        }
+    }
+    
+    func navigationController(navigationController: UINavigationController, didShowViewController viewController: UIViewController, animated: Bool) {
+        self.updateProgress(viewController)
     }
     
     //******************************************************************************************************************
@@ -98,9 +131,38 @@ STAddressFormViewControllerDelegate,STConfirmationPageViewControllerDelegate {
     }
     
     //******************************************************************************************************************
-    // MARK: - STConfirmationPageViewController Delegate
+    // MARK: - Private functions
     
-    func confirmationFormViewController(form: STConfirmationPageViewController, didCompleteWithWufooForm anWufooForm: STTKWufooForm) {
-        self.wufooForm = anWufooForm
+    func addConstraintsToProgressBar() {
+        let navBar = self.navigationBar
+        
+        var constraint: NSLayoutConstraint
+        
+        constraint = NSLayoutConstraint(item: self.progressBar, attribute: .Bottom, relatedBy: .Equal, toItem: navBar, attribute: .Bottom, multiplier: STConstraintMultiplier, constant: STConstraintTopConstant)
+        self.view.addConstraint(constraint)
+        
+        constraint = NSLayoutConstraint(item: self.progressBar, attribute: .Left, relatedBy: .Equal, toItem: navBar, attribute: .Left, multiplier: STConstraintMultiplier, constant: STConstraintDefaultConstant)
+        self.view.addConstraint(constraint)
+        
+        constraint = NSLayoutConstraint(item: self.progressBar, attribute: .Right, relatedBy: .Equal, toItem: navBar, attribute: .Right, multiplier: STConstraintMultiplier, constant: STConstraintDefaultConstant)
+        self.view.addConstraint(constraint)
+    }
+    
+    func updateProgress(newViewController: UIViewController) {
+        let progress: Float
+        
+        if newViewController is STSelectTreeViewController {
+            progress = STProgressSelectTree
+        } else if newViewController is STAddressFormViewController {
+            progress = STProgressAddAddress
+        } else if newViewController is STContactDetailsFormViewController {
+            progress = STProgressAddContact
+        } else if newViewController is STConfirmationPageViewController {
+            progress = STProgressConfirm
+        } else {
+            progress = self.progressBar.progress
+        }
+        
+        self.progressBar.setProgress(progress, animated: self.isViewLoaded())
     }
 }
