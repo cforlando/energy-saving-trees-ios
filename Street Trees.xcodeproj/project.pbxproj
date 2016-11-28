@@ -25,6 +25,8 @@
 		D420E38B1D176C30007E23C8 /* Trees.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D420E38A1D176C30007E23C8 /* Trees.xcassets */; };
 		D443A52F1D984C11008F60DE /* STFKLocationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D443A52E1D984C11008F60DE /* STFKLocationRequest.swift */; };
 		D45221681DEB4F9300617434 /* UIImageViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45221671DEB4F9300617434 /* UIImageViewExtension.swift */; };
+		D452216B1DEB891A00617434 /* PeaceEmitter.sks in Resources */ = {isa = PBXBuildFile; fileRef = D45221691DEB891A00617434 /* PeaceEmitter.sks */; };
+		D452216F1DEB8F5C00617434 /* STPeaceEmitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D452216D1DEB8D3F00617434 /* STPeaceEmitter.swift */; };
 		D453A5421D983D0E008BE29F /* STAddressFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D453A5411D983D0E008BE29F /* STAddressFormViewController.swift */; };
 		D45B02CC1DA174EE007D1A02 /* STSelectTreeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45B02CB1DA174EE007D1A02 /* STSelectTreeViewController.swift */; };
 		D45B02CE1DA17B82007D1A02 /* STTreeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45B02CD1DA17B82007D1A02 /* STTreeCollectionViewCell.swift */; };
@@ -213,6 +215,8 @@
 		D420E38A1D176C30007E23C8 /* Trees.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Trees.xcassets; sourceTree = "<group>"; };
 		D443A52E1D984C11008F60DE /* STFKLocationRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STFKLocationRequest.swift; sourceTree = "<group>"; };
 		D45221671DEB4F9300617434 /* UIImageViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageViewExtension.swift; sourceTree = "<group>"; };
+		D45221691DEB891A00617434 /* PeaceEmitter.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = PeaceEmitter.sks; sourceTree = "<group>"; };
+		D452216D1DEB8D3F00617434 /* STPeaceEmitter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STPeaceEmitter.swift; path = ../StreetTreesFoundationKit/STPeaceEmitter.swift; sourceTree = "<group>"; };
 		D453A5411D983D0E008BE29F /* STAddressFormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STAddressFormViewController.swift; sourceTree = "<group>"; };
 		D45B02CB1DA174EE007D1A02 /* STSelectTreeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STSelectTreeViewController.swift; sourceTree = "<group>"; };
 		D45B02CD1DA17B82007D1A02 /* STTreeCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STTreeCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -462,6 +466,8 @@
 				D46D995C1D20251A0038617B /* STTreeDetailsTableViewController.swift */,
 				D4AADE4D1D2C886D00481FD0 /* STInitialViewController.swift */,
 				D46D995A1D20068F0038617B /* StoryboardSegueIdentifiers.swift */,
+				D452216D1DEB8D3F00617434 /* STPeaceEmitter.swift */,
+				D45221691DEB891A00617434 /* PeaceEmitter.sks */,
 				D453A5401D983CEE008BE29F /* Form */,
 				D46D99591D2005F20038617B /* Storyboards */,
 				D45F074C1D0258320025F8F0 /* Assets.xcassets */,
@@ -902,6 +908,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D452216B1DEB891A00617434 /* PeaceEmitter.sks in Resources */,
 				D45F07501D0258320025F8F0 /* LaunchScreen.storyboard in Resources */,
 				D4AADE4C1D2C880C00481FD0 /* InitializerStoryboard.storyboard in Resources */,
 				EB303E771DC92BE500A86D0F /* OrderForm.storyboard in Resources */,
@@ -1173,6 +1180,7 @@
 				D45EB7791DB4786F006F23F2 /* STBaseOrderFormViewController.swift in Sources */,
 				D45EB76D1DB285F9006F23F2 /* STOrderFormNavigationViewController.swift in Sources */,
 				D45B02D01DA1931C007D1A02 /* STCenterCellFlowLayout.swift in Sources */,
+				D452216F1DEB8F5C00617434 /* STPeaceEmitter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

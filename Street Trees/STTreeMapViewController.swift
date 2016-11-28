@@ -29,16 +29,22 @@ import CoreData
 import CoreLocation
 import FBAnnotationClusteringSwift
 import MapKit
+import SpriteKit
 import StreetTreesPersistentKit
 import StreetTreesTransportKit
 import UIKit
 
 private let STAnimationDuration: NSTimeInterval = 0.3
+private let STArborDay = 20
+private let STArborDayXOffset:CGFloat = 60.0
+private let STArborDayYOffset:CGFloat = 140.0
+private let STArborMonth = 4
 private let STCityLimitsFillAlpha: CGFloat = 0.2
 private let STCityLimitsLineWidth: CGFloat = 3.0
 private let STClusterLargeImageName = "clusterLarge"
 private let STClusterMediumImageName = "clusterMedium"
 private let STClusterSmallImageName = "clusterSmall"
+private let STLoadingMessage = "Loading..."
 private let STMapPinReuseIdentifier = "com.streettrees.mapview.pin"
 private let STMaximumAnnotationViewAlpha: CGFloat = 1.0
 private let STMaximumTransformScale: CGFloat = 1.0
@@ -46,16 +52,18 @@ private let STMinimumAnnotationViewAlpha: CGFloat = 0.0
 private let STMinimumTransformScale: CGFloat = 0.0
 private let STRegionRadius: CLLocationDistance = 1000
 private let STRegionRadiusDistance = STRegionRadius * 2.0
+private let STSceneSize = CGSize(width: 120, height: 120)
 private let STViewControllerTitle = "Street Trees"
-private let STLoadingMessage = "Loading..."
 
-class STTreeMapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, NSFetchedResultsControllerDelegate {
+class STTreeMapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, NSFetchedResultsControllerDelegate, UIGestureRecognizerDelegate {
 
     @IBOutlet weak var mapView: MKMapView!
     
     let clusteringManager = FBClusteringManager()
     let locationManager = CLLocationManager()
     var foundUser = false
+    let spriteView = SKView(frame: CGRect(origin: .zero, size: STSceneSize))
+    var treeEmitter = STPeaceEmitter()
     
     lazy var fetchedResultsController: NSFetchedResultsController = {
         let fetchRequest = NSFetchRequest(entityName: STPKTree.entityName())
@@ -73,23 +81,9 @@ class STTreeMapViewController: UIViewController, MKMapViewDelegate, CLLocationMa
         return controller
     }()
     
-    var isInOrlando: Bool {
-        if self.foundUser {
-            let userCoordinate = self.mapView.userLocation.coordinate
-            let userMapPoint = MKMapPointForCoordinate(userCoordinate)
-            var isInside = false
-            for overlay in self.mapView.overlays {
-                if let renderer = self.mapView.rendererForOverlay(overlay) as? MKPolygonRenderer {
-                    let polygonPoint = renderer.pointForMapPoint(userMapPoint)
-                    isInside = CGPathContainsPoint(renderer.path, nil, polygonPoint, false)
-                    if isInside {
-                        return isInside
-                    }
-                }
-            }
-        }
-        
-        return false
+    var isArborDay: Bool {
+        let dateComponents = NSCalendar.autoupdatingCurrentCalendar().components([.Month, .Day], fromDate: NSDate())
+        return dateComponents.month == STArborMonth && dateComponents.day == STArborDay
     }
     
     var selectedAnnotation: STTreeAnnotation?
@@ -116,7 +110,8 @@ class STTreeMapViewController: UIViewController, MKMapViewDelegate, CLLocationMa
         super.viewDidLoad()
         self.mapView.delegate = self
         self.loadPinsToMap()
-       
+        self.spriteView.allowsTransparency = true
+        self.spriteView.presentScene(self.treeEmitter)
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -256,6 +251,31 @@ class STTreeMapViewController: UIViewController, MKMapViewDelegate, CLLocationMa
         if status == .AuthorizedAlways {
             self.mapView.showsUserLocation = true
         }
+    }
+    
+    //******************************************************************************************************************
+    // MARK: - Gesture Recogniser Delegates
+    
+    @IBAction func longPressAction(gesture: UILongPressGestureRecognizer) {
+        
+        var locationInView = gesture.locationInView(self.view)
+        locationInView.x -= STArborDayXOffset
+        locationInView.y -= STArborDayYOffset
+        
+        self.spriteView.frame.origin = locationInView
+        
+        switch gesture.state {
+        case .Began:
+            self.view.addSubview(self.spriteView)
+        case .Changed:
+            self.treeEmitter.beginAnimation()
+        case .Ended:
+            self.treeEmitter.endAnimation()
+            self.spriteView.removeFromSuperview()
+        default:
+            ()
+        }
+
     }
     
     //******************************************************************************************************************
