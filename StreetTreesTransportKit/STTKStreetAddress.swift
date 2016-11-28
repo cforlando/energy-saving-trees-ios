@@ -47,6 +47,16 @@ public struct STTKStreetAddress {
         self.zipCode = zipCode
         self.country = country
     }
+
+    public func localizedAddress() -> String {
+        var address = self.streetAddress
+        if !secondaryAddress.isEmpty {
+            address += "\n\(self.secondaryAddress)"
+        }
+        address += "\n\(self.city), \(self.state)"
+        address += "\n\(self.country) \(self.zipCode)"
+        return address
+    }
     
     //******************************************************************************************************************
     // MARK: - Internal Functions

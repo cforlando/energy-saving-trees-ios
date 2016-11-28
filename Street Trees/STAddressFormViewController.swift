@@ -76,7 +76,7 @@ protocol STAddressFormViewControllerDelegate: NSObjectProtocol {
 //**********************************************************************************************************************
 // MARK: - Class Impletementation
 
-class STAddressFormViewController: STBaseOrderFormViewController, UITextFieldDelegate, Address {
+class STAddressFormViewController: STBaseOrderFormViewController, UITextFieldDelegate {
     
     @IBOutlet weak var currentLocationLabel: UILabel!
     @IBOutlet weak var mapImageView: UIImageView! {
@@ -96,8 +96,8 @@ class STAddressFormViewController: STBaseOrderFormViewController, UITextFieldDel
         }
     }
     
-    var address: STTKStreetAddress?
     weak var delegate: STAddressFormViewControllerDelegate?
+    
     private var timer: NSTimer?
     private var locationRequest: STFKLocationRequest?
     private var postalAddress = CNMutablePostalAddress()
@@ -121,12 +121,9 @@ class STAddressFormViewController: STBaseOrderFormViewController, UITextFieldDel
         self.startLocationTimer()
         self.timer?.fire()
         
-        self.streetAddressTextField.text = self.address?.streetAddress
-        self.streetAddressTwoTextField.text = self.address?.secondaryAddress
-        
-        if let zipcode = self.address?.zipCode {
-            self.zipCodeTextField.text = "\(zipcode)"
-        }
+        self.postalAddress.country = "United States"
+        self.postalAddress.city = "Orlando"
+        self.postalAddress.state = "Florida"
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -135,6 +132,7 @@ class STAddressFormViewController: STBaseOrderFormViewController, UITextFieldDel
         self.timer?.invalidate()
         self.timer = nil
     }
+
 
     //******************************************************************************************************************
     // MARK: - Actions

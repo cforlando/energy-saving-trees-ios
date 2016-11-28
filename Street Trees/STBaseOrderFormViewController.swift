@@ -25,7 +25,9 @@
 //  SOFTWARE.
 //
 
+import StreetTreesPersistentKit
 import StreetTreesFoundationKit
+import StreetTreesTransportKit
 import UIKit
 
 //**********************************************************************************************************************
@@ -36,15 +38,18 @@ private let STKeyboardVerticalSpacingPadding: CGFloat = 20.0
 //**********************************************************************************************************************
 // MARK: - Class Implementation
 
-class STBaseOrderFormViewController: UIViewController, TextFieldAdjustment {
+class STBaseOrderFormViewController: UIViewController, TextFieldAdjustment, Address, Contact, TreeDescription {
     
-    var activeTextField: UITextField?
-    
-    @IBOutlet weak var stackViewTopLayoutConstraint: NSLayoutConstraint! {
+    @IBOutlet weak var stackViewTopLayoutConstraint: NSLayoutConstraint? {
         didSet {
-            self.defaultTopConstraintConstant = stackViewTopLayoutConstraint.constant
+            self.defaultTopConstraintConstant = stackViewTopLayoutConstraint?.constant ?? 0
         }
     }
+    
+    var activeTextField: UITextField?
+    var address: STTKStreetAddress?
+    var contact: STTKContact?
+    var treeDescription: STPKTreeDescription?
     
     private var defaultTopConstraintConstant: CGFloat = 0.0
     
@@ -64,7 +69,7 @@ class STBaseOrderFormViewController: UIViewController, TextFieldAdjustment {
             
             if strongSelf.activeTextFieldIntersects(rect: keyboardFrame) {
                 let yDiff = strongSelf.intersectAmount(betweenView: textField, andRect: keyboardFrame).y
-                strongSelf.stackViewTopLayoutConstraint.constant -= yDiff + STKeyboardVerticalSpacingPadding
+                strongSelf.stackViewTopLayoutConstraint?.constant -= yDiff + STKeyboardVerticalSpacingPadding
                 strongSelf.animateLayoutChanges()
             } else {
                 strongSelf.resetTextFieldPositioning()
@@ -75,6 +80,7 @@ class STBaseOrderFormViewController: UIViewController, TextFieldAdjustment {
             guard let strongSelf = self else { return }
             strongSelf.resetTextFieldPositioning()
         }
+        
     }
     
     //******************************************************************************************************************
@@ -87,7 +93,8 @@ class STBaseOrderFormViewController: UIViewController, TextFieldAdjustment {
     }
     
     private func resetTextFieldPositioning() {
-        self.stackViewTopLayoutConstraint.constant = self.defaultTopConstraintConstant
+        self.stackViewTopLayoutConstraint?.constant = self.defaultTopConstraintConstant
         self.animateLayoutChanges()
     }
+
 }
