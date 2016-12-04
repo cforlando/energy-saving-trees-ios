@@ -2,7 +2,7 @@
 <hr>
 ## About
 <hr>
-One Tree One Person iOS app will allow users to view where trees have been planted by the city of Orlando for residence who wish to contribute to reducing energy expenditures via the One Tree One Person initiative.
+One Person One Tree iOS app will allow users to view where trees have been planted by the City of Orlando for residence who wish to contribute to reducing energy expenditures via the One Person One Tree initiative.
 
 ##### Version:
 1.0 (MVP)
