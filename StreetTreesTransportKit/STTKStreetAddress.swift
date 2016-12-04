@@ -39,6 +39,9 @@ public struct STTKStreetAddress {
     public let zipCode: UInt
     public let country: String
     
+    //******************************************************************************************************************
+    // MARK: - Public Initializers
+    
     public init(streetAddress: String, secondaryAddress: String, city: String, state: String, zipCode: UInt, country: String) {
         self.streetAddress = streetAddress
         self.secondaryAddress = secondaryAddress
@@ -48,6 +51,13 @@ public struct STTKStreetAddress {
         self.country = country
     }
 
+    //******************************************************************************************************************
+    // MARK: - Public Functions
+    
+    public func flatAddress() -> String {
+        return self.localizedAddress().stringByReplacingOccurrencesOfString("\n", withString: ", ")
+    }
+    
     public func localizedAddress() -> String {
         var address = self.streetAddress
         if !secondaryAddress.isEmpty {

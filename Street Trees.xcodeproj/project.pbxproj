@@ -24,6 +24,9 @@
 		D420E3891D174C60007E23C8 /* STPKCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B543711D03445B0000CBFF /* STPKCoreData.swift */; };
 		D420E38B1D176C30007E23C8 /* Trees.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D420E38A1D176C30007E23C8 /* Trees.xcassets */; };
 		D443A52F1D984C11008F60DE /* STFKLocationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D443A52E1D984C11008F60DE /* STFKLocationRequest.swift */; };
+		D4478E9B1DF4B12F00074DCF /* STPKCityBounds+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4478E991DF4B12F00074DCF /* STPKCityBounds+CoreDataProperties.swift */; };
+		D4478E9C1DF4B12F00074DCF /* STPKCityBounds.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4478E9A1DF4B12F00074DCF /* STPKCityBounds.swift */; };
+		D4478E9E1DF4D25900074DCF /* MKPolygonExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4478E9D1DF4D25900074DCF /* MKPolygonExtension.swift */; };
 		D45221681DEB4F9300617434 /* UIImageViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45221671DEB4F9300617434 /* UIImageViewExtension.swift */; };
 		D452216B1DEB891A00617434 /* PeaceEmitter.sks in Resources */ = {isa = PBXBuildFile; fileRef = D45221691DEB891A00617434 /* PeaceEmitter.sks */; };
 		D452216F1DEB8F5C00617434 /* STPeaceEmitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D452216D1DEB8D3F00617434 /* STPeaceEmitter.swift */; };
@@ -214,6 +217,9 @@
 		D420E3871D1738BE007E23C8 /* STTKTreeDescription.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STTKTreeDescription.swift; sourceTree = "<group>"; };
 		D420E38A1D176C30007E23C8 /* Trees.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Trees.xcassets; sourceTree = "<group>"; };
 		D443A52E1D984C11008F60DE /* STFKLocationRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STFKLocationRequest.swift; sourceTree = "<group>"; };
+		D4478E991DF4B12F00074DCF /* STPKCityBounds+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "STPKCityBounds+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		D4478E9A1DF4B12F00074DCF /* STPKCityBounds.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STPKCityBounds.swift; sourceTree = "<group>"; };
+		D4478E9D1DF4D25900074DCF /* MKPolygonExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKPolygonExtension.swift; sourceTree = "<group>"; };
 		D45221671DEB4F9300617434 /* UIImageViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageViewExtension.swift; sourceTree = "<group>"; };
 		D45221691DEB891A00617434 /* PeaceEmitter.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = PeaceEmitter.sks; sourceTree = "<group>"; };
 		D452216D1DEB8D3F00617434 /* STPeaceEmitter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = STPeaceEmitter.swift; path = ../StreetTreesFoundationKit/STPeaceEmitter.swift; sourceTree = "<group>"; };
@@ -574,6 +580,7 @@
 				D4668A5D1DC6A50F00511C13 /* STFKTiledImageView.swift */,
 				D4EE1FDF1D2BF79A007E6C01 /* UIViewControllerExtension.swift */,
 				D45221671DEB4F9300617434 /* UIImageViewExtension.swift */,
+				D4478E9D1DF4D25900074DCF /* MKPolygonExtension.swift */,
 				D45EB7761DB465BA006F23F2 /* TextFieldAdjustmentProtocol.swift */,
 				D49B11651D3BD50200449612 /* STFKDictionaryExtension.swift */,
 				D443A52E1D984C11008F60DE /* STFKLocationRequest.swift */,
@@ -605,6 +612,7 @@
 		D4B543671D032C630000CBFF /* Machine */ = {
 			isa = PBXGroup;
 			children = (
+				D4478E991DF4B12F00074DCF /* STPKCityBounds+CoreDataProperties.swift */,
 				D4DD29471D426EB200ABDDBB /* STPKTree+CoreDataProperties.swift */,
 				D420E3791D1729A0007E23C8 /* STPKTreeDescription+CoreDataProperties.swift */,
 				D4EE1FD91D2B3EDC007E6C01 /* STPKUser+CoreDataProperties.swift */,
@@ -615,6 +623,7 @@
 		D4B543681D032C820000CBFF /* Human */ = {
 			isa = PBXGroup;
 			children = (
+				D4478E9A1DF4B12F00074DCF /* STPKCityBounds.swift */,
 				D4B5436A1D032D020000CBFF /* STPKTree.swift */,
 				D420E37A1D1729A0007E23C8 /* STPKTreeDescription.swift */,
 				D4EE1FDA1D2B3EDC007E6C01 /* STPKUser.swift */,
@@ -1231,8 +1240,10 @@
 				D4EE1FDC1D2B3EDC007E6C01 /* STPKUser.swift in Sources */,
 				D4B543581D0322BB0000CBFF /* STPKModel.xcdatamodeld in Sources */,
 				D45EB7741DB29F53006F23F2 /* TreeDescriptionProtocol.swift in Sources */,
+				D4478E9B1DF4B12F00074DCF /* STPKCityBounds+CoreDataProperties.swift in Sources */,
 				D4B543621D0326440000CBFF /* STPKCoreDataStack.swift in Sources */,
 				D420E3891D174C60007E23C8 /* STPKCoreData.swift in Sources */,
+				D4478E9C1DF4B12F00074DCF /* STPKCityBounds.swift in Sources */,
 				D4EE1FDB1D2B3EDC007E6C01 /* STPKUser+CoreDataProperties.swift in Sources */,
 				D4DD29481D426EB200ABDDBB /* STPKTree+CoreDataProperties.swift in Sources */,
 				D420E3861D1731EC007E23C8 /* STPKManageObject.swift in Sources */,
@@ -1260,6 +1271,7 @@
 				D4668A5E1DC6A50F00511C13 /* STFKTiledImageView.swift in Sources */,
 				D443A52F1D984C11008F60DE /* STFKLocationRequest.swift in Sources */,
 				D45221681DEB4F9300617434 /* UIImageViewExtension.swift in Sources */,
+				D4478E9E1DF4D25900074DCF /* MKPolygonExtension.swift in Sources */,
 				D4EE1FE01D2BF79A007E6C01 /* UIViewControllerExtension.swift in Sources */,
 				D4EE1FE21D2BF7FE007E6C01 /* UIColorExtension.swift in Sources */,
 				D49B11661D3BD50200449612 /* STFKDictionaryExtension.swift in Sources */,

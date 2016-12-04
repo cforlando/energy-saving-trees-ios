@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10171" systemVersion="15G31" minimumToolsVersion="Xcode 7.0">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10174" systemVersion="16B2657" minimumToolsVersion="Xcode 7.0">
+    <entity name="STPKCityBounds" representedClassName="STPKCityBounds" syncable="YES">
+        <attribute name="json" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="timestamp" optional="YES" attributeType="Date" syncable="YES"/>
+    </entity>
     <entity name="STPKTree" representedClassName=".STPKTree" syncable="YES">
         <attribute name="air" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="carbon" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
@@ -45,5 +49,6 @@
         <element name="STPKTree" positionX="-63" positionY="-18" width="128" height="240"/>
         <element name="STPKTreeDescription" positionX="367" positionY="63" width="128" height="283"/>
         <element name="STPKUser" positionX="144" positionY="135" width="128" height="135"/>
+        <element name="STPKCityBounds" positionX="144" positionY="135" width="128" height="75"/>
     </elements>
 </model>
