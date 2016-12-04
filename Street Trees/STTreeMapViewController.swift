@@ -119,6 +119,10 @@ class STTreeMapViewController: UIViewController, MKMapViewDelegate, CLLocationMa
         self.mapView.showsScale = true
         self.mapView.showsCompass = true
         self.locationManager.delegate = self
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
         self.setupLocation()
     }
     
@@ -266,7 +270,7 @@ class STTreeMapViewController: UIViewController, MKMapViewDelegate, CLLocationMa
     // MARK: - CLLocationManager Delegates
     
     func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
-        if status == .AuthorizedAlways {
+        if status == .AuthorizedAlways || status == .AuthorizedWhenInUse {
             self.mapView.showsUserLocation = true
         }
     }
@@ -341,8 +345,8 @@ class STTreeMapViewController: UIViewController, MKMapViewDelegate, CLLocationMa
     func setupLocation() {
         switch CLLocationManager.authorizationStatus() {
         case .NotDetermined, .Restricted:
-            self.locationManager.requestAlwaysAuthorization()
-        case .AuthorizedAlways:
+            self.locationManager.requestWhenInUseAuthorization()
+        case .AuthorizedAlways, .AuthorizedWhenInUse:
             self.mapView.showsUserLocation = true
         default:
             ()
