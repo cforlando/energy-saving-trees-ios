@@ -46,12 +46,12 @@ public class STPKCityBounds: STPKManagedObject {
     
     class func fetch(context: NSManagedObjectContext, handler: STPKFetchCityBoundsHandler) {
     
-        guard let citybounds = self.fetchCityBounds(context) else {
+        guard let citybounds = self.fetchCityBounds(context), let timestamp = citybounds.timestamp else {
             self.downloadCityBounds(context, handler: handler)
             return
         }
         
-        let notOutDated = citybounds.timestamp?.timeIntervalSinceNow < STPKRefetchDuration
+        let notOutDated = NSDate().timeIntervalSinceDate(timestamp) < STPKRefetchDuration
         
         if notOutDated {
             handler(cityBounds: citybounds, error: nil)
