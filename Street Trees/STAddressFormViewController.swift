@@ -74,6 +74,11 @@ protocol STAddressFormViewControllerDelegate: NSObjectProtocol {
 }
 
 //**********************************************************************************************************************
+// MARK: - Typealias
+
+typealias STValidAddressHandler = (valid: Bool) -> Void
+
+//**********************************************************************************************************************
 // MARK: - Class Impletementation
 
 class STAddressFormViewController: STBaseOrderFormViewController, UITextFieldDelegate {

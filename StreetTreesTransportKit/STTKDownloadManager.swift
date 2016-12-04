@@ -31,7 +31,7 @@ import GeoJSONSerialization
 
 public typealias STTKTreeCompletion = ([STTKStreetTree]) -> Void
 public typealias STTKTreeDescriptionCompletion = ([STTKTreeDescription]) -> Void
-public typealias STTKTCityGeoPointsCompletion = ([AnyObject]) -> Void
+public typealias STTKTCityGeoPointsCompletion = ([NSObject: AnyObject]) -> Void
 
 enum STRequestBuilder: String {
     case Trees = "7w7p-3857.json"
@@ -59,14 +59,9 @@ public final class STTKDownloadManager {
     public class func fetch(cityGeoPoints completion: STTKTCityGeoPointsCompletion) {
         Alamofire.request(.GET, STRequestBuilder.GeoData.URLPath()).responseJSON { (response) in
             if let resultData = response.result.value as? [NSObject: AnyObject] {
-                
-                do {
-                    let shape = try GeoJSONSerialization.shapesFromGeoJSONFeatureCollection(resultData)
-                    completion(shape)
-                } catch {
-                    print("GeoJSON not happy")
-                }
+                completion(resultData)
             } else {
+                completion([NSObject: AnyObject]())
                 print("Not a [String: AnyObject] \(response.result.value)")
             }
         }

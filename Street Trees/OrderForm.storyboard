@@ -717,9 +717,11 @@ United States, 32801</string>
                         <outlet property="phoneNumberLabel" destination="txK-mG-f2V" id="QL7-ji-bjK"/>
                         <outlet property="treeImage" destination="gOn-Wq-hyd" id="vWp-YK-iML"/>
                         <outlet property="treeName" destination="5W7-Tq-y0w" id="1rs-cT-tEY"/>
+                        <segue destination="OdA-60-qsI" kind="unwind" identifier="unwindToMapView" unwindAction="unwindToMapView:" id="MZb-Cj-qfN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rnC-Mh-jtg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="OdA-60-qsI" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="2796" y="415"/>
         </scene>

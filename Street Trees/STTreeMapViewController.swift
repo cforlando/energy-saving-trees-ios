@@ -123,6 +123,13 @@ class STTreeMapViewController: UIViewController, MKMapViewDelegate, CLLocationMa
     }
     
     //******************************************************************************************************************
+    // MARK: - Actions
+    
+    @IBAction func unwindToMapView(segue: UIStoryboardSegue) {
+        // no op
+    }
+    
+    //******************************************************************************************************************
     // MARK: - FetchedResultsController Delegate
     
     func controllerDidChangeContent(controller: NSFetchedResultsController) {
@@ -235,11 +242,22 @@ class STTreeMapViewController: UIViewController, MKMapViewDelegate, CLLocationMa
         }
         
         self.backgroundQueue.addOperationWithBlock { [weak self] in
-            STTKDownloadManager.fetch(cityGeoPoints: { (response: [AnyObject]) in
-                if let polygons = response as? [MKPolygon] {
-                    self?.mapView.addOverlays(polygons)
+            STPKCoreData.sharedInstance.fetchCityBounds({ (cityBounds, error) in
+                guard let bounds = cityBounds else { return }
+                
+                defer {
+                    UIApplication.sharedApplication().networkActivityIndicatorVisible = false
                 }
-                UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+                
+                do {
+                    let shapes = try bounds.shapes()
+                    NSOperationQueue.mainQueue().addOperationWithBlock({ [weak self] in
+                        self?.mapView.addOverlays(shapes)
+                    })
+
+                } catch {
+                    
+                }
             })
         }
     }
@@ -275,7 +293,6 @@ class STTreeMapViewController: UIViewController, MKMapViewDelegate, CLLocationMa
         default:
             ()
         }
-
     }
     
     //******************************************************************************************************************
