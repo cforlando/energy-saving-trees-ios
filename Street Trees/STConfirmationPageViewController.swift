@@ -173,7 +173,7 @@ class STConfirmationPageViewController: STBaseOrderFormViewController {
                     }
                     
                     for shape in shapes {
-                        if shape.coordinateInsidePolyon(coordinate) {
+                        if shape.coordinateInsidePolygon(coordinate) {
                             handler(valid: true)
                             return
                         }

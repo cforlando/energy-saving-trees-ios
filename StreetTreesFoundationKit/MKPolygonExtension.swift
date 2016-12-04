@@ -11,7 +11,7 @@ import MapKit
 
 public extension MKPolygon {
     
-    public func coordinateInsidePolyon(coordinate: CLLocationCoordinate2D) -> Bool {
+    public func coordinateInsidePolygon(coordinate: CLLocationCoordinate2D) -> Bool {
         
         var inside = false
         
