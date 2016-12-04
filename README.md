@@ -1,4 +1,4 @@
-# <center>One Tree One Person - iOS App</center>
+# <center>One Person One Tree - iOS App</center>
 <hr>
 ## About
 <hr>
@@ -40,11 +40,6 @@ install Cocoapods version 1.0.1
 ## Importing Project Dependencies & Frameworks
 
 In Terminal, when inside the project folder, enter `pod install` and press return.  The packaging manager will then analyze the project requirements and install the necessary dependencies.  Build your project!
-
-<hr>
-## Contributors
-<hr>
-Tom Marks, Joshua Shroyer, Tommy Lee, Joshua Walker, Mark Filter, Erin Denton.
 
 <hr>
 ## License
