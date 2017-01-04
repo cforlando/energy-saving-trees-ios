@@ -127,7 +127,7 @@ class STSelectTreeViewController: STBaseOrderFormViewController, UICollectionVie
             let treeDescription = self.datasource[indexPath.row]
             cell.imageView.image = treeDescription.image()
             cell.nameLabel.text = treeDescription.name
-            cell.layer.borderColor = UIColor.orlandoGreenColor().CGColor
+            cell.layer.borderColor = UIColor.codeForOrlandoOrange().CGColor
             cell.layer.cornerRadius = STBorderCornerRadius
             return cell
         }
