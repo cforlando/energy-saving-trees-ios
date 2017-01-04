@@ -54,7 +54,7 @@ STAddressFormViewControllerDelegate {
     
     lazy var progressBar: UIProgressView = {
         let progress = UIProgressView(progressViewStyle: .Bar)
-        progress.tintColor = UIColor.orlandoGreenColor()
+        progress.tintColor = UIColor.codeForOrlandoOrange()
         progress.translatesAutoresizingMaskIntoConstraints = false
         progress.setProgress(STProgressSelectTree, animated: false)
         self.view.addSubview(progress)

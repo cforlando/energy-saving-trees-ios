@@ -40,6 +40,10 @@ public extension UIColor {
         return UIColor(red: 135.colorValue(), green: 186.colorValue(), blue: 101.colorValue(), alpha: alpha)
     }
     
+    public class func codeForOrlandoOrange(alpha: CGFloat = 1.0) -> UIColor {
+        return UIColor(red: 237.colorValue(), green: 131.colorValue(), blue: 35.colorValue(), alpha: alpha)
+    }
+    
 }
 
 extension Int {
