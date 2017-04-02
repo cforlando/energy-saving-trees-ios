@@ -1,66 +1,25 @@
 //
-//  CoreDataModelable.swift
+//  NSManagedObject+FetchHelpers.swift
 //  CoreDataStack
 //
-//  Created by Robert Edwards on 11/18/15.
+//  Created by Robert Edwards on 9/21/16.
 //  Copyright © 2015-2016 Big Nerd Ranch. All rights reserved.
 //
+
+import Foundation
 
 import CoreData
 
 /**
- Protocol to be conformed to by `NSManagedObject` subclasses that allow for convenience
-    methods that make fetching, inserting, deleting, and change management easier.
+ Protocol extension to `NSFetchRequestResult` that allow for convenience
+ methods that make fetching, inserting, deleting, and change management easier.
  */
-@available(iOS, introduced: 8.0, deprecated: 10.0, message: "Use Xcode automatic generated subclass")
-@available(OSX, introduced: 10.10, deprecated: 10.12, message: "Use Xcode automatic generated subclass")
-@objc public protocol CoreDataModelable: NSFetchRequestResult {
+@available(iOS, introduced: 10.0)
+@available(tvOS, introduced: 10.0)
+@available(OSX, introduced: 10.12)
+extension NSFetchRequestResult where Self: NSManagedObject {
     /**
-     The name of your `NSManagedObject`'s entity within the `XCDataModel`.
-
-     - returns: String: Entity's name in `XCDataModel`
-     */
-     static var entityName: String { get }
- }
-
-/**
- Extension to `CoreDataModelable` with convenience methods for
- creating, deleting, and fetching entities from a specific `NSManagedObjectContext`.
- */
- extension CoreDataModelable where Self: NSManagedObject {
-
-    // MARK: - Creating Objects
-
-    /**
-    Creates a new instance of the Entity within the specified `NSManagedObjectContext`.
-
-    - parameter context: `NSManagedObjectContext` to create the object within.
-
-    - returns: `Self`: The newly created entity.
-    */
-    public init(managedObjectContext: NSManagedObjectContext) {
-        self.init(entity: Self.entityDescription(in: managedObjectContext), insertInto: managedObjectContext)
-    }
-
-    // MARK: - Finding Objects
-
-    /**
-    Creates an `NSEntityDescription` of the `CoreDataModelable` entity using the `entityName`
-
-    - parameter in: `NSManagedObjectContext` to create the object within.
-
-    - returns: `NSEntityDescription`: The entity description.
-    */
-    static public func entityDescription(in context: NSManagedObjectContext) -> NSEntityDescription! {
-        guard let entity = NSEntityDescription.entity(forEntityName: entityName, in: context) else {
-            assertionFailure("Entity named \(entityName) doesn't exist. Fix the entity description or naming of \(Self.self).")
-            return nil
-        }
-        return entity
-    }
-
-    /**
-     Creates a new fetch request for the `CoreDataModelable` entity.
+     Creates a new fetch request for the `NSManagedObject` entity.
 
      - parameter context: `NSManagedObjectContext` to create the object within.
 
@@ -68,20 +27,20 @@ import CoreData
      */
     static public func fetchRequestForEntity(inContext context: NSManagedObjectContext) -> NSFetchRequest<Self> {
         let fetchRequest = NSFetchRequest<Self>()
-        fetchRequest.entity = entityDescription(in: context)
+        fetchRequest.entity = entity()
         return fetchRequest
     }
 
     /**
-    Fetches the first Entity that matches the optional predicate within the specified `NSManagedObjectContext`.
+     Fetches the first Entity that matches the optional predicate within the specified `NSManagedObjectContext`.
 
-    - parameter context: `NSManagedObjectContext` to find the entities within.
-    - parameter predicate: An optional `NSPredicate` for filtering
+     - parameter context: `NSManagedObjectContext` to find the entities within.
+     - parameter predicate: An optional `NSPredicate` for filtering
 
-    - throws: Any error produced from `executeFetchRequest`
+     - throws: Any error produced from `executeFetchRequest`
 
-    - returns: `Self?`: The first entity that matches the optional predicate or `nil`.
-    */
+     - returns: `Self?`: The first entity that matches the optional predicate or `nil`.
+     */
     static public func findFirstInContext(_ context: NSManagedObjectContext, predicate: NSPredicate? = nil) throws -> Self? {
         let fetchRequest = fetchRequestForEntity(inContext: context)
         fetchRequest.predicate = predicate
@@ -131,12 +90,12 @@ import CoreData
     // MARK: - Removing Objects
 
     /**
-    Removes all entities from within the specified `NSManagedObjectContext`.
+     Removes all entities from within the specified `NSManagedObjectContext`.
 
-    - parameter context: `NSManagedObjectContext` to remove the entities from.
+     - parameter context: `NSManagedObjectContext` to remove the entities from.
 
-    - throws: Any error produced from `executeFetchRequest`
-    */
+     - throws: Any error produced from `executeFetchRequest`
+     */
     static public func removeAllInContext(_ context: NSManagedObjectContext) throws {
         let fetchRequest = fetchRequestForEntity(inContext: context)
         try removeAllObjectsReturnedByRequest(fetchRequest, inContext: context)

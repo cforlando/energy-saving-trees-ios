@@ -11,13 +11,30 @@ For more details on the design methodology see: [Introducing the Big Nerd Ranch 
 
 For complete source documentation see: [Documentation](http://bignerdranch.github.io/CoreDataStack/index.html)
 
+## Deprecations
+
+With the introduction of Apple's [NSPersistentContainer](https://developer.apple.com/reference/coredata/nspersistentcontainer), in iOS 10/macOS 10.12, BNR has chosen to deprecate the [CoreDataStack](./Sources/CoreDataStack.swift) class. See [container example](./Container Example) for tips on using an `NSPersistentContainer`
+
+Apple has also added a type method [`entity()`](https://developer.apple.com/reference/coredata/nsmanagedobject/1640588-entity) to `NSManagedObject` allowing us to deprecate [CoreDataModelable](./Sources/CoreDataModelable.swift) and migrate many of those same convenience functions to an extension of [`NSManagedObject`](./Sources/NSManagedObject+FetchHelpers.swift).
+
+While Apple also [introduced some type safety](https://developer.apple.com/reference/coredata/nsfetchedresultscontroller/1622282-init) to their `NSFetchedResultsController`, we believe our [FetchedResultsController](./Sources/FetchedResultsController.swift) provides a better API by:
+
+* including type-safety in our [section info](./Sources/FetchedResultsController.swift#L121)
+* providing a [type-safe delegate](./Sources/FetchedResultsController.swift#L74)
+* [guarding against invalid index paths](./Sources/FetchedResultsController.swift#L220) in Inserts, Deletes, Moves, and Updates
+
+Similarly our [EnittyMonitor](./Sources/EntityMonitor.swift) still serves a niche not covered by built in CoreData objects. See [Entity Monitor](#entity_monitor)
+
 ## Minimum Requirements
 
-- OS X 10.10
+### Runtime:
+- macOS 10.10
 - tvOS 9.0
 - iOS 8.0
-- Xcode 7.3
-- Swift 2.2
+
+### Build Time:
+- Xcode 8.0
+- Swift 3.0
 
 ## Installation
 
@@ -58,6 +75,35 @@ Then run `pod install`.
 
 ## <a id="usage"></a> Usage
 
+### Type Safe Monitors
+
+#### Fetched Results Controller
+
+`FetchedResultsController<T>` is a type safe wrapper around `NSFetchedResultsController` using Swift generics.
+
+##### Example
+
+See [BooksTableViewController.swift](./Example/BooksTableViewController.swift) for an example.
+
+#### <a id="entity_monitor"></a> Entity Monitor
+
+`EntityMonitor<T>` is a class for monitoring inserts, deletes, and updates of a specific `NSManagedObject` subclass within an `NSManagedObjectContext`.
+
+##### Example
+See [EntityMonitorTests.swift](./Tests/EntityMonitorTests.swift) for an example.
+
+### NSManagedObject Extensions
+
+`Adds convenience methods on `NSManagedObject` subclasses. These methods make fetching, inserting, deleting, and change management easier.
+
+#### Example
+
+```swift
+let allBooks = try Book.allInContext(moc)
+let anyBook = try Book.findFirstInContext(moc)
+try Book.removeAllInContext(moc)
+```
+
 ### Constructing Your Stack
 
 #### Import Framework
@@ -79,10 +125,10 @@ import BNRCoreDataStack
 ```swift
 CoreDataStack.constructSQLiteStack(withModelName: "TestModel") { result in
 	switch result {
-	case .Success(let stack):
+	case .success(let stack):
 		self.myCoreDataStack = stack
 		print("Success")
-	case .Failure(let error):
+	case .failure(let error):
 		print(error)
 	}
 }
@@ -136,9 +182,9 @@ In most cases, offloading your longer running work to a [background worker conte
 ```swift
 myCoreDataStack.newBatchOperationContext() { result in
     switch result {
-    case .Success(let batchContext):
+    case .success(let batchContext):
         // my big import operation
-    case .Failure(let error):
+    case .failure(let error):
         print(error)
     }
 }
@@ -153,47 +199,13 @@ At times it can be necessary to completely reset your Core Data store and remove
 ```swift
 myCoreDataStack.resetStore() { result in
     switch result {
-    case .Success:
+    case .success:
         // proceed with fresh Core Data Stack
-    case .Failure(let error):
+    case .failure(let error):
         print(error)
     }
 }
 ```
-
-### Core Data Modelable Protocol
-
-`CoreDataModelable` is a simple protocol that adds convenience methods on `NSManagedObject` subclasses. These methods make fetching, inserting, deleting, and change management easier.
-
-#### Example
-
-```swift
-class Book: NSManagedObject, CoreDataModelable {
-    static let entityName = "Book"
-}
-
-let allBooks = try Book.allInContext(moc)
-let anyBook = try Book.findFirstInContext(moc)
-try Book.removeAllInContext(moc)
-```
-
-### Type Safe Monitors
-
-#### Fetched Results Controller
-
-`FetchedResultsController<T>` is a type safe wrapper around `NSFetchedResultsController` using Swift generics.
-
-##### Example
-
-See [BooksTableViewController.swift](./Example/BooksTableViewController.swift) for an example.
-
-#### Entity Monitor
-
-`EntityMonitor<T>` is a class for monitoring inserts, deletes, and updates of a specific `NSManagedObject` subclass within an `NSManagedObjectContext`.
-
-##### Example
-
-See [EntityMonitorTests.swift](./CoreDataStackTests/EntityMonitorTests.swift) for an example.
 
 ## Contributing
 
@@ -209,26 +221,28 @@ This will throw an exception if you happen to break a threading rule. For more o
 
 ## iCloud and iTunes Backup Considerations
 
-By default the CoreData store URL can be included in the backup of a device to both iCloud and local disk backups via iTunes. For sensitive information such as health records or other personally identifiable information, you should supply an `NSURL` to the constructor that has been flagged as excluded from backup.
+By default the CoreData store URL can be included in the backup of a device to both iCloud and local disk backups via iTunes. For sensitive information such as health records or other personally identifiable information, you should supply a `URL` to the constructor that has been flagged as excluded from backup.
 
 Example:
 
 ```swift
 // Setup your URL
-let documentsDirectory = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask).first!
-let storeFileURL = NSURL(string: "MyModel.sqlite", relativeToURL: documentsDirectory)!
+let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+var storeFileURL = URL(string: "MyModel.sqlite", relativeTo: documentsDirectory)!
 do {
-	try storeFileURL.setResourceValue(true, forKey: NSURLIsExcludedFromBackupKey)
+    var resources = URLResourceValues()
+    resources.isExcludedFromBackup = true
+    try storeFileURL.setResourceValues(resources)
 } catch {
-	//handle error ...
+    //handle error ...
 }
 
 // Create your stack
 CoreDataStack.constructSQLiteStack(withModelName: "MyModel", withStoreURL: storeFileURL) { result in
 	switch result {
-    case .Success(let stack):
+    case .success(let stack):
 		// Use your new stack
-    case .Failure(let error):
+    case .failure(let error):
         //handle error ...
     }
 }

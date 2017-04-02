@@ -3,7 +3,7 @@
 //  CoreDataStack
 //
 //  Created by Robert Edwards on 11/18/15.
-//  Copyright © 2015 Big Nerd Ranch. All rights reserved.
+//  Copyright © 2015-2016 Big Nerd Ranch. All rights reserved.
 //
 
 import CoreData
@@ -21,8 +21,9 @@ public enum FireFrequency {
  Protocol for delegate callbacks of `NSManagedObject` entity change events.
  */
 public protocol EntityMonitorDelegate: class { // : class for weak capture
-    /// Type of object being monitored. Must inheirt from `NSManagedObject` and implement `CoreDataModelable`
-    associatedtype T: NSManagedObject, CoreDataModelable, Hashable
+    /// Type of object being monitored. Must inheirt from `NSManagedObject` and implement `NSFetchRequestResult`
+    // swiftlint:disable type_name
+    associatedtype T: NSManagedObject, NSFetchRequestResult, Hashable
 
     /**
      Callback for when objects matching the predicate have been inserted
@@ -53,22 +54,22 @@ public protocol EntityMonitorDelegate: class { // : class for weak capture
  Class for monitoring changes within a given `NSManagedObjectContext`
     to a specific Core Data Entity with optional filtering via an `NSPredicate`.
  */
-open class EntityMonitor<T: NSManagedObject> where T: CoreDataModelable, T: Hashable {
+public class EntityMonitor<T: NSManagedObject> where T: Hashable {
 
     // MARK: - Public Properties
 
     /**
      Function for setting the `EntityMonitorDelegate` that will receive callback events.
 
-     - parameter U: Your delegate must implement the methods in `EntityMonitorDelegate` with the matching `CoreDataModelable` type being monitored.
+     - parameter U: Your delegate must implement the methods in `EntityMonitorDelegate` with the matching `NSFetchRequestResult` type being monitored.
      */
-    open func setDelegate<U: EntityMonitorDelegate>(_ delegate: U) where U.T == T {
+    public func setDelegate<U: EntityMonitorDelegate>(_ delegate: U) where U.T == T {
         self.delegateHost = ForwardingEntityMonitorDelegate(owner: self, delegate: delegate)
     }
 
     // MARK: - Private Properties
 
-    fileprivate var delegateHost: BaseEntityMonitorDelegate<T>? {
+    private var delegateHost: BaseEntityMonitorDelegate<T>? {
         willSet {
             delegateHost?.removeObservers()
         }
@@ -78,11 +79,11 @@ open class EntityMonitor<T: NSManagedObject> where T: CoreDataModelable, T: Hash
     }
 
     fileprivate typealias EntitySet = Set<T>
-
-    fileprivate let context: NSManagedObjectContext
     fileprivate let frequency: FireFrequency
-    fileprivate let entityPredicate: NSPredicate
-    fileprivate let filterPredicate: NSPredicate?
+    fileprivate let context: NSManagedObjectContext
+
+    private let entityPredicate: NSPredicate
+    private let filterPredicate: NSPredicate?
     fileprivate lazy var combinedPredicate: NSPredicate = {
         if let filterPredicate = self.filterPredicate {
             return NSCompoundPredicate(andPredicateWithSubpredicates:
@@ -95,19 +96,26 @@ open class EntityMonitor<T: NSManagedObject> where T: CoreDataModelable, T: Hash
     // MARK: - Lifecycle
 
     /**
-    Initializer to create an `EntityMonitor` to monitor changes to a specific Core Data Entity.
+     Initializer to create an `EntityMonitor` to monitor changes to a specific Core Data Entity.
 
-    This initializer is failable in the event your Entity is not within the supplied `NSManagedObjectContext`.
+     This initializer is failable in the event your Entity is not within the supplied `NSManagedObjectContext`.
 
-    - parameter context: `NSManagedObjectContext` the context you want to monitor changes within.
-    - parameter frequency: `FireFrequency` How frequently you wish to receive callbacks of changes. Default value is `.OnSave`.
-    - parameter filterPredicate: An optional filtering predicate to be applied to entities being monitored.
-    */
-    public init(context: NSManagedObjectContext, frequency: FireFrequency = .onSave, filterPredicate: NSPredicate? = nil) {
+     - parameter context: `NSManagedObjectContext` the context you want to monitor changes within.
+     - parameter entity: `NSEntityDescription` for the entity you wish to monitor
+     - parameter frequency: `FireFrequency` How frequently you wish to receive callbacks of changes. Default value is `.OnSave`.
+
+     - parameter filterPredicate: An optional filtering predicate to be applied to entities being monitored.
+     */
+    public init(context: NSManagedObjectContext, entity: NSEntityDescription,
+                frequency: FireFrequency = .onSave, filterPredicate: NSPredicate? = nil) {
         self.context = context
         self.frequency = frequency
         self.filterPredicate = filterPredicate
-        self.entityPredicate = NSPredicate(format: "entity == %@", T.entityDescriptionInContext(context))
+        self.entityPredicate = NSPredicate(format: "entity == %@", entity)
+        guard let entityClass = NSClassFromString(entity.managedObjectClassName) else {
+            preconditionFailure("Entity Description is missing a class name or does not represent a class")
+        }
+        precondition(entityClass == T.self, "Class generic type must match entity descripton type")
     }
 
     deinit {
@@ -115,9 +123,9 @@ open class EntityMonitor<T: NSManagedObject> where T: CoreDataModelable, T: Hash
     }
 }
 
-private class BaseEntityMonitorDelegate<T: NSManagedObject>: NSObject where T: CoreDataModelable, T: Hashable {
+private class BaseEntityMonitorDelegate<T: NSManagedObject>: NSObject where T: NSFetchRequestResult, T: Hashable {
 
-    fileprivate let ChangeObserverSelectorName = #selector(BaseEntityMonitorDelegate<T>.evaluateChangeNotification(_:))
+    private let changeObserverSelectorName = #selector(BaseEntityMonitorDelegate<T>.evaluateChangeNotification(_:))
 
     typealias Owner = EntityMonitor<T>
     typealias EntitySet = Owner.EntitySet
@@ -129,17 +137,17 @@ private class BaseEntityMonitorDelegate<T: NSManagedObject>: NSObject where T: C
     }
 
     final func setupObservers() {
-        let notificationName: String
+        let notificationName: NSNotification.Name
         switch owner.frequency {
         case .onChange:
-            notificationName = NSNotification.Name.NSManagedObjectContextObjectsDidChange.rawValue
+            notificationName = .NSManagedObjectContextObjectsDidChange
         case .onSave:
-            notificationName = NSNotification.Name.NSManagedObjectContextDidSave.rawValue
+            notificationName = .NSManagedObjectContextDidSave
         }
 
         NotificationCenter.default.addObserver(self,
-            selector: ChangeObserverSelectorName,
-            name: NSNotification.Name(rawValue: notificationName),
+            selector: changeObserverSelectorName,
+            name: notificationName,
             object: owner.context)
     }
 
@@ -148,18 +156,18 @@ private class BaseEntityMonitorDelegate<T: NSManagedObject>: NSObject where T: C
     }
 
     @objc final func evaluateChangeNotification(_ notification: Notification) {
-        guard let changeSet = notification.userInfo else {
+        guard let changeSet = (notification as NSNotification).userInfo else {
             return
         }
 
         owner.context.performAndWait { [predicate = owner.combinedPredicate] in
-            func process(_ value: AnyObject?) -> EntitySet {
-                return value.flatMap { $0.filtered(using: predicate) as? EntitySet } ?? []
+            func process(_ value: Any?) -> EntitySet {
+                return (value as? NSSet)?.filtered(using: predicate) as? EntitySet ?? []
             }
 
-            let inserted = process(changeSet[NSInsertedObjectsKey] as AnyObject?)
-            let deleted = process(changeSet[NSDeletedObjectsKey] as AnyObject?)
-            let updated = process(changeSet[NSUpdatedObjectsKey] as AnyObject?)
+            let inserted = process(changeSet[NSInsertedObjectsKey])
+            let deleted = process(changeSet[NSDeletedObjectsKey])
+            let updated = process(changeSet[NSUpdatedObjectsKey])
             self.handleChanges(inserted: inserted, deleted: deleted, updated: updated)
         }
     }
