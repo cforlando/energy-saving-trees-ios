@@ -35,8 +35,8 @@ public struct STTKWufooForm {
     
     public let contact: STTKContact
     
-    public var data: NSData? {
-        return self.query.dataUsingEncoding(NSUTF8StringEncoding)
+    public var data: Data? {
+        return self.query.data(using: String.Encoding.utf8)
     }
     
     public var query: String {
@@ -66,7 +66,7 @@ public struct STTKWufooForm {
     //******************************************************************************************************************
     // MARK: - Private Properties
     
-    private var rawContent:[String: String] {
+    fileprivate var rawContent:[String: String] {
         return self.contact.wufooJson() + ["Field6": self.treeName,"Field2": "Right-of-way Trees (individual request)"]
     }
     

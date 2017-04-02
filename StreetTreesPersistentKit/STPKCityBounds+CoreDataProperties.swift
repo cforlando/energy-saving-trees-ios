@@ -30,7 +30,7 @@ import CoreData
 
 extension STPKCityBounds {
 
-    @NSManaged var json: NSData?
-    @NSManaged var timestamp: NSDate?
+    @NSManaged var json: Data?
+    @NSManaged var timestamp: Date?
 
 }

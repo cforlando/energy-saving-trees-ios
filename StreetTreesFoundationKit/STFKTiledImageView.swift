@@ -27,7 +27,7 @@
 
 import UIKit
 
-@IBDesignable public class STFKTiledImageView: UIImageView {
+@IBDesignable open class STFKTiledImageView: UIImageView {
     
     @IBInspectable var tileImage: UIImage? {
         didSet {

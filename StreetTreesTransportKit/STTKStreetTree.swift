@@ -50,7 +50,7 @@ import StreetTreesFoundationKit
 public struct STTKStreetTree {
     public let air: Double
     public let carbon: Double
-    public let date: NSDate
+    public let date: Date
     public let kWh: Double
     public let lat: Double
     public let long: Double
@@ -66,18 +66,18 @@ public struct STTKStreetTree {
         // Make sure the json object passed to this initializer
         //has all the properties needed else return nil
         guard let airString = json["air"] as? String,
-                carbonString = json["carbon"] as? String,
-            kWhString = json["kwh"] as? String,
-            orderString = json["order"] as? String,
-            savingsString = json["savings"] as? String,
-            stormwaterString = json["stormwater"] as? String,
-            thermsString = json["therms"] as? String,
-            name = json["tree_name"] as? String,
-            dateString = json["date"] as? String,
-            location = json["location"] as? [NSObject: AnyObject],
-            coordinates = location["coordinates"] as? [AnyObject],
-            long = coordinates[0] as? Double,
-            lat = coordinates[1] as? Double else {
+                let carbonString = json["carbon"] as? String,
+            let kWhString = json["kwh"] as? String,
+            let orderString = json["order"] as? String,
+            let savingsString = json["savings"] as? String,
+            let stormwaterString = json["stormwater"] as? String,
+            let thermsString = json["therms"] as? String,
+            let name = json["tree_name"] as? String,
+            let dateString = json["date"] as? String,
+            let location = json["location"] as? [AnyHashable: Any],
+            let coordinates = location["coordinates"] as? [AnyObject],
+            let long = coordinates[0] as? Double,
+            let lat = coordinates[1] as? Double else {
                 // Did not meet the required fields
                 return nil
         }
@@ -85,10 +85,10 @@ public struct STTKStreetTree {
         
         
         // Make sure the strings loaded convert properly
-        guard let air = Double(airString), carbon = Double(carbonString),
-            kWh = Double(kWhString), order = Int(orderString),
-            savings = Double(savingsString), stormwater = Double(stormwaterString),
-            therms = Double(thermsString), date = STFKStreetTreeDateFormatter.sharedInstance.dateFromString(dateString) else {
+        guard let air = Double(airString), let carbon = Double(carbonString),
+            let kWh = Double(kWhString), let order = Int(orderString),
+            let savings = Double(savingsString), let stormwater = Double(stormwaterString),
+            let therms = Double(thermsString), let date = STFKStreetTreeDateFormatter.sharedInstance.date(from: dateString) else {
                 // While we loaded the correct fields, the values did not convert properly
                 return nil
         }
@@ -105,7 +105,7 @@ public struct STTKStreetTree {
         self.lat = lat
         
         // All names need to be sanitised because they usually contain additional white space
-        var trimmedName = name.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
+        var trimmedName = name.trimmingCharacters(in: CharacterSet.whitespaces)
         
         // The Tulip Poplar tree is incorrectly named in the DB. This is a fix until the DB can be updated.
         if trimmedName == "Tuliptree" {

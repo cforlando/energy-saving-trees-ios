@@ -32,13 +32,13 @@ public extension UIViewController {
     public func add(motionToView aView: UIView, movement travelDistance: CGFloat) {
         // Set vertical effect
         let vMotionEffect = UIInterpolatingMotionEffect(keyPath: "center.y",
-                                                        type: .TiltAlongVerticalAxis)
+                                                        type: .tiltAlongVerticalAxis)
         vMotionEffect.minimumRelativeValue = -travelDistance
         vMotionEffect.maximumRelativeValue = travelDistance
         
         // Set horizontal effect
         let hMotionEffect = UIInterpolatingMotionEffect(keyPath: "center.x",
-                                                        type: .TiltAlongHorizontalAxis)
+                                                        type: .tiltAlongHorizontalAxis)
         hMotionEffect.minimumRelativeValue = -travelDistance
         hMotionEffect.maximumRelativeValue = travelDistance
         
@@ -55,7 +55,7 @@ public extension UIViewController {
             return CGPoint.zero
         }
         
-        let viewFrame = self.view.convertRect(aView.frame, fromView: aView.superview)
+        let viewFrame = self.view.convert(aView.frame, from: aView.superview)
         
         let xDifference = abs(viewFrame.minX - aRect.minX)
         let yDifference = abs(viewFrame.maxY - aRect.minY)
@@ -63,15 +63,15 @@ public extension UIViewController {
         return CGPoint(x: xDifference, y: yDifference)
     }
     
-    public func showAlert(title: String, message: String) {
-        let alertViewController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
-        let cancelAction = UIAlertAction(title: "OK", style: .Cancel, handler: nil)
+    public func showAlert(_ title: String, message: String) {
+        let alertViewController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
         alertViewController.addAction(cancelAction)
-        self.presentViewController(alertViewController, animated: true, completion: nil)
+        self.present(alertViewController, animated: true, completion: nil)
     }
     
     public func view(intersects aView: UIView, rect aRect: CGRect) -> Bool {
-        let viewRect = self.view.convertRect(aView.frame, fromView: aView.superview)
-        return CGRectIntersectsRect(aRect, viewRect)
+        let viewRect = self.view.convert(aView.frame, from: aView.superview)
+        return aRect.intersects(viewRect)
     }
 }

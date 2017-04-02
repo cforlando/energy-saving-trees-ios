@@ -40,13 +40,13 @@ private let STContactErrorNumberMessage = "Please enter a valid phone number."
 // MARK: - Enumerations
 
 enum STValidation {
-    case PhoneNumber, Email
+    case phoneNumber, email
     
     func regex() -> String {
         switch self {
-        case .Email:
+        case .email:
             return "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}"
-        case .PhoneNumber:
+        case .phoneNumber:
             return "^(?:(?:\\+?1\\s*(?:[.-]\\s*)?)?(?:\\(\\s*([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9])\\s*\\)|([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9]))\\s*(?:[.-]\\s*)?)?([2-9]1[02-9]|[2-9][02-9]1|[2-9][02-9]{2})\\s*(?:[.-]\\s*)?([0-9]{4})(?:\\s*(?:#|x\\.?|ext\\.?|extension)\\s*(\\d+))?$"
         }
     }
@@ -56,7 +56,7 @@ enum STValidation {
 // MARK: - Protocol
 
 protocol STContactDetailsFormViewControllerDelegate: NSObjectProtocol {
-    func contactDetailsFormViewController(form: STContactDetailsFormViewController, didCompleteWithContact aContact: STTKContact)
+    func contactDetailsFormViewController(_ form: STContactDetailsFormViewController, didCompleteWithContact aContact: STTKContact)
 }
 
 
@@ -79,27 +79,27 @@ class STContactDetailsFormViewController: STBaseOrderFormViewController {
     //******************************************************************************************************************
     // MARK: - ViewController Overrides
     
-    override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         
         if !self.confirmUser() {
             return false
         }
         
-        return super.shouldPerformSegueWithIdentifier(identifier, sender: sender)
+        return super.shouldPerformSegue(withIdentifier: identifier, sender: sender)
     }
 
     //******************************************************************************************************************
     // MARK: - TextField Delegate
     
-    func textFieldDidBeginEditing(textField: UITextField) {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
         self.activeTextField = textField
     }
     
-    func textFieldDidEndEditing(textField: UITextField) {
+    func textFieldDidEndEditing(_ textField: UITextField) {
         self.activeTextField = nil
     }
     
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         
         switch textField {
         case self.nameTextField:
@@ -118,7 +118,7 @@ class STContactDetailsFormViewController: STBaseOrderFormViewController {
     //******************************************************************************************************************
     // MARK: - Actions
     
-    @IBAction func dismissKeyboard(sender: AnyObject) {
+    @IBAction func dismissKeyboard(_ sender: AnyObject) {
         self.nameTextField.resignFirstResponder()
         self.emailTextField.resignFirstResponder()
         self.phoneNumberTextField.resignFirstResponder()
@@ -129,17 +129,17 @@ class STContactDetailsFormViewController: STBaseOrderFormViewController {
     
     func confirmUser() -> Bool {
         
-        guard let name = self.nameTextField.text where !name.isEmpty else {
+        guard let name = self.nameTextField.text, !name.isEmpty else {
             self.showAlert(STContactErrorTitle, message: STContactErrorNameMessage)
             return false
         }
         
-        guard let email = self.emailTextField.text where self.validate(string: email, validation: .Email) else {
+        guard let email = self.emailTextField.text, self.validate(string: email, validation: .email) else {
             self.showAlert(STContactErrorTitle, message: STContactErrorEmailMessage)
             return false
         }
         
-        guard let phoneNumber = self.phoneNumberTextField.text where self.validate(string: phoneNumber, validation: .PhoneNumber) else {
+        guard let phoneNumber = self.phoneNumberTextField.text, self.validate(string: phoneNumber, validation: .phoneNumber) else {
             self.showAlert(STContactErrorTitle, message: STContactErrorNumberMessage)
             return false
         }
@@ -155,7 +155,7 @@ class STContactDetailsFormViewController: STBaseOrderFormViewController {
     }
 
     func validate(string aString: String, validation: STValidation) -> Bool {
-        return NSPredicate(format: "SELF MATCHES %@", validation.regex()).evaluateWithObject(aString)
+        return NSPredicate(format: "SELF MATCHES %@", validation.regex()).evaluate(with: aString)
     }
   
 

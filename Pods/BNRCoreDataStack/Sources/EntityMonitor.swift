@@ -3,7 +3,7 @@
 //  CoreDataStack
 //
 //  Created by Robert Edwards on 11/18/15.
-//  Copyright © 2015 Big Nerd Ranch. All rights reserved.
+//  Copyright © 2015-2016 Big Nerd Ranch. All rights reserved.
 //
 
 import CoreData
@@ -11,18 +11,19 @@ import CoreData
 /// The frequency of notification dispatch from the `EntityMonitor`
 public enum FireFrequency {
     /// Notifications will be sent upon `NSManagedObjectContext` being changed
-    case OnChange
+    case onChange
 
     /// Notifications will be sent upon `NSManagedObjectContext` being saved
-    case OnSave
+    case onSave
 }
 
 /**
  Protocol for delegate callbacks of `NSManagedObject` entity change events.
  */
 public protocol EntityMonitorDelegate: class { // : class for weak capture
-    /// Type of object being monitored. Must inheirt from `NSManagedObject` and implement `CoreDataModelable`
-    associatedtype T: NSManagedObject, CoreDataModelable, Hashable
+    /// Type of object being monitored. Must inheirt from `NSManagedObject` and implement `NSFetchRequestResult`
+    // swiftlint:disable type_name
+    associatedtype T: NSManagedObject, NSFetchRequestResult, Hashable
 
     /**
      Callback for when objects matching the predicate have been inserted
@@ -30,7 +31,7 @@ public protocol EntityMonitorDelegate: class { // : class for weak capture
      - parameter monitor: The `EntityMonitor` posting the callback
      - parameter entities: The set of inserted matching objects
      */
-    func entityMonitorObservedInserts(monitor: EntityMonitor<T>, entities: Set<T>)
+    func entityMonitorObservedInserts(_ monitor: EntityMonitor<T>, entities: Set<T>)
 
     /**
      Callback for when objects matching the predicate have been deleted
@@ -38,7 +39,7 @@ public protocol EntityMonitorDelegate: class { // : class for weak capture
      - parameter monitor: The `EntityMonitor` posting the callback
      - parameter entities: The set of deleted matching objects
      */
-    func entityMonitorObservedDeletions(monitor: EntityMonitor<T>, entities: Set<T>)
+    func entityMonitorObservedDeletions(_ monitor: EntityMonitor<T>, entities: Set<T>)
 
     /**
      Callback for when objects matching the predicate have been updated
@@ -46,23 +47,23 @@ public protocol EntityMonitorDelegate: class { // : class for weak capture
      - parameter monitor: The `EntityMonitor` posting the callback
      - parameter entities: The set of updated matching objects
      */
-    func entityMonitorObservedModifications(monitor: EntityMonitor<T>, entities: Set<T>)
+    func entityMonitorObservedModifications(_ monitor: EntityMonitor<T>, entities: Set<T>)
 }
 
 /**
  Class for monitoring changes within a given `NSManagedObjectContext`
     to a specific Core Data Entity with optional filtering via an `NSPredicate`.
  */
-public class EntityMonitor<T: NSManagedObject where T: CoreDataModelable, T: Hashable> {
+public class EntityMonitor<T: NSManagedObject> where T: Hashable {
 
     // MARK: - Public Properties
 
     /**
      Function for setting the `EntityMonitorDelegate` that will receive callback events.
 
-     - parameter U: Your delegate must implement the methods in `EntityMonitorDelegate` with the matching `CoreDataModelable` type being monitored.
+     - parameter U: Your delegate must implement the methods in `EntityMonitorDelegate` with the matching `NSFetchRequestResult` type being monitored.
      */
-    public func setDelegate<U: EntityMonitorDelegate where U.T == T>(delegate: U) {
+    public func setDelegate<U: EntityMonitorDelegate>(_ delegate: U) where U.T == T {
         self.delegateHost = ForwardingEntityMonitorDelegate(owner: self, delegate: delegate)
     }
 
@@ -77,13 +78,13 @@ public class EntityMonitor<T: NSManagedObject where T: CoreDataModelable, T: Has
         }
     }
 
-    private typealias EntitySet = Set<T>
+    fileprivate typealias EntitySet = Set<T>
+    fileprivate let frequency: FireFrequency
+    fileprivate let context: NSManagedObjectContext
 
-    private let context: NSManagedObjectContext
-    private let frequency: FireFrequency
     private let entityPredicate: NSPredicate
     private let filterPredicate: NSPredicate?
-    private lazy var combinedPredicate: NSPredicate = {
+    fileprivate lazy var combinedPredicate: NSPredicate = {
         if let filterPredicate = self.filterPredicate {
             return NSCompoundPredicate(andPredicateWithSubpredicates:
                 [self.entityPredicate, filterPredicate])
@@ -95,19 +96,26 @@ public class EntityMonitor<T: NSManagedObject where T: CoreDataModelable, T: Has
     // MARK: - Lifecycle
 
     /**
-    Initializer to create an `EntityMonitor` to monitor changes to a specific Core Data Entity.
+     Initializer to create an `EntityMonitor` to monitor changes to a specific Core Data Entity.
 
-    This initializer is failable in the event your Entity is not within the supplied `NSManagedObjectContext`.
+     This initializer is failable in the event your Entity is not within the supplied `NSManagedObjectContext`.
 
-    - parameter context: `NSManagedObjectContext` the context you want to monitor changes within.
-    - parameter frequency: `FireFrequency` How frequently you wish to receive callbacks of changes. Default value is `.OnSave`.
-    - parameter filterPredicate: An optional filtering predicate to be applied to entities being monitored.
-    */
-    public init(context: NSManagedObjectContext, frequency: FireFrequency = .OnSave, filterPredicate: NSPredicate? = nil) {
+     - parameter context: `NSManagedObjectContext` the context you want to monitor changes within.
+     - parameter entity: `NSEntityDescription` for the entity you wish to monitor
+     - parameter frequency: `FireFrequency` How frequently you wish to receive callbacks of changes. Default value is `.OnSave`.
+
+     - parameter filterPredicate: An optional filtering predicate to be applied to entities being monitored.
+     */
+    public init(context: NSManagedObjectContext, entity: NSEntityDescription,
+                frequency: FireFrequency = .onSave, filterPredicate: NSPredicate? = nil) {
         self.context = context
         self.frequency = frequency
         self.filterPredicate = filterPredicate
-        self.entityPredicate = NSPredicate(format: "entity == %@", T.entityDescriptionInContext(context))
+        self.entityPredicate = NSPredicate(format: "entity == %@", entity)
+        guard let entityClass = NSClassFromString(entity.managedObjectClassName) else {
+            preconditionFailure("Entity Description is missing a class name or does not represent a class")
+        }
+        precondition(entityClass == T.self, "Class generic type must match entity descripton type")
     }
 
     deinit {
@@ -115,9 +123,9 @@ public class EntityMonitor<T: NSManagedObject where T: CoreDataModelable, T: Has
     }
 }
 
-private class BaseEntityMonitorDelegate<T: NSManagedObject where T: CoreDataModelable, T: Hashable>: NSObject {
+private class BaseEntityMonitorDelegate<T: NSManagedObject>: NSObject where T: NSFetchRequestResult, T: Hashable {
 
-    private let ChangeObserverSelectorName = #selector(BaseEntityMonitorDelegate<T>.evaluateChangeNotification(_:))
+    private let changeObserverSelectorName = #selector(BaseEntityMonitorDelegate<T>.evaluateChangeNotification(_:))
 
     typealias Owner = EntityMonitor<T>
     typealias EntitySet = Owner.EntitySet
@@ -129,32 +137,32 @@ private class BaseEntityMonitorDelegate<T: NSManagedObject where T: CoreDataMode
     }
 
     final func setupObservers() {
-        let notificationName: String
+        let notificationName: NSNotification.Name
         switch owner.frequency {
-        case .OnChange:
-            notificationName = NSManagedObjectContextObjectsDidChangeNotification
-        case .OnSave:
-            notificationName = NSManagedObjectContextDidSaveNotification
+        case .onChange:
+            notificationName = .NSManagedObjectContextObjectsDidChange
+        case .onSave:
+            notificationName = .NSManagedObjectContextDidSave
         }
 
-        NSNotificationCenter.defaultCenter().addObserver(self,
-            selector: ChangeObserverSelectorName,
+        NotificationCenter.default.addObserver(self,
+            selector: changeObserverSelectorName,
             name: notificationName,
             object: owner.context)
     }
 
     final func removeObservers() {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
     }
 
-    @objc final func evaluateChangeNotification(notification: NSNotification) {
-        guard let changeSet = notification.userInfo else {
+    @objc final func evaluateChangeNotification(_ notification: Notification) {
+        guard let changeSet = (notification as NSNotification).userInfo else {
             return
         }
 
-        owner.context.performBlockAndWait { [predicate = owner.combinedPredicate] in
-            func process(value: AnyObject?) -> EntitySet {
-                return value.flatMap { $0.filteredSetUsingPredicate(predicate) as? EntitySet } ?? []
+        owner.context.performAndWait { [predicate = owner.combinedPredicate] in
+            func process(_ value: Any?) -> EntitySet {
+                return (value as? NSSet)?.filtered(using: predicate) as? EntitySet ?? []
             }
 
             let inserted = process(changeSet[NSInsertedObjectsKey])
@@ -164,7 +172,7 @@ private class BaseEntityMonitorDelegate<T: NSManagedObject where T: CoreDataMode
         }
     }
 
-    func handleChanges(inserted inserted: EntitySet, deleted: EntitySet, updated: EntitySet) {
+    func handleChanges(inserted: EntitySet, deleted: EntitySet, updated: EntitySet) {
         fatalError()
     }
 }
@@ -178,7 +186,7 @@ private final class ForwardingEntityMonitorDelegate<Delegate: EntityMonitorDeleg
         self.delegate = delegate
     }
 
-    override func handleChanges(inserted inserted: EntitySet, deleted: EntitySet, updated: EntitySet) {
+    override func handleChanges(inserted: EntitySet, deleted: EntitySet, updated: EntitySet) {
         guard let delegate = delegate else { return }
 
         if !inserted.isEmpty {

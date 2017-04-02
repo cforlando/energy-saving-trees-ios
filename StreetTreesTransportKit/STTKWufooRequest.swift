@@ -35,27 +35,27 @@ import StreetTreesFoundationKit
 private let STTKAPIKey = "J07R-LZ1B-Z5J6-Z6K9:password"
 private let STTKBaseURLPath = "https://cityoforlando.wufoo.com/api/v3/forms/{identifier}/entries.json"
 private let STTKStreetTreeFormIdentifier = "tree-planting-program-online-application"
-private let STTKRequestTimeout: NSTimeInterval = 10.0
+private let STTKRequestTimeout: TimeInterval = 10.0
 
 //**********************************************************************************************************************
 // MARK: - Public Typealiases
-public typealias STTKRequestComplete = (error: NSError?) -> Void
+public typealias STTKRequestComplete = (_ error: NSError?) -> Void
 
 //**********************************************************************************************************************
 // MARK: - Class Implementation
 
 /// STTKWufooRequest is a concrete Post request
-public class STTKWufooRequest: NSMutableURLRequest {
+open class STTKWufooRequest: NSMutableURLRequest {
     
     //******************************************************************************************************************
     // MARK: - Public Functions
     
     public init() {
-        let URLPath = STTKBaseURLPath.stringByReplacingOccurrencesOfString("{identifier}",
-                                                                           withString: STTKStreetTreeFormIdentifier)
-        let URL = NSURL(string: URLPath)!
+        let URLPath = STTKBaseURLPath.replacingOccurrences(of: "{identifier}",
+                                                                           with: STTKStreetTreeFormIdentifier)
+        let URL = Foundation.URL(string: URLPath)!
         
-        super.init(URL: URL, cachePolicy: .UseProtocolCachePolicy, timeoutInterval: STTKRequestTimeout)
+        super.init(url: URL, cachePolicy: .useProtocolCachePolicy, timeoutInterval: STTKRequestTimeout)
         self.commonInit()
     }
     
@@ -68,11 +68,11 @@ public class STTKWufooRequest: NSMutableURLRequest {
     // MARK: - Internal Functions
     
     func commonInit() {
-        guard let apiKey = STTKAPIKey.dataUsingEncoding(NSUTF8StringEncoding)?.base64EncodedStringWithOptions([]) else {
+        guard let apiKey = STTKAPIKey.data(using: String.Encoding.utf8)?.base64EncodedString(options: []) else {
             return
         }
         
-        self.HTTPMethod = "Post"
+        self.httpMethod = "Post"
         self.addValue("Basic \(apiKey)", forHTTPHeaderField: "Authorization")
     }
     
@@ -88,11 +88,11 @@ extension STTKWufooRequest {
      - parameter completion: The completion block that will be called once the request has either recieved a response 
                              from the server, or timed out.
      */
-    public func execute(form: STTKWufooForm, completion: STTKRequestComplete) {
-        self.HTTPBody = form.data
+    public func execute(_ form: STTKWufooForm, completion: @escaping STTKRequestComplete) {
+        self.httpBody = form.data as Data?
         
         print("------------- Request Start --------------")
-        print("URL: \(self.URL)")
+        print("URL: \(self.url)")
         print("Content: \(form.query)")
         print("-------------- Request End ---------------")
 
