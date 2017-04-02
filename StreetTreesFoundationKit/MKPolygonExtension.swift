@@ -38,10 +38,11 @@ public extension MKPolygon {
         let currentMapPoint: MKMapPoint = MKMapPointForCoordinate(coordinate)
         let polygonViewPoint: CGPoint = polygonRenderer.point(for: currentMapPoint)
         
-        if CGPathContainsPoint(polygonRenderer.path, nil, polygonViewPoint, true) {
+        if polygonRenderer.path.contains(polygonViewPoint){
             inside = true
         }
         
         return inside
+
     }
 }
