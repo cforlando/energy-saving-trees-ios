@@ -30,13 +30,13 @@ import MapKit
 
 public extension MKPolygon {
     
-    public func coordinateInsidePolygon(coordinate: CLLocationCoordinate2D) -> Bool {
+    public func coordinateInsidePolygon(_ coordinate: CLLocationCoordinate2D) -> Bool {
         
         var inside = false
         
         let polygonRenderer = MKPolygonRenderer(polygon: self)
         let currentMapPoint: MKMapPoint = MKMapPointForCoordinate(coordinate)
-        let polygonViewPoint: CGPoint = polygonRenderer.pointForMapPoint(currentMapPoint)
+        let polygonViewPoint: CGPoint = polygonRenderer.point(for: currentMapPoint)
         
         if CGPathContainsPoint(polygonRenderer.path, nil, polygonViewPoint, true) {
             inside = true

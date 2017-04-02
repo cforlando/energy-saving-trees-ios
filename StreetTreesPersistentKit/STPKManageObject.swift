@@ -28,21 +28,21 @@
 import CoreData
 import Foundation
 
-public class STPKManagedObject: NSManagedObject {
+open class STPKManagedObject: NSManagedObject {
     
     //******************************************************************************************************************
     // MARK: - Public Functions
     
-    public class func entityName() -> String {
+    open class func entityName() -> String {
         preconditionFailure("This method must be overridden")
     }
     
-    public class func fetch(context: NSManagedObjectContext) throws -> [STPKManagedObject] {
-        let fetchRequest = NSFetchRequest(entityName: self.entityName())
-        return try context.executeFetchRequest(fetchRequest) as? [STPKManagedObject] ?? []
+    open class func fetch(_ context: NSManagedObjectContext) throws -> [STPKManagedObject] {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName())
+        return try context.fetch(fetchRequest) as? [STPKManagedObject] ?? []
     }
     
-    public class func insert(context context: NSManagedObjectContext) -> STPKManagedObject {
+    open class func insert(context: NSManagedObjectContext) -> STPKManagedObject {
         preconditionFailure("This method must be overridden")
     }
     
@@ -50,6 +50,6 @@ public class STPKManagedObject: NSManagedObject {
     // MARK: - Private Functions (to the framework)
     
     class func entityDescription(inManagedObjectContext context: NSManagedObjectContext) -> NSEntityDescription {
-        return NSEntityDescription.entityForName(self.entityName(), inManagedObjectContext: context)!
+        return NSEntityDescription.entity(forEntityName: self.entityName(), in: context)!
     }
 }

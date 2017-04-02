@@ -40,29 +40,29 @@ private let STRegionRadius: CLLocationDistance = 0.001
 private let STSnapshotDistance: CLLocationDistance = 500.0
 
 enum STDetailRows {
-    case Additional
-    case Description
-    case Height
-    case Leaf
-    case Moisture
-    case Name
-    case OpenInMaps
-    case Shape
-    case Soil
-    case Width
-    case Birthday
+    case additional
+    case description
+    case height
+    case leaf
+    case moisture
+    case name
+    case openInMaps
+    case shape
+    case soil
+    case width
+    case birthday
     
     func sectionHeader() -> String? {
         switch self {
-        case .Additional:
+        case .additional:
             return "Additional"
-        case .OpenInMaps, .Birthday:
+        case .openInMaps, .birthday:
             return nil
-        case .Name, .Description:
+        case .name, .description:
             return nil
-        case .Width, .Height, .Shape:
+        case .width, .height, .shape:
             return "Dimensions"
-        case .Soil, .Moisture, .Leaf:
+        case .soil, .moisture, .leaf:
             return "Foilage and Environment"
         }
     }
@@ -80,23 +80,23 @@ class STTreeDetailsTableViewController: UITableViewController {
     
     lazy var datasource: [[STDetailRows]] = {
     
-        var source: [[STDetailRows]] = [[.Name, .Description],
-                                        [.OpenInMaps],
-                                        [.Height, .Width, .Shape]]
+        var source: [[STDetailRows]] = [[.name, .description],
+                                        [.openInMaps],
+                                        [.height, .width, .shape]]
         
         if self.annotation?.tree.date != nil {
-            source[0].append(.Birthday)
+            source[0].append(.birthday)
         }
         
-        var foilageAndEnvironment: [STDetailRows] = [.Leaf, .Soil]
+        var foilageAndEnvironment: [STDetailRows] = [.leaf, .soil]
         if self.treeDescription?.moisture != nil {
-            foilageAndEnvironment.append(.Moisture)
+            foilageAndEnvironment.append(.moisture)
         }
         
         source.append(foilageAndEnvironment)
         
         if self.treeDescription?.additional != nil {
-            source.append([.Additional])
+            source.append([.additional])
         }
         
         return source
@@ -126,7 +126,7 @@ class STTreeDetailsTableViewController: UITableViewController {
         
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationItem.title = self.annotation?.tree.speciesName
         self.tableView.estimatedRowHeight = STEstimateRowHeight
@@ -135,11 +135,11 @@ class STTreeDetailsTableViewController: UITableViewController {
         self.setupMapView()
     }
     
-    override func scrollViewDidScroll(scrollView: UIScrollView) {        
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {        
         self.updateHeaderView()
     }
     
-    override func traitCollectionDidChange(previousTraitCollection: UITraitCollection?) {
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         
         self.setupMapView()
@@ -148,59 +148,59 @@ class STTreeDetailsTableViewController: UITableViewController {
     //******************************************************************************************************************
     // MARK: - TableView Datasource
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return self.datasource.count
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.datasource[section].count
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let basicCell = tableView.dequeueReusableCellWithIdentifier("basic", forIndexPath: indexPath)
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let basicCell = tableView.dequeueReusableCell(withIdentifier: "basic", for: indexPath)
         
         let row = self.detailRow(forIndexPath: indexPath)
         let content: String
         var subtitle: String? = nil
-        basicCell.selectionStyle = .None
+        basicCell.selectionStyle = .none
         
         switch row {
-        case .Name:
+        case .name:
             content = self.treeDescription?.name ?? "Error retrieving name"
             if var image = self.treeDescription?.image() {
                 self.resize(image: &image)
                 basicCell.accessoryView = UIImageView(image: image)
             }
-        case .Description:
+        case .description:
             content = self.treeDescription?.treeDescription ?? "Tree Description Missing"
-        case .Height:
+        case .height:
             let height = self.localizedHeight()
             content = height.content
             subtitle = height.subtitle
-        case .Width:
+        case .width:
             let width = self.localizedWidth()
             content = width.content
             subtitle = width.subtitle
-        case .OpenInMaps:
+        case .openInMaps:
             content = "Open in Maps"
-        case .Leaf:
+        case .leaf:
             content = self.treeDescription?.leaf ?? "Leaf information missing"
             subtitle = "Leaf"
-        case .Shape:
+        case .shape:
             content = self.treeDescription?.shape ?? "Shape information missing"
             subtitle = "Shape"
-        case .Soil:
+        case .soil:
             let soil = self.treeDescription?.soil
             content = soil?.stringByReplacingOccurrencesOfString(";", withString: ", ") ?? "Soil information missing"
             subtitle = "Soil"
-        case .Moisture:
+        case .moisture:
             content = self.treeDescription?.moisture ?? "Moisture information missing"
             subtitle = "Moisture"
-        case .Additional:
+        case .additional:
             content = self.treeDescription?.additional ?? "Additional information missing"
-        case .Birthday:
+        case .birthday:
             if let date = self.annotation?.tree.date {
-                let dateString = NSDateFormatter.localizedStringFromDate(date, dateStyle: .MediumStyle, timeStyle: .NoStyle)
+                let dateString = DateFormatter.localizedStringFromDate(date, dateStyle: .MediumStyle, timeStyle: .NoStyle)
                 content = dateString
             } else {
                 content = "No Date Available"
@@ -213,7 +213,7 @@ class STTreeDetailsTableViewController: UITableViewController {
         return basicCell
     }
     
-    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         let rows = self.datasource[section]
         return rows.first?.sectionHeader()
     }
@@ -221,25 +221,25 @@ class STTreeDetailsTableViewController: UITableViewController {
     //******************************************************************************************************************
     // MARK: - TableView Delegate
     
-    override func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {
+    override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
         let detail = self.detailRow(forIndexPath: indexPath)
         
-        return detail == .OpenInMaps ? indexPath : nil
+        return detail == .openInMaps ? indexPath : nil
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let detailRow = self.detailRow(forIndexPath: indexPath)
         
-        if detailRow == .OpenInMaps {
+        if detailRow == .openInMaps {
             self.openInMaps()
-            tableView.deselectRowAtIndexPath(indexPath, animated: true)
+            tableView.deselectRow(at: indexPath, animated: true)
         }
     }
     
     //******************************************************************************************************************
     // MARK: - Functions
     
-    func detailRow(forIndexPath anIndexPath: NSIndexPath) -> STDetailRows {
+    func detailRow(forIndexPath anIndexPath: IndexPath) -> STDetailRows {
         let section = self.datasource[anIndexPath.section]
         return section[anIndexPath.row]
     }
@@ -255,22 +255,22 @@ class STTreeDetailsTableViewController: UITableViewController {
         return (subtitle:"Average Height", content: self.localizedLength(minimum, maximum: maximum))
     }
     
-    func localizedLength(minimum: Double, maximum: Double) -> String {
-        let formatter = NSLengthFormatter()
-        formatter.forPersonHeightUse = true
-        formatter.unitStyle = .Medium
+    func localizedLength(_ minimum: Double, maximum: Double) -> String {
+        let formatter = LengthFormatter()
+        formatter.isForPersonHeightUse = true
+        formatter.unitStyle = .medium
         
-        let unitType: NSLengthFormatterUnit
-        let locale = NSLocale.autoupdatingCurrentLocale()
-        let isMetric = locale.objectForKey(NSLocaleUsesMetricSystem) as? Bool
+        let unitType: LengthFormatter.Unit
+        let locale = Locale.autoupdatingCurrent
+        let isMetric = (locale as NSLocale).object(forKey: NSLocale.Key.usesMetricSystem) as? Bool
         if isMetric == true {
-            unitType = .Meter
+            unitType = .meter
         } else {
-            unitType = .Foot
+            unitType = .foot
         }
         
-        let minimumString = formatter.stringFromValue(minimum, unit: unitType)
-        let maximumString = formatter.stringFromValue(maximum, unit: unitType)
+        let minimumString = formatter.string(fromValue: minimum, unit: unitType)
+        let maximumString = formatter.string(fromValue: maximum, unit: unitType)
         
         return "\(minimumString) - \(maximumString)"
     }
@@ -289,7 +289,7 @@ class STTreeDetailsTableViewController: UITableViewController {
     func openInMaps() {
         if let latitude = self.annotation?.tree.latitude as? CLLocationDegrees,
             let longitude = self.annotation?.tree.longitude as? CLLocationDegrees,
-            let URL = NSURL(string: "http://maps.apple.com/maps?q=\(latitude),\(longitude)"){
+            let URL = URL(string: "http://maps.apple.com/maps?q=\(latitude),\(longitude)"){
             
             if UIApplication.sharedApplication().canOpenURL(URL) {
                 UIApplication.sharedApplication().openURL(URL)
@@ -301,12 +301,12 @@ class STTreeDetailsTableViewController: UITableViewController {
         }
     }
     
-    func resize(inout image anImage: UIImage) {
+    func resize(image anImage: inout UIImage) {
         let newSize = STCellAccessorySize
         let newImageFrame = CGRect(origin: .zero, size: newSize)
-        UIGraphicsBeginImageContextWithOptions(newSize, true, UIScreen.mainScreen().scale)
-        anImage.drawInRect(newImageFrame)
-        anImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsBeginImageContextWithOptions(newSize, true, UIScreen.main.scale)
+        anImage.draw(in: newImageFrame)
+        anImage = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
     }
     
@@ -319,9 +319,9 @@ class STTreeDetailsTableViewController: UITableViewController {
         
         snapshot.showDropPin = true
         snapshot.showPointsOfInterest = false
-        snapshot.mapType = .Hybrid
+        snapshot.mapType = .hybrid
         snapshot.distance = STSnapshotDistance
-        snapshot.size = UIScreen.mainScreen().bounds.size
+        snapshot.size = UIScreen.main.bounds.size
         snapshot.takeSnapshot()
 
     }

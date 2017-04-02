@@ -39,13 +39,13 @@ private let STUnselectedBorderWidth: CGFloat = 0.0
 //**********************************************************************************************************************
 // MARK: - Global Functions
 
-private func average(numbers:Double...) -> Double {
+private func average(_ numbers:Double...) -> Double {
     let initialValue: Double = 0
-    let total = numbers.reduce(initialValue, combine:{ $0 + $1 })
+    let total = numbers.reduce(initialValue, { $0 + $1 })
     return total / Double(numbers.count)
 }
 
-private func round(number:Double, toNearest nearest: Double) -> Double {
+private func round(_ number:Double, toNearest nearest: Double) -> Double {
     return round(number / nearest) * nearest
 }
 
@@ -53,7 +53,7 @@ private func round(number:Double, toNearest nearest: Double) -> Double {
 // MARK: - Protocols
 
 protocol STSelectTreeViewControllerDelegate: NSObjectProtocol {
-    func selectTreeViewController(selectTreeViewController: STSelectTreeViewController, didSelectTreeDescription aTreeDescription: STPKTreeDescription)
+    func selectTreeViewController(_ selectTreeViewController: STSelectTreeViewController, didSelectTreeDescription aTreeDescription: STPKTreeDescription)
 }
 
 //**********************************************************************************************************************
@@ -77,7 +77,7 @@ class STSelectTreeViewController: STBaseOrderFormViewController, UICollectionVie
     //******************************************************************************************************************
     // MARK: - Class Overrides
     
-    override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
 
         // Override if required.
         guard let treeDescription = self.treeDescription else {
@@ -87,7 +87,7 @@ class STSelectTreeViewController: STBaseOrderFormViewController, UICollectionVie
         
         self.delegate?.selectTreeViewController(self, didSelectTreeDescription: treeDescription)
         
-        return super.shouldPerformSegueWithIdentifier(identifier, sender: sender)
+        return super.shouldPerformSegue(withIdentifier: identifier, sender: sender)
     }
     
     override func viewDidLayoutSubviews() {
@@ -104,7 +104,7 @@ class STSelectTreeViewController: STBaseOrderFormViewController, UICollectionVie
         self.collectionView.contentInset = insets
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if let treeDescription = self.datasource.first {
             self.updateLabels(withTreeDescription: treeDescription)
@@ -114,20 +114,20 @@ class STSelectTreeViewController: STBaseOrderFormViewController, UICollectionVie
     //******************************************************************************************************************
     // MARK: - Actions
     
-    @IBAction func closeForm(sender: UIButton) {
-        self.dismissViewControllerAnimated(true, completion: nil)
+    @IBAction func closeForm(_ sender: UIButton) {
+        self.dismiss(animated: true, completion: nil)
     }
     
     //******************************************************************************************************************
     // MARK: - CollectionView Datasource
     
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        if let cell = collectionView.dequeueReusableCellWithReuseIdentifier("treeCell", forIndexPath: indexPath) as? STTreeCollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "treeCell", for: indexPath) as? STTreeCollectionViewCell {
             
             let treeDescription = self.datasource[indexPath.row]
             cell.imageView.image = treeDescription.image()
             cell.nameLabel.text = treeDescription.name
-            cell.layer.borderColor = UIColor.codeForOrlandoOrange().CGColor
+            cell.layer.borderColor = UIColor.codeForOrlandoOrange().cgColor
             cell.layer.cornerRadius = STBorderCornerRadius
             return cell
         }
@@ -135,11 +135,11 @@ class STSelectTreeViewController: STBaseOrderFormViewController, UICollectionVie
         return UICollectionViewCell()
     }
     
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.datasource.count
     }
     
-    func collectionView(collectionView: UICollectionView, willDisplayCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath) {
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         
         if self.treeDescription == self.datasource[indexPath.row] {
             cell.layer.borderWidth = STSelectedBorderWidth
@@ -148,17 +148,17 @@ class STSelectTreeViewController: STBaseOrderFormViewController, UICollectionVie
         }
     }
     
-    func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
     
     //******************************************************************************************************************
     // MARK: - CollectionView Delegate
     
-    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         self.resetAllCells()
         
-        let cell = collectionView.cellForItemAtIndexPath(indexPath)
+        let cell = collectionView.cellForItem(at: indexPath)
         let selectedTree = self.datasource[indexPath.row]
         if self.treeDescription == selectedTree {
             cell?.layer.borderWidth = STUnselectedBorderWidth
@@ -172,9 +172,9 @@ class STSelectTreeViewController: STBaseOrderFormViewController, UICollectionVie
     //******************************************************************************************************************
     // MARK: - Scroll View Delegate
     
-    func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
 
-        let visibleIndexPaths = self.collectionView.indexPathsForVisibleItems()
+        let visibleIndexPaths = self.collectionView.indexPathsForVisibleItems
         let itemIndex: Int
         
         if visibleIndexPaths.count == 2 {
@@ -196,11 +196,11 @@ class STSelectTreeViewController: STBaseOrderFormViewController, UICollectionVie
     //******************************************************************************************************************
     // MARK: - Private Functions
     
-    func greaterIndex(indexes: [NSIndexPath]) -> Int {
+    func greaterIndex(_ indexes: [IndexPath]) -> Int {
         
         let firstIndex = indexes.first?.item ?? 0
         
-        return indexes.reduce(firstIndex, combine: { (result, indexPath) -> Int in
+        return indexes.reduce(firstIndex, { (result, indexPath) -> Int in
             if indexPath.item >= result {
                 return indexPath.item
             } else {
@@ -209,10 +209,10 @@ class STSelectTreeViewController: STBaseOrderFormViewController, UICollectionVie
         })
     }
     
-    func lesserIndex(indexes: [NSIndexPath]) -> Int {
+    func lesserIndex(_ indexes: [IndexPath]) -> Int {
         let firstIndex = indexes.first?.item ?? 0
         
-        return indexes.reduce(firstIndex, combine: { (result, indexPath) -> Int in
+        return indexes.reduce(firstIndex, { (result, indexPath) -> Int in
             if indexPath.item <= result {
                 return indexPath.item
             } else {
@@ -233,21 +233,21 @@ class STSelectTreeViewController: STBaseOrderFormViewController, UICollectionVie
         return self.localizedLength(avg)
     }
     
-    func localizedLength(average: Double) -> String {
-        let formatter = NSLengthFormatter()
-        formatter.forPersonHeightUse = true
-        formatter.unitStyle = .Medium
+    func localizedLength(_ average: Double) -> String {
+        let formatter = LengthFormatter()
+        formatter.isForPersonHeightUse = true
+        formatter.unitStyle = .medium
         
-        let unitType: NSLengthFormatterUnit
-        let locale = NSLocale.autoupdatingCurrentLocale()
-        let isMetric = locale.objectForKey(NSLocaleUsesMetricSystem) as? Bool
+        let unitType: LengthFormatter.Unit
+        let locale = Locale.autoupdatingCurrent
+        let isMetric = (locale as NSLocale).object(forKey: NSLocale.Key.usesMetricSystem) as? Bool
         if isMetric == true {
-            unitType = .Meter
+            unitType = .meter
         } else {
-            unitType = .Foot
+            unitType = .foot
         }
         
-        return formatter.stringFromValue(average, unit: unitType)
+        return formatter.string(fromValue: average, unit: unitType)
     }
     
     func localizedWidth(withTreeDescription treeDescription: STPKTreeDescription) -> String {
@@ -262,9 +262,9 @@ class STSelectTreeViewController: STBaseOrderFormViewController, UICollectionVie
         return self.localizedLength(avg)
     }
     
-    func mediumIndex(indexes: [NSIndexPath]) -> Int {
+    func mediumIndex(_ indexes: [IndexPath]) -> Int {
         
-        let total = indexes.reduce(0) { (result: Int, indexPath: NSIndexPath) -> Int in
+        let total = indexes.reduce(0) { (result: Int, indexPath: IndexPath) -> Int in
             result + indexPath.row
         }
         
@@ -290,7 +290,7 @@ class STSelectTreeViewController: STBaseOrderFormViewController, UICollectionVie
         self.width.text = self.localizedWidth(withTreeDescription: treeDescription)
         self.leaf.text = treeDescription.leaf
         self.shape.text = treeDescription.shape
-        UIView.animateWithDuration(0.5, delay: 0.0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.1, options: UIViewAnimationOptions.CurveEaseInOut, animations: {
+        UIView.animate(withDuration: 0.5, delay: 0.0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.1, options: UIViewAnimationOptions(), animations: {
             self.view.layoutIfNeeded()
             }, completion: nil)
     }

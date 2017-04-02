@@ -53,7 +53,7 @@ STAddressFormViewControllerDelegate {
     var wufooForm: STTKWufooForm?
     
     lazy var progressBar: UIProgressView = {
-        let progress = UIProgressView(progressViewStyle: .Bar)
+        let progress = UIProgressView(progressViewStyle: .bar)
         progress.tintColor = UIColor.codeForOrlandoOrange()
         progress.translatesAutoresizingMaskIntoConstraints = false
         progress.setProgress(STProgressSelectTree, animated: false)
@@ -74,7 +74,7 @@ STAddressFormViewControllerDelegate {
     //******************************************************************************************************************
     // MARK: - NavigationController Delegate
     
-    func navigationController(navigationController: UINavigationController, willShowViewController viewController: UIViewController, animated: Bool) {
+    func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
         
         var treeController = viewController as? TreeDescription
         treeController?.treeDescription = self.treeDescription
@@ -105,28 +105,28 @@ STAddressFormViewControllerDelegate {
         
     }
     
-    func navigationController(navigationController: UINavigationController, didShowViewController viewController: UIViewController, animated: Bool) {
+    func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
         self.updateProgress(viewController)
     }
     
     //******************************************************************************************************************
     // MARK: - STContactDetailsFormViewController Delagate
     
-    func contactDetailsFormViewController(form: STContactDetailsFormViewController, didCompleteWithContact aContact: STTKContact) {
+    func contactDetailsFormViewController(_ form: STContactDetailsFormViewController, didCompleteWithContact aContact: STTKContact) {
         self.contact = aContact
     }
     
     //******************************************************************************************************************
     // MARK: - STSelectTreeViewController Delegate
     
-    func selectTreeViewController(selectTreeViewController: STSelectTreeViewController, didSelectTreeDescription aTreeDescription: STPKTreeDescription) {
+    func selectTreeViewController(_ selectTreeViewController: STSelectTreeViewController, didSelectTreeDescription aTreeDescription: STPKTreeDescription) {
         self.treeDescription = aTreeDescription
     }
     
     //******************************************************************************************************************
     // MARK: - STAddressFormViewController Delegate
     
-    func addressFormViewController(form: STAddressFormViewController, didCompleteWithAddress anAddress: STTKStreetAddress) {
+    func addressFormViewController(_ form: STAddressFormViewController, didCompleteWithAddress anAddress: STTKStreetAddress) {
         self.address = anAddress
     }
     
@@ -138,17 +138,17 @@ STAddressFormViewControllerDelegate {
         
         var constraint: NSLayoutConstraint
         
-        constraint = NSLayoutConstraint(item: self.progressBar, attribute: .Bottom, relatedBy: .Equal, toItem: navBar, attribute: .Bottom, multiplier: STConstraintMultiplier, constant: STConstraintTopConstant)
+        constraint = NSLayoutConstraint(item: self.progressBar, attribute: .bottom, relatedBy: .equal, toItem: navBar, attribute: .bottom, multiplier: STConstraintMultiplier, constant: STConstraintTopConstant)
         self.view.addConstraint(constraint)
         
-        constraint = NSLayoutConstraint(item: self.progressBar, attribute: .Left, relatedBy: .Equal, toItem: navBar, attribute: .Left, multiplier: STConstraintMultiplier, constant: STConstraintDefaultConstant)
+        constraint = NSLayoutConstraint(item: self.progressBar, attribute: .left, relatedBy: .equal, toItem: navBar, attribute: .left, multiplier: STConstraintMultiplier, constant: STConstraintDefaultConstant)
         self.view.addConstraint(constraint)
         
-        constraint = NSLayoutConstraint(item: self.progressBar, attribute: .Right, relatedBy: .Equal, toItem: navBar, attribute: .Right, multiplier: STConstraintMultiplier, constant: STConstraintDefaultConstant)
+        constraint = NSLayoutConstraint(item: self.progressBar, attribute: .right, relatedBy: .equal, toItem: navBar, attribute: .right, multiplier: STConstraintMultiplier, constant: STConstraintDefaultConstant)
         self.view.addConstraint(constraint)
     }
     
-    func updateProgress(newViewController: UIViewController) {
+    func updateProgress(_ newViewController: UIViewController) {
         let progress: Float
         
         if newViewController is STSelectTreeViewController {
@@ -163,6 +163,6 @@ STAddressFormViewControllerDelegate {
             progress = self.progressBar.progress
         }
         
-        self.progressBar.setProgress(progress, animated: self.isViewLoaded())
+        self.progressBar.setProgress(progress, animated: self.isViewLoaded)
     }
 }

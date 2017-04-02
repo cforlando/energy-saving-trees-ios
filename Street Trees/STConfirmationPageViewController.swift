@@ -72,9 +72,9 @@ class STConfirmationPageViewController: STBaseOrderFormViewController {
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         
-        if UIScreen.mainScreen().nativeBounds.height / UIScreen.mainScreen().nativeScale < ST4InchHeight {
-            self.contactLabel.hidden = true
-            self.deliveryLabel.hidden = true
+        if UIScreen.main.nativeBounds.height / UIScreen.main.nativeScale < ST4InchHeight {
+            self.contactLabel.isHidden = true
+            self.deliveryLabel.isHidden = true
         }
         
         self.treeImage.image = self.treeDescription?.image()
@@ -88,9 +88,9 @@ class STConfirmationPageViewController: STBaseOrderFormViewController {
     //******************************************************************************************************************
     // MARK: - Actions:
     
-    @IBAction func confirmButtonItemTouchUpInside(sender: AnyObject) {
+    @IBAction func confirmButtonItemTouchUpInside(_ sender: AnyObject) {
         
-        let activityView = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
+        let activityView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
         activityView.startAnimating()
         
         let barButton = UIBarButtonItem(customView: activityView)
@@ -100,9 +100,9 @@ class STConfirmationPageViewController: STBaseOrderFormViewController {
             navigationController.progressBar.setProgress(STProgressComplete, animated: true)
         }
         
-        self.alertController = UIAlertController(title: STSendingFormTitle, message: STSendingFormMessage, preferredStyle: .Alert)
+        self.alertController = UIAlertController(title: STSendingFormTitle, message: STSendingFormMessage, preferredStyle: .alert)
         
-        self.presentViewController(self.alertController!, animated: true) {
+        self.present(self.alertController!, animated: true) {
             self.submitForm()
         }
     }
@@ -115,7 +115,7 @@ class STConfirmationPageViewController: STBaseOrderFormViewController {
             navigationController.updateProgress(self)
         }
         
-        let barButton = UIBarButtonItem(title: STConfirmButtonTitle, style: .Plain, target: self, action: #selector(self.confirmButtonItemTouchUpInside(_:)))
+        let barButton = UIBarButtonItem(title: STConfirmButtonTitle, style: .plain, target: self, action: #selector(self.confirmButtonItemTouchUpInside(_:)))
         self.navigationItem.rightBarButtonItem = barButton
     }
     
@@ -132,7 +132,7 @@ class STConfirmationPageViewController: STBaseOrderFormViewController {
         
         self.validAddress { [weak self] (valid) in
             if !valid {
-                self?.dismissViewControllerAnimated(true, completion: {
+                self?.dismiss(animated: true, completion: {
                     self?.resetUI()
                     self?.showAlert(STInvalidLocationTite, message: STInvalidLocationMessage)
                 })
@@ -163,7 +163,7 @@ class STConfirmationPageViewController: STBaseOrderFormViewController {
         }
     }
     
-    func validAddress(handler: STValidAddressHandler) {
+    func validAddress(_ handler: @escaping STValidAddressHandler) {
         
         let address = self.address?.flatAddress() ?? ""
         self.geocoder.geocodeAddressString(address) { (placemarks:[CLPlacemark]?, error:NSError?) in

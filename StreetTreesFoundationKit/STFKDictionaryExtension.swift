@@ -27,7 +27,7 @@
 
 import UIKit
 
-public func +=<K: Hashable,V>(inout lhs: [K: V], rhs: [K: V]) {
+public func +=<K: Hashable,V>(lhs: inout [K: V], rhs: [K: V]) {
     lhs = lhs + rhs
 }
 

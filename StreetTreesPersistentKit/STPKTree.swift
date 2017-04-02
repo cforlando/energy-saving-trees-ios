@@ -28,18 +28,18 @@
 import Foundation
 import CoreData
 
-public class STPKTree: STPKManagedObject {
+open class STPKTree: STPKManagedObject {
 
     //******************************************************************************************************************
     // MARK: - Class overrides
     
-    override public class func entityName() -> String {
+    override open class func entityName() -> String {
       return "STPKTree"
     }
     
-    override public class func insert(context aContext: NSManagedObjectContext) -> STPKTree {
+    override open class func insert(context aContext: NSManagedObjectContext) -> STPKTree {
         let entityDescription = self.entityDescription(inManagedObjectContext: aContext)
-        let newTree = STPKTree(entity: entityDescription, insertIntoManagedObjectContext: aContext)
+        let newTree = STPKTree(entity: entityDescription, insertInto: aContext)
         return newTree
     }
     
@@ -47,10 +47,10 @@ public class STPKTree: STPKManagedObject {
     // MARK: - Class Functions
     
     class func fetch(byOrderNumber anOrderNumber: Int, inContext aContext: NSManagedObjectContext) throws -> STPKTree? {
-        let fetchRequest = NSFetchRequest(entityName: self.entityName())
-        fetchRequest.predicate = NSPredicate(format: "SELF.order == %@", NSNumber(integer: anOrderNumber))
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName())
+        fetchRequest.predicate = NSPredicate(format: "SELF.order == %@", NSNumber(value: anOrderNumber as Int))
         fetchRequest.fetchLimit = 1
         
-        return try aContext.executeFetchRequest(fetchRequest).first as? STPKTree
+        return try aContext.fetch(fetchRequest).first as? STPKTree
     }
 }

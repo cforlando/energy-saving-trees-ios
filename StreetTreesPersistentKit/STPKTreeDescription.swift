@@ -40,24 +40,24 @@ private let STPKRightOfWayTrees = ["Live Oak",
                                  "Yellow Tabebuia",
                                  "Elaeocarpus"]
 
-public class STPKTreeDescription: STPKManagedObject {
+open class STPKTreeDescription: STPKManagedObject {
     
     //******************************************************************************************************************
     // MARK: - Public Class Functions
     
-    override public class func entityName() -> String {
+    override open class func entityName() -> String {
         return "STPKTreeDescription"
     }
     
-    public class func fetch(descriptionForName name: String, context: NSManagedObjectContext) throws -> STPKTreeDescription? {
-        let fetchRequest = NSFetchRequest(entityName: self.entityName())
+    open class func fetch(descriptionForName name: String, context: NSManagedObjectContext) throws -> STPKTreeDescription? {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName())
         fetchRequest.predicate = NSPredicate(format: "SELF.name == %@", name)
         fetchRequest.fetchLimit = 1
         
-        return try context.executeFetchRequest(fetchRequest).first as? STPKTreeDescription
+        return try context.fetch(fetchRequest).first as? STPKTreeDescription
     }
     
-    public class func icon(treeName aName: String) -> UIImage? {
+    open class func icon(treeName aName: String) -> UIImage? {
         var imageName: String
         switch aName {
         case "Chinese Pistache":
@@ -90,11 +90,11 @@ public class STPKTreeDescription: STPKManagedObject {
             return nil
         }
         
-        let bundle = NSBundle(forClass: self)
-        return UIImage(named: imageName, inBundle: bundle, compatibleWithTraitCollection: nil)
+        let bundle = Bundle(for: self)
+        return UIImage(named: imageName, in: bundle, compatibleWith: nil)
     }
     
-    public class func image(treeName aName: String) -> UIImage? {
+    open class func image(treeName aName: String) -> UIImage? {
         var imageName: String
         switch aName {
         case "Chinese Pistache":
@@ -127,17 +127,17 @@ public class STPKTreeDescription: STPKManagedObject {
             return nil
         }
         
-        let bundle = NSBundle(forClass: self)
-        return UIImage(named: imageName, inBundle: bundle, compatibleWithTraitCollection: nil)
+        let bundle = Bundle(for: self)
+        return UIImage(named: imageName, in: bundle, compatibleWith: nil)
     }
     
-    override public class func insert(context context: NSManagedObjectContext) -> STPKTreeDescription {
+    override open class func insert(context: NSManagedObjectContext) -> STPKTreeDescription {
         let newTree = STPKTreeDescription(entity: self.entityDescription(inManagedObjectContext: context),
-                                          insertIntoManagedObjectContext: context)
+                                          insertInto: context)
         return newTree
     }
     
-    public class func rightOfWayTrees() -> [STPKTreeDescription] {
+    open class func rightOfWayTrees() -> [STPKTreeDescription] {
         let allTrees = STPKCoreData.sharedInstance.fetchTreeDescriptions()
         
         return allTrees.filter({
@@ -148,17 +148,17 @@ public class STPKTreeDescription: STPKManagedObject {
     //******************************************************************************************************************
     // MARK: - Public Functions
     
-    public func averageWidth() -> Double {
+    open func averageWidth() -> Double {
         guard let minimum = self.minWidth?.doubleValue else { return 0.0 }
         guard let maximum = self.maxWidth?.doubleValue else { return 0.0 }
         return (minimum + maximum) / 2
     }
     
-    public func icon() -> UIImage? {
+    open func icon() -> UIImage? {
         return STPKTreeDescription.icon(treeName: self.name ?? "")
     }
     
-    public func image() -> UIImage? {
+    open func image() -> UIImage? {
         return STPKTreeDescription.image(treeName: self.name ?? "")
     }
 }

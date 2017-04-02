@@ -40,39 +40,39 @@ private let STFKSnapshotPointMultiplier: CGFloat = 0.23
 //**********************************************************************************************************************
 // MARK: - Public Typealias
 
-public typealias STFKMapSnapshotHandler = (image: UIImage?, error: NSError?) -> Void
+public typealias STFKMapSnapshotHandler = (_ image: UIImage?, _ error: NSError?) -> Void
 
 //**********************************************************************************************************************
 // MARK: - Class Implementation
 
-public class STFKMapSnapshot: NSObject {
+open class STFKMapSnapshot: NSObject {
     
-    private let handler: STFKMapSnapshotHandler
-    private let coordinate: CLLocationCoordinate2D
+    fileprivate let handler: STFKMapSnapshotHandler
+    fileprivate let coordinate: CLLocationCoordinate2D
     
     /// The distance from the ground the snapshot will be taken from. By default it is 4Km.
-    public var distance = STFKCameraDistance
+    open var distance = STFKCameraDistance
     
     /// The heading of the map. By default it is `0.0` which is due North.
-    public var heading = STFKCameraHeading
+    open var heading = STFKCameraHeading
     
-    public var mapType = MKMapType.Standard
+    open var mapType = MKMapType.standard
     
     /// The viewing angle of the map, measured in degrees. By default the angle is `0.0` which is straight down.
-    public var pitch = STFKCameraPitch
+    open var pitch = STFKCameraPitch
     
     /// When the snapshot is taken, should a drop pin be added to the coordinate location. By default this is true.
-    public var showDropPin = true
+    open var showDropPin = true
     
     /// Should the snapshot include points of interest on the map. By default this is set to `true`.
-    public var showPointsOfInterest = true
+    open var showPointsOfInterest = true
     
-    public var size: CGSize?
+    open var size: CGSize?
     
     //******************************************************************************************************************
     // MARK: - Initializers
     
-    public init(coordinate aCoordinate: CLLocationCoordinate2D, complete aCompletionHandler: STFKMapSnapshotHandler) {
+    public init(coordinate aCoordinate: CLLocationCoordinate2D, complete aCompletionHandler: @escaping STFKMapSnapshotHandler) {
         self.coordinate = aCoordinate
         self.handler = aCompletionHandler
         super.init()
@@ -84,27 +84,27 @@ public class STFKMapSnapshot: NSObject {
     /**
      Begin creating a snapshot with the initialized location.
      */
-    public func takeSnapshot() {
+    open func takeSnapshot() {
         
         let mapOptions = self.mapOptions()
         let snapshotter = MKMapSnapshotter(options: mapOptions)
         
-        snapshotter.startWithCompletionHandler { (snapshot: MKMapSnapshot?, error: NSError?) in
+        snapshotter.start (completionHandler: { (snapshot: MKMapSnapshot?, error: NSError?) in
             
             guard let image = snapshot?.image else {
-                self.handler(image: nil, error: error)
+                self.handler(nil, error)
                 return
             }
             
             // Don't add the drop pin to the image.
             if !self.showDropPin {
-                self.handler(image: image, error: error)
+                self.handler(image, error)
                 return
             }
             
             let annotationView = MKPinAnnotationView(annotation: nil, reuseIdentifier: nil)
             
-            var point = snapshot?.pointForCoordinate(self.coordinate) ?? CGPoint.zero
+            var point = snapshot?.point(for: self.coordinate) ?? CGPoint.zero
             point.y -= annotationView.frame.size.height
             point.x -= annotationView.frame.size.width * STFKSnapshotPointMultiplier // used to centre the pin
             
@@ -112,29 +112,29 @@ public class STFKMapSnapshot: NSObject {
             
             UIGraphicsBeginImageContextWithOptions(image.size, true, image.scale)
             
-            image.drawAtPoint(CGPoint.zero)
-            annotationView.drawViewHierarchyInRect(overlayRect, afterScreenUpdates: true)
+            image.draw(at: CGPoint.zero)
+            annotationView.drawHierarchy(in: overlayRect, afterScreenUpdates: true)
             
             let finalImage = UIGraphicsGetImageFromCurrentImageContext()
             
             UIGraphicsEndImageContext()
             
-            self.handler(image: finalImage, error: error)
-        }
+            self.handler(finalImage, error)
+        } as! MKMapSnapshotCompletionHandler)
     }
     
     //******************************************************************************************************************
     // MARK: - Private Functions
     
-    private func mapOptions() -> MKMapSnapshotOptions {
+    fileprivate func mapOptions() -> MKMapSnapshotOptions {
         let mapOptions = MKMapSnapshotOptions()
-        let camera = MKMapCamera(lookingAtCenterCoordinate: self.coordinate,
+        let camera = MKMapCamera(lookingAtCenter: self.coordinate,
                                  fromDistance: self.distance,
                                  pitch: self.pitch,
                                  heading: self.heading)
         mapOptions.camera = camera
         mapOptions.mapType = self.mapType
-        mapOptions.scale = UIScreen.mainScreen().scale
+        mapOptions.scale = UIScreen.main.scale
         mapOptions.showsPointsOfInterest = self.showPointsOfInterest
         
         if let aSize = self.size {

@@ -32,20 +32,20 @@ import BNRCoreDataStack
 //**********************************************************************************************************************
 // MARK: - Type Aliases
 
-public typealias STPKCoreDataStackCompletionBlock = (anError: NSError?) -> Void
+public typealias STPKCoreDataStackCompletionBlock = (_ anError: NSError?) -> Void
 
-public typealias STPKCoreDataStackResetFailureBlock = (error: NSError) -> Void
+public typealias STPKCoreDataStackResetFailureBlock = (_ error: NSError) -> Void
 public typealias STPKCoreDataStackResetSuccessBlock = () -> Void
 
-public typealias STPKCoreDataStackSetupFailureBlock = (error: NSError) -> Void
-public typealias STPKCoreDataStackSetupSuccessBlock = (coreDataStack: STPKCoreDataStack) -> Void
+public typealias STPKCoreDataStackSetupFailureBlock = (_ error: NSError) -> Void
+public typealias STPKCoreDataStackSetupSuccessBlock = (_ coreDataStack: STPKCoreDataStack) -> Void
 
 //**********************************************************************************************************************
 // MARK: - Class Implementation
 
-public class STPKCoreDataStack: NSObject {
+open class STPKCoreDataStack: NSObject {
     
-    private let coreDataStack: CoreDataStack
+    fileprivate let coreDataStack: CoreDataStack
     
     //******************************************************************************************************************
     // MARK: - Public Functions
@@ -55,18 +55,18 @@ public class STPKCoreDataStack: NSObject {
         super.init()
     }
     
-    public class func constructStack(url aURL: NSURL,
-                                         successBlock aSuccessBlock: STPKCoreDataStackSetupSuccessBlock,
-                                                      failureBlock aFailureBlock: STPKCoreDataStackSetupFailureBlock) {
+    open class func constructStack(url aURL: URL,
+                                         successBlock aSuccessBlock: @escaping STPKCoreDataStackSetupSuccessBlock,
+                                                      failureBlock aFailureBlock: @escaping STPKCoreDataStackSetupFailureBlock) {
         let modelName = "STPKModel"
-        let bundle = NSBundle.init(forClass: self)
+        let bundle = Bundle.init(for: self)
         
         let callback: CoreDataStackSetupCallback = {(aResult: CoreDataStack.SetupResult) in
             switch aResult {
-            case .Success(let aStack):
+            case .success(let aStack):
                 let upkStack = STPKCoreDataStack(coreDataStack: aStack)
                 aSuccessBlock(coreDataStack: upkStack)
-            case .Failure(let anError as NSError):
+            case .failure(let anError as NSError):
                 aFailureBlock(error: anError)
             default:
                 print("Unhandled case")
@@ -80,24 +80,24 @@ public class STPKCoreDataStack: NSObject {
     }
     
     
-    public func mainQueueContext() -> NSManagedObjectContext {
+    open func mainQueueContext() -> NSManagedObjectContext {
         return self.coreDataStack.mainQueueContext
     }
     
     
-    public func newBackgroundWorkerMOC() -> NSManagedObjectContext {
-        return self.coreDataStack.newChildContext(concurrencyType: NSManagedObjectContextConcurrencyType.PrivateQueueConcurrencyType, name: "com.streettrees.context")
+    open func newBackgroundWorkerMOC() -> NSManagedObjectContext {
+        return self.coreDataStack.newChildContext(concurrencyType: NSManagedObjectContextConcurrencyType.privateQueueConcurrencyType, name: "com.streettrees.context")
     }
     
     
-    public func resetStore(successBlock aSuccessBlock: STPKCoreDataStackResetSuccessBlock,
-                                        failureBlock aFailureBlock: STPKCoreDataStackResetFailureBlock) {
+    open func resetStore(successBlock aSuccessBlock: @escaping STPKCoreDataStackResetSuccessBlock,
+                                        failureBlock aFailureBlock: @escaping STPKCoreDataStackResetFailureBlock) {
         
         let callback: CoreDataStackStoreResetCallback = {(aResult: CoreDataStack.ResetResult) in
             switch aResult {
-            case .Success():
+            case .success():
                 aSuccessBlock()
-            case .Failure(let anError as NSError):
+            case .failure(let anError as NSError):
                 aFailureBlock(error: anError)
             default:
                 print("Unhandled case")

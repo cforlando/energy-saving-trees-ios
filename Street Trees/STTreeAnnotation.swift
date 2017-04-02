@@ -30,9 +30,9 @@ import MapKit
 import FBAnnotationClusteringSwift
 import StreetTreesPersistentKit
 
-public class STTreeAnnotation: FBAnnotation {
-    public let tree: STPKTree
-    public let image: UIImage?
+open class STTreeAnnotation: FBAnnotation {
+    open let tree: STPKTree
+    open let image: UIImage?
     
     init(tree: STPKTree, image: UIImage?) {
         self.image = image

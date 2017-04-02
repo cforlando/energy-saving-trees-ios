@@ -55,7 +55,7 @@ public struct STTKStreetAddress {
     // MARK: - Public Functions
     
     public func flatAddress() -> String {
-        return self.localizedAddress().stringByReplacingOccurrencesOfString("\n", withString: ", ")
+        return self.localizedAddress().replacingOccurrences(of: "\n", with: ", ")
     }
     
     public func localizedAddress() -> String {

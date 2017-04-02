@@ -34,7 +34,7 @@ import StreetTreesPersistentKit
 import StreetTreesTransportKit
 import UIKit
 
-private let STAnimationDuration: NSTimeInterval = 0.3
+private let STAnimationDuration: TimeInterval = 0.3
 private let STArborDay = 20
 private let STArborDayXOffset:CGFloat = 60.0
 private let STArborDayYOffset:CGFloat = 140.0
@@ -65,7 +65,7 @@ class STTreeMapViewController: UIViewController, MKMapViewDelegate, CLLocationMa
     let spriteView = SKView(frame: CGRect(origin: .zero, size: STSceneSize))
     var treeEmitter = STPeaceEmitter()
     
-    lazy var fetchedResultsController: NSFetchedResultsController = {
+    lazy var fetchedResultsController: NSFetchedResultsController = { () -> <<error type>> in 
         let fetchRequest = NSFetchRequest(entityName: STPKTree.entityName())
         let sortDescriptor = NSSortDescriptor(key: "order", ascending: true)
         fetchRequest.sortDescriptors = [sortDescriptor]
@@ -82,14 +82,14 @@ class STTreeMapViewController: UIViewController, MKMapViewDelegate, CLLocationMa
     }()
     
     var isArborDay: Bool {
-        let dateComponents = NSCalendar.autoupdatingCurrentCalendar().components([.Month, .Day], fromDate: NSDate())
+        let dateComponents = (Calendar.autoupdatingCurrent as NSCalendar).components([.month, .day], from: Date())
         return dateComponents.month == STArborMonth && dateComponents.day == STArborDay
     }
     
     var selectedAnnotation: STTreeAnnotation?
-    var backgroundQueue = NSOperationQueue() {
+    var backgroundQueue = OperationQueue() {
         didSet {
-            self.backgroundQueue.qualityOfService = .Background
+            self.backgroundQueue.qualityOfService = .background
             self.backgroundQueue.name = "Geo Poly Mapping"
         }
     }
@@ -97,11 +97,10 @@ class STTreeMapViewController: UIViewController, MKMapViewDelegate, CLLocationMa
     //******************************************************************************************************************
     // MARK: - Class Overrides
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        super.prepareForSegue(segue, sender: sender)
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
         
-        if let detailVC = segue.destinationViewController as? STTreeDetailsTableViewController
-            where segue.identifier == STTreeDetailsSegueIdentifier {
+        if let detailVC = segue.destination as? STTreeDetailsTableViewController, segue.identifier == STTreeDetailsSegueIdentifier {
             detailVC.annotation = self.selectedAnnotation
         }
     }
@@ -114,14 +113,14 @@ class STTreeMapViewController: UIViewController, MKMapViewDelegate, CLLocationMa
         self.spriteView.presentScene(self.treeEmitter)
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.mapView.showsScale = true
         self.mapView.showsCompass = true
         self.locationManager.delegate = self
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.setupLocation()
     }
@@ -129,29 +128,29 @@ class STTreeMapViewController: UIViewController, MKMapViewDelegate, CLLocationMa
     //******************************************************************************************************************
     // MARK: - Actions
     
-    @IBAction func unwindToMapView(segue: UIStoryboardSegue) {
+    @IBAction func unwindToMapView(_ segue: UIStoryboardSegue) {
         // no op
     }
     
     //******************************************************************************************************************
     // MARK: - FetchedResultsController Delegate
     
-    func controllerDidChangeContent(controller: NSFetchedResultsController) {
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         self.loadPinsToMap()
     }
     
     //******************************************************************************************************************
     // MARK: - MKMapView Delegates
 
-    func mapView(mapView: MKMapView, annotationView view: MKAnnotationView,
+    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView,
                  calloutAccessoryControlTapped control: UIControl) {
         if let treeAnnotation = view.annotation as? STTreeAnnotation {
             self.selectedAnnotation = treeAnnotation
         }
-        self.performSegueWithIdentifier(STTreeDetailsSegueIdentifier, sender: self)
+        self.performSegue(withIdentifier: STTreeDetailsSegueIdentifier, sender: self)
     }
     
-    func mapView(mapView: MKMapView, didAddAnnotationViews views: [MKAnnotationView]) {
+    func mapView(_ mapView: MKMapView, didAdd views: [MKAnnotationView]) {
         for view in views {
             
             if view is FBAnnotationClusterView {
@@ -161,37 +160,37 @@ class STTreeMapViewController: UIViewController, MKMapViewDelegate, CLLocationMa
             let originalSize = view.transform
             view.alpha = STMinimumAnnotationViewAlpha
             
-            let transform = CGAffineTransformScale(originalSize, STMinimumTransformScale, STMinimumTransformScale)
+            let transform = originalSize.scaledBy(x: STMinimumTransformScale, y: STMinimumTransformScale)
             view.transform = transform
             
-            UIView.animateWithDuration(STAnimationDuration, animations: {
+            UIView.animate(withDuration: STAnimationDuration, animations: {
                 view.alpha = STMaximumAnnotationViewAlpha
-                view.transform = CGAffineTransformScale(originalSize, STMaximumTransformScale, STMaximumTransformScale)
+                view.transform = originalSize.scaledBy(x: STMaximumTransformScale, y: STMaximumTransformScale)
             })
         }
     }
     
-    func mapView(mapView: MKMapView, didAddOverlayRenderers renderers: [MKOverlayRenderer]) {
+    func mapView(_ mapView: MKMapView, didAdd renderers: [MKOverlayRenderer]) {
         for renderer in renderers {
             renderer.alpha = STMinimumAnnotationViewAlpha
-            UIView.animateWithDuration(STAnimationDuration, animations: {
+            UIView.animate(withDuration: STAnimationDuration, animations: {
                 renderer.alpha = STMaximumAnnotationViewAlpha
             })
         }
     }
     
-    func mapView(mapView: MKMapView, didUpdateUserLocation userLocation: MKUserLocation) {
+    func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
         if !self.foundUser {
             self.foundUser = true
             self.centerMapOnLocation(userLocation.location!)
         }
     }
     
-    func mapView(mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+    func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
         self.loadPins()
     }
     
-    func mapView(mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer {
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         if let polygon = overlay as? MKPolygon {
             
             let renderer = MKPolygonRenderer(polygon: polygon)
@@ -204,7 +203,7 @@ class STTreeMapViewController: UIViewController, MKMapViewDelegate, CLLocationMa
         return MKPolygonRenderer()
     }
     
-    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         if annotation is MKUserLocation {
             return nil
         }
@@ -212,7 +211,7 @@ class STTreeMapViewController: UIViewController, MKMapViewDelegate, CLLocationMa
         var annotationView: MKAnnotationView?
         var reuseId: String
         
-        if annotation.isKindOfClass(FBAnnotationCluster) {
+        if annotation.isKind(of: FBAnnotationCluster.self) {
             
             let imageSize = FBAnnotationClusterViewOptions(smallClusterImage: STClusterSmallImageName,
                                                            mediumClusterImage: STClusterMediumImageName,
@@ -222,14 +221,14 @@ class STTreeMapViewController: UIViewController, MKMapViewDelegate, CLLocationMa
             
         } else {
             reuseId = STMapPinReuseIdentifier
-            annotationView = mapView.dequeueReusableAnnotationViewWithIdentifier(reuseId)
+            annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseId)
             
             if annotationView == nil {
                 annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
             }
             
             annotationView?.canShowCallout = true
-            let button = UIButton(type: .DetailDisclosure)
+            let button = UIButton(type: .detailDisclosure)
             annotationView?.rightCalloutAccessoryView = button
             
             if let treeLocation = annotation as? STTreeAnnotation {
@@ -240,7 +239,7 @@ class STTreeMapViewController: UIViewController, MKMapViewDelegate, CLLocationMa
         return annotationView
     }
     
-    func mapViewDidFinishLoadingMap(mapView: MKMapView) {
+    func mapViewDidFinishLoadingMap(_ mapView: MKMapView) {
         if mapView.overlays.count != 0 {
             return
         }
@@ -269,8 +268,8 @@ class STTreeMapViewController: UIViewController, MKMapViewDelegate, CLLocationMa
     //******************************************************************************************************************
     // MARK: - CLLocationManager Delegates
     
-    func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
-        if status == .AuthorizedAlways || status == .AuthorizedWhenInUse {
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        if status == .authorizedAlways || status == .authorizedWhenInUse {
             self.mapView.showsUserLocation = true
         }
     }
@@ -278,20 +277,20 @@ class STTreeMapViewController: UIViewController, MKMapViewDelegate, CLLocationMa
     //******************************************************************************************************************
     // MARK: - Gesture Recogniser Delegates
     
-    @IBAction func longPressAction(gesture: UILongPressGestureRecognizer) {
+    @IBAction func longPressAction(_ gesture: UILongPressGestureRecognizer) {
         
-        var locationInView = gesture.locationInView(self.view)
+        var locationInView = gesture.location(in: self.view)
         locationInView.x -= STArborDayXOffset
         locationInView.y -= STArborDayYOffset
         
         self.spriteView.frame.origin = locationInView
         
         switch gesture.state {
-        case .Began:
+        case .began:
             self.view.addSubview(self.spriteView)
-        case .Changed:
+        case .changed:
             self.treeEmitter.beginAnimation()
-        case .Ended:
+        case .ended:
             self.treeEmitter.endAnimation()
             self.spriteView.removeFromSuperview()
         default:
@@ -302,14 +301,14 @@ class STTreeMapViewController: UIViewController, MKMapViewDelegate, CLLocationMa
     //******************************************************************************************************************
     // MARK: - Internal Functions
     
-    func centerMapOnLocation(location: CLLocation) {
+    func centerMapOnLocation(_ location: CLLocation) {
         let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate,
                                                                   STRegionRadiusDistance, STRegionRadiusDistance)
         self.mapView.setRegion(coordinateRegion, animated: true)
     }
     
     func loadPins() {
-        NSOperationQueue().addOperationWithBlock {
+        OperationQueue().addOperation {
             let mapBoundsWidth = Double(self.mapView.bounds.size.width)
             let mapRectWidth:Double = self.mapView.visibleMapRect.size.width
             
@@ -344,9 +343,9 @@ class STTreeMapViewController: UIViewController, MKMapViewDelegate, CLLocationMa
     
     func setupLocation() {
         switch CLLocationManager.authorizationStatus() {
-        case .NotDetermined, .Restricted:
+        case .notDetermined, .restricted:
             self.locationManager.requestWhenInUseAuthorization()
-        case .AuthorizedAlways, .AuthorizedWhenInUse:
+        case .authorizedAlways, .authorizedWhenInUse:
             self.mapView.showsUserLocation = true
         default:
             ()

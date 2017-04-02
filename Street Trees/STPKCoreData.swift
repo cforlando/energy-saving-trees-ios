@@ -29,29 +29,29 @@ import Foundation
 import BNRCoreDataStack
 import StreetTreesTransportKit
 
-public typealias STPKCoreDataCompletionBlock = (anError: NSError?) -> Void
-public typealias STPKCoreDataUserCompletionBlock = (user: STPKUser?, anError: NSError?) -> Void
+public typealias STPKCoreDataCompletionBlock = (_ anError: NSError?) -> Void
+public typealias STPKCoreDataUserCompletionBlock = (_ user: STPKUser?, _ anError: NSError?) -> Void
 
 private let STPKPersistentStoreFileName = "streettrees.sqlite"
-private let STPKUpdateFrequency: NSTimeInterval = 1209600 // 2 weeks
+private let STPKUpdateFrequency: TimeInterval = 1209600 // 2 weeks
 
-public class STPKCoreData: NSObject {
+open class STPKCoreData: NSObject {
     
-    public private(set) var coreDataStack: STPKCoreDataStack?
+    open fileprivate(set) var coreDataStack: STPKCoreDataStack?
     
-    public static let sharedInstance = STPKCoreData()
+    open static let sharedInstance = STPKCoreData()
     
     //******************************************************************************************************************
     // MARK: - Public Functions
     
-    public func createUser(completion: STPKCoreDataUserCompletionBlock) {
+    open func createUser(_ completion: @escaping STPKCoreDataUserCompletionBlock) {
         guard let context = self.coreDataStack?.newBackgroundWorkerMOC() else {
             let error = NSError(domain: "com.CodeForOrlando.StreeTrees.CreateUser", code: 3, userInfo: nil)
-            completion(user: nil, anError: error)
+            completion(nil, error)
             return
         }
         
-        context.performBlockAndWait {
+        context.performAndWait {
             if self.fetchUser() == nil {
                 STPKUser.insert(context: context)
                 self.save(context) { error in
@@ -62,22 +62,22 @@ public class STPKCoreData: NSObject {
                 }
             } else {
                 let error = NSError(domain: "com.CodeForOrlando.StreeTrees.UserExists", code: 4, userInfo: nil)
-                completion(user: nil, anError: error)
+                completion(nil, error)
             }
         }
     }
     
-    public func fetchCityBounds(handler: STPKFetchCityBoundsHandler) {
+    open func fetchCityBounds(_ handler: STPKFetchCityBoundsHandler) {
         guard let context = self.coreDataStack?.mainQueueContext() else {
             let error = NSError(domain: "com.CodeForOrlando.StreeTrees.MainContext", code: 7, userInfo: nil)
-            handler(cityBounds: nil, error: error)
+            handler(nil, error)
             return
         }
         
         STPKCityBounds.fetch(context, handler: handler)
     }
     
-    public func fetch(decriptionForName aName: String) -> STPKTreeDescription? {
+    open func fetch(decriptionForName aName: String) -> STPKTreeDescription? {
         guard let context = self.coreDataStack?.mainQueueContext() else { return nil }
         var description: STPKTreeDescription?
         
@@ -90,7 +90,7 @@ public class STPKCoreData: NSObject {
         return description
     }
     
-    public func fetch(treeForOrderNumber anOrderNumber: Int) -> STPKTree? {
+    open func fetch(treeForOrderNumber anOrderNumber: Int) -> STPKTree? {
         guard let context = self.coreDataStack?.mainQueueContext() else { return nil }
         
         var tree: STPKTree?
@@ -104,7 +104,7 @@ public class STPKCoreData: NSObject {
         return tree
     }
     
-    public func fetchTreeDescriptions() -> [STPKTreeDescription] {
+    open func fetchTreeDescriptions() -> [STPKTreeDescription] {
         guard let context = self.coreDataStack?.mainQueueContext() else { return [] }
         let treeDescriptions: [STPKTreeDescription]
         
@@ -117,7 +117,7 @@ public class STPKCoreData: NSObject {
         return treeDescriptions
     }
     
-    public func fetchTrees() -> [STPKTree] {
+    open func fetchTrees() -> [STPKTree] {
         guard let context = self.coreDataStack?.mainQueueContext() else { return [] }
         let trees: [STPKTree]
         
@@ -130,7 +130,7 @@ public class STPKCoreData: NSObject {
         return trees
     }
     
-    public func fetchUser() -> STPKUser? {
+    open func fetchUser() -> STPKUser? {
         guard let context = self.coreDataStack?.mainQueueContext() else { return nil }
         do {
             return try STPKUser.fetch(context).first as? STPKUser
@@ -141,42 +141,42 @@ public class STPKCoreData: NSObject {
         return nil
     }
     
-    public func insert(citybounds: [NSObject: AnyObject], completion: STPKCoreDataCompletionBlock) {
+    open func insert(_ citybounds: [AnyHashable: Any], completion: @escaping STPKCoreDataCompletionBlock) {
         guard let context = self.coreDataStack?.newBackgroundWorkerMOC() else {
             let error = NSError(domain: "com.CodeForOrlando.StreeTrees.InsertCityBounds", code: 3, userInfo: nil)
-            completion(anError: error)
+            completion(error)
             return
         }
         
-        context.performBlockAndWait { [unowned self] in
+        context.performAndWait { [unowned self] in
             
-            let jsonData: NSData
+            let jsonData: Data
             
             do {
-                jsonData = try NSJSONSerialization.dataWithJSONObject(citybounds, options: [])
+                jsonData = try JSONSerialization.data(withJSONObject: citybounds, options: [])
             } catch {
                 let error = NSError(domain: "com.CodeForOrlando.StreeTrees.InsertCityBounds.JSON", code: 4, userInfo: nil)
-                completion(anError: error)
+                completion(error)
                 return
             }
             
             let newBounds = STPKCityBounds.insert(context: context)
-            newBounds.timestamp = NSDate()
+            newBounds.timestamp = Date()
             newBounds.json = jsonData
             
             self.save(context, completion: completion)
         }
     }
     
-    public func insert(descriptionData: [STTKTreeDescription], completion:STPKCoreDataStackCompletionBlock) {
+    open func insert(_ descriptionData: [STTKTreeDescription], completion:@escaping STPKCoreDataStackCompletionBlock) {
         guard let context = self.coreDataStack?.newBackgroundWorkerMOC() else {
             let error = NSError(domain: "com.CodeForOrlando.StreeTrees.InsertDescriptions", code: 1, userInfo: nil)
-            completion(anError: error)
+            completion(error)
             return
         }
         let currentTreeDescriptions = self.fetchTreeDescriptions()
         
-        context.performBlockAndWait { [unowned self] in
+        context.performAndWait { [unowned self] in
             for descriptionItem in descriptionData {
                 let containsDescription = currentTreeDescriptions.contains { (description: STPKTreeDescription) -> Bool in
                     description.name == descriptionItem.name
@@ -204,15 +204,15 @@ public class STPKCoreData: NSObject {
         }
     }
     
-    public func insert(treesData: [STTKStreetTree], completion: STPKCoreDataStackCompletionBlock) {
+    open func insert(_ treesData: [STTKStreetTree], completion: @escaping STPKCoreDataStackCompletionBlock) {
         guard let context = self.coreDataStack?.newBackgroundWorkerMOC() else {
             let error = NSError(domain: "com.CodeForOrlando.StreeTrees.InsertTrees", code: 2, userInfo: nil)
-            completion(anError: error)
+            completion(error)
             return
         }
         let currentTrees = self.fetchTrees()
         
-        context.performBlockAndWait { [unowned self] in
+        context.performAndWait { [unowned self] in
             
             for treeData in treesData {
                 let containsTree = currentTrees.contains { (tree: STPKTree) -> Bool in
@@ -225,7 +225,7 @@ public class STPKCoreData: NSObject {
                     newTree.carbon = treeData.carbon
                     newTree.air = treeData.air
                     newTree.kiloWattHours = treeData.kWh
-                    newTree.savings = NSDecimalNumber(double: treeData.savings)
+                    newTree.savings = NSDecimalNumber(value: treeData.savings as Double)
                     newTree.stormWater = treeData.stormwater
                     newTree.therms = treeData.therms
                     newTree.speciesName = treeData.name
@@ -239,31 +239,31 @@ public class STPKCoreData: NSObject {
         }
     }
     
-    public func refreshAll(completion: STPKCoreDataCompletionBlock) {
+    open func refreshAll(_ completion: @escaping STPKCoreDataCompletionBlock) {
         
         if let user = self.fetchUser() {
-            let updateDate = user.lastestUpdate ?? NSDate()
+            let updateDate = user.lastestUpdate ?? Date()
             
-            let isTimeToUpdate = NSDate().timeIntervalSinceDate(updateDate) >= STPKUpdateFrequency
+            let isTimeToUpdate = Date().timeIntervalSince(updateDate) >= STPKUpdateFrequency
             if !isTimeToUpdate && user.lastestUpdate != nil {
-                completion(anError: nil)
+                completion(nil)
                 return
             }
             guard let backgroundContext = self.coreDataStack?.newBackgroundWorkerMOC() else {
                 let error = NSError(domain: "com.CodeForOrlando.StreeTrees.UpdateUserTime", code: 1, userInfo: nil)
-                completion(anError: error)
+                completion(error)
                 return
             }
             
             if let backgroundUser = try? STPKUser.fetch(backgroundContext).first as? STPKUser {
-                backgroundUser?.lastestUpdate = NSDate()
+                backgroundUser?.lastestUpdate = Date()
                 self.save(backgroundContext, completion: { (anError) in
                     // nothing to do here
                 })
             }
         } else {
             let error = NSError(domain: "com.CodeForOrlando.StreeTrees.NoUserInDB", code: 5, userInfo: nil)
-            completion(anError: error)
+            completion(error)
             return
         }
         
@@ -302,18 +302,18 @@ public class STPKCoreData: NSObject {
     /**
      This function must be run at the beginning of the applications life cycle.
      */
-    public func setupCoreData(aSuccessBlock: STPKCoreDataStackSetupSuccessBlock, aFailureBlock: STPKCoreDataStackSetupFailureBlock) {
+    open func setupCoreData(_ aSuccessBlock: @escaping STPKCoreDataStackSetupSuccessBlock, aFailureBlock: @escaping STPKCoreDataStackSetupFailureBlock) {
         let storePath = self.defaultPersistentStorePath()
         
-        let url = NSURL(fileURLWithPath: storePath).URLByAppendingPathComponent(STPKPersistentStoreFileName)
+        let url = URL(fileURLWithPath: storePath).appendingPathComponent(STPKPersistentStoreFileName)
         
         let successBlock: STPKCoreDataStackSetupSuccessBlock = { (aCoreDataStack) -> Void in
             self.coreDataStack = aCoreDataStack
-            aSuccessBlock(coreDataStack: aCoreDataStack)
+            aSuccessBlock(aCoreDataStack)
         }
         
         let failureBlock: STPKCoreDataStackSetupFailureBlock = { (anError) -> Void in
-            aFailureBlock(error: anError)
+            aFailureBlock(anError)
         }
         
         STPKCoreDataStack.constructStack(url: url, successBlock: successBlock, failureBlock: failureBlock)
@@ -323,30 +323,30 @@ public class STPKCoreData: NSObject {
     //******************************************************************************************************************
     // MARK: - Private Functions
     
-    private func updateDescriptionForTree(tree aTree: STPKTree) {
+    fileprivate func updateDescriptionForTree(tree aTree: STPKTree) {
         guard let context = self.coreDataStack?.mainQueueContext() else { return }
         guard let name = aTree.speciesName else { return }
         
         do {
             let description = try STPKTreeDescription.fetch(descriptionForName: name, context: context)
             aTree.treeDescription = description
-            description?.trees = description?.trees?.setByAddingObject(aTree)
+            description?.trees = description?.trees?.adding(aTree) as NSSet?
         } catch {
             // Throw error
             print("Unable to fetch tree description for species \(aTree.speciesName ?? "No species name") ")
         }
     }
     
-    private func defaultPersistentStorePath() -> String {
-        return NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0]
+    fileprivate func defaultPersistentStorePath() -> String {
+        return NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
     }
     
-    private func save(context: NSManagedObjectContext, completion:STPKCoreDataStackCompletionBlock) {
+    fileprivate func save(_ context: NSManagedObjectContext, completion:STPKCoreDataStackCompletionBlock) {
         do {
             try context.saveContextAndWait()
-            completion(anError: nil)
+            completion(nil)
         } catch {
-            completion(anError: NSError(domain: "com.CodeForOrlando.StreetTrees.FailedToSaveContext", code: -1, userInfo: nil))
+            completion(NSError(domain: "com.CodeForOrlando.StreetTrees.FailedToSaveContext", code: -1, userInfo: nil))
         }
         
     }
