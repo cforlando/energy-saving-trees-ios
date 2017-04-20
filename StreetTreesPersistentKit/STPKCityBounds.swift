@@ -70,7 +70,7 @@ open class STPKCityBounds: STPKManagedObject {
             return
         }
         
-        let notOutDated = Date().timeIntervalSince(timestamp as Date) < STPKRefetchDuration
+        let notOutDated = Date().timeIntervalSince(timestamp) < STPKRefetchDuration
         
         if notOutDated {
             handler(citybounds, nil)

@@ -200,7 +200,7 @@ class STTreeDetailsTableViewController: UITableViewController {
             content = self.treeDescription?.additional ?? "Additional information missing"
         case .birthday:
             if let date = self.annotation?.tree.date {
-                let dateString = DateFormatter.localizedStringFromDate(date, dateStyle: .MediumStyle, timeStyle: .NoStyle)
+                let dateString = DateFormatter.localizedStringFromDate(date, dateStyle: .medium, timeStyle: .none)
                 content = dateString
             } else {
                 content = "No Date Available"

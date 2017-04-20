@@ -87,7 +87,7 @@ class STBaseOrderFormViewController: UIViewController, TextFieldAdjustment, Addr
     // MARK: - Private Functions
     
     fileprivate func animateLayoutChanges() {
-        UIView.animate(withDuration: 0.25, delay: 0.0, options: UIViewAnimationOptions(), animations: { [weak self] in
+        UIView.animate(withDuration: 0.25, delay: 0.0, options: .curveEaseInOut, animations: { [weak self] in
             self?.view.layoutIfNeeded()
             }, completion: nil)
     }

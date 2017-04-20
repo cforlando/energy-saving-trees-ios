@@ -58,7 +58,7 @@ open class STFKLocationRequest: NSObject, CLLocationManagerDelegate {
     
     open func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         self.stopUpdating()
-        self.handler(nil, error as NSError?)
+        self.handler(nil, error as NSError)
     }
     
     open func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {

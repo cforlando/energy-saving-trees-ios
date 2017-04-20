@@ -26,7 +26,6 @@
 //
 
 import Alamofire
-import Foundation
 import StreetTreesFoundationKit
 
 //**********************************************************************************************************************
@@ -68,7 +67,7 @@ open class STTKWufooRequest: NSMutableURLRequest {
     // MARK: - Internal Functions
     
     func commonInit() {
-        guard let apiKey = STTKAPIKey.data(using: String.Encoding.utf8)?.base64EncodedString(options: []) else {
+        guard let apiKey = STTKAPIKey.data(using: .utf8)?.base64EncodedString(options: []) else {
             return
         }
         
@@ -89,7 +88,7 @@ extension STTKWufooRequest {
                              from the server, or timed out.
      */
     public func execute(_ form: STTKWufooForm, completion: @escaping STTKRequestComplete) {
-        self.httpBody = form.data as Data?
+        self.httpBody = form.data
         
         print("------------- Request Start --------------")
         print("URL: \(self.url)")

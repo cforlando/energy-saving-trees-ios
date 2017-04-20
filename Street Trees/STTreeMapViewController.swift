@@ -65,7 +65,7 @@ class STTreeMapViewController: UIViewController, MKMapViewDelegate, CLLocationMa
     let spriteView = SKView(frame: CGRect(origin: .zero, size: STSceneSize))
     var treeEmitter = STPeaceEmitter()
     
-    lazy var fetchedResultsController: NSFetchedResultsController = { () -> <<error type>> in 
+    lazy var fetchedResultsController: NSFetchedResultsController = { _ in
         let fetchRequest = NSFetchRequest(entityName: STPKTree.entityName())
         let sortDescriptor = NSSortDescriptor(key: "order", ascending: true)
         fetchRequest.sortDescriptors = [sortDescriptor]
@@ -82,7 +82,7 @@ class STTreeMapViewController: UIViewController, MKMapViewDelegate, CLLocationMa
     }()
     
     var isArborDay: Bool {
-        let dateComponents = (Calendar.autoupdatingCurrent as NSCalendar).components([.month, .day], from: Date())
+        let dateComponents = (Calendar.autoupdatingCurrent).components([.month, .day], from: Date())
         return dateComponents.month == STArborMonth && dateComponents.day == STArborDay
     }
     

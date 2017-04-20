@@ -225,7 +225,7 @@ open class STPKCoreData: NSObject {
                     newTree.carbon = treeData.carbon
                     newTree.air = treeData.air
                     newTree.kiloWattHours = treeData.kWh
-                    newTree.savings = NSDecimalNumber(value: treeData.savings as Double)
+                    newTree.savings = NSDecimalNumber(value: treeData.savings)
                     newTree.stormWater = treeData.stormwater
                     newTree.therms = treeData.therms
                     newTree.speciesName = treeData.name

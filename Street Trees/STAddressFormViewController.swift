@@ -246,7 +246,7 @@ class STAddressFormViewController: STBaseOrderFormViewController, UITextFieldDel
             }
             
             self.updateAddress(placeMark)
-        } as! CLGeocodeCompletionHandler as! CLGeocodeCompletionHandler as! CLGeocodeCompletionHandler as! CLGeocodeCompletionHandler as! CLGeocodeCompletionHandler as! CLGeocodeCompletionHandler as! CLGeocodeCompletionHandler
+        }
     }
     
     func showLocationError(_ error: NSError?) {

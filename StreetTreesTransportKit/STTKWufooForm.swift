@@ -36,7 +36,7 @@ public struct STTKWufooForm {
     public let contact: STTKContact
     
     public var data: Data? {
-        return self.query.data(using: String.Encoding.utf8)
+        return self.query.data(using: .utf8)
     }
     
     public var query: String {

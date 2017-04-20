@@ -38,7 +38,7 @@ open class STPKManagedObject: NSManagedObject {
     }
     
     open class func fetch(_ context: NSManagedObjectContext) throws -> [STPKManagedObject] {
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName())
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName()) as? STPKManagedObject
         return try context.fetch(fetchRequest) as? [STPKManagedObject] ?? []
     }
     

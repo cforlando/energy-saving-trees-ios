@@ -50,7 +50,7 @@ open class STPKTreeDescription: STPKManagedObject {
     }
     
     open class func fetch(descriptionForName name: String, context: NSManagedObjectContext) throws -> STPKTreeDescription? {
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName())
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName()) as?STPKTreeDescription
         fetchRequest.predicate = NSPredicate(format: "SELF.name == %@", name)
         fetchRequest.fetchLimit = 1
         
