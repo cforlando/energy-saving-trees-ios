@@ -31,7 +31,7 @@ import GeoJSONSerialization
 
 public typealias STTKTreeCompletion = ([STTKStreetTree]) -> Void
 public typealias STTKTreeDescriptionCompletion = ([STTKTreeDescription]) -> Void
-public typealias STTKTCityGeoPointsCompletion = ([NSObject: AnyObject]) -> Void
+public typealias STTKTCityGeoPointsCompletion = ([AnyHashable: Any]) -> Void
 
 enum STRequestBuilder: String {
     case Trees = "7w7p-3857.json"
@@ -56,12 +56,12 @@ public final class STTKDownloadManager {
     //******************************************************************************************************************
     // MARK: - Public Class Functions
     
-    public class func fetch(cityGeoPoints completion: STTKTCityGeoPointsCompletion) {
+    public class func fetch(cityGeoPoints completion: @escaping STTKTCityGeoPointsCompletion) {
         Alamofire.request(.GET, STRequestBuilder.GeoData.URLPath()).responseJSON { (response) in
-            if let resultData = response.result.value as? [NSObject: AnyObject] {
+            if let resultData = response.result.value as? [AnyHashable: Any] {
                 completion(resultData)
             } else {
-                completion([NSObject: AnyObject]())
+                completion([AnyHashable: Any]())
                 print("Not a [String: AnyObject] \(response.result.value)")
             }
         }
@@ -85,7 +85,7 @@ public final class STTKDownloadManager {
      }
      */
     
-    public class func fetch(treeDescriptionsWithcompletion completion: STTKTreeDescriptionCompletion) {
+    public class func fetch(treeDescriptionsWithcompletion completion: @escaping STTKTreeDescriptionCompletion) {
         Alamofire.request(.GET, STRequestBuilder.TreeDescriptions.URLPath(), parameters: self.parameters()).responseJSON {
             response in
             
@@ -109,18 +109,18 @@ public final class STTKDownloadManager {
     }
     
     // This should probably not be used anymore now that the online API has been updated with location data
-    public class func fetch(treesFromLocalFileWithCompletion completion: STTKTreeCompletion) {
+    public class func fetch(treesFromLocalFileWithCompletion completion: @escaping STTKTreeCompletion) {
         
         // download data on a background queue
-        let concurrentQueue = dispatch_queue_create("com.CodeForOrlando.concurrentQueue", DISPATCH_QUEUE_CONCURRENT)
+        let concurrentQueue = DispatchQueue(label: "com.CodeForOrlando.concurrentQueue", attributes: DispatchQueue.Attributes.concurrent)
         
-        dispatch_async(concurrentQueue) {
+        concurrentQueue.async {
             
-            if let data = NSData(contentsOfFile: "testData.json") {
+            if let data = try? Data(contentsOf: URL(fileURLWithPath: "testData.json")) {
                 
                 // convert data into JSON
                 do {
-                    if let JSON = try NSJSONSerialization.JSONObjectWithData(data, options: []) as? [AnyObject] {
+                    if let JSON = try JSONSerialization.jsonObject(with: data, options: []) as? [AnyObject] {
                         
                         // Iterate through each of the JSON objects found in the JSON download and load them into a data model array
                         var streetTrees: [STTKStreetTree] = []
@@ -162,7 +162,7 @@ public final class STTKDownloadManager {
      */
     
     // AnyObject? for now, will be changing into a collection of custom tree objects once that data model has been created
-    public class func fetch(treesWithCompletion completion: STTKTreeCompletion) {
+    public class func fetch(treesWithCompletion completion: @escaping STTKTreeCompletion) {
         
         Alamofire.request(.GET, STRequestBuilder.Trees.URLPath(),
             parameters: self.parameters())

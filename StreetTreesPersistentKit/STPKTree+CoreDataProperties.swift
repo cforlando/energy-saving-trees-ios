@@ -41,7 +41,7 @@ public extension STPKTree {
     @NSManaged var stormWater: NSNumber?
     @NSManaged var therms: NSNumber?
     @NSManaged var type: NSNumber?
-    @NSManaged var date: NSDate?
+    @NSManaged var date: Date?
     @NSManaged var treeDescription: STPKTreeDescription?
 
 }

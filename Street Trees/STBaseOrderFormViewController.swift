@@ -51,21 +51,21 @@ class STBaseOrderFormViewController: UIViewController, TextFieldAdjustment, Addr
     var contact: STTKContact?
     var treeDescription: STPKTreeDescription?
     
-    private var defaultTopConstraintConstant: CGFloat = 0.0
+    fileprivate var defaultTopConstraintConstant: CGFloat = 0.0
     
     //******************************************************************************************************************
     // MARK: - ViewController Overrides
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        let notificationCenter = NSNotificationCenter.defaultCenter()
-        notificationCenter.addObserverForName(UIKeyboardWillShowNotification, object: nil, queue: NSOperationQueue.mainQueue()) { [weak self] (notification: NSNotification) in
+        let notificationCenter = NotificationCenter.default
+        notificationCenter.addObserver(forName: NSNotification.Name.UIKeyboardWillShow, object: nil, queue: OperationQueue.main) { [weak self] (notification: Notification) in
             guard let strongSelf = self else { return }
             guard let textField = strongSelf.activeTextField else { return }
             guard let frameValue = notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue else { return }
             
-            let keyboardFrame = frameValue.CGRectValue()
+            let keyboardFrame = frameValue.cgRectValue
             
             if strongSelf.activeTextFieldIntersects(rect: keyboardFrame) {
                 let yDiff = strongSelf.intersectAmount(betweenView: textField, andRect: keyboardFrame).y
@@ -76,7 +76,7 @@ class STBaseOrderFormViewController: UIViewController, TextFieldAdjustment, Addr
             }
         }
         
-        notificationCenter.addObserverForName(UIKeyboardWillHideNotification, object: nil, queue: NSOperationQueue.mainQueue()) { [weak self] (notification: NSNotification) in
+        notificationCenter.addObserver(forName: NSNotification.Name.UIKeyboardWillHide, object: nil, queue: OperationQueue.main) { [weak self] (notification: Notification) in
             guard let strongSelf = self else { return }
             strongSelf.resetTextFieldPositioning()
         }
@@ -86,13 +86,13 @@ class STBaseOrderFormViewController: UIViewController, TextFieldAdjustment, Addr
     //******************************************************************************************************************
     // MARK: - Private Functions
     
-    private func animateLayoutChanges() {
-        UIView.animateWithDuration(0.25, delay: 0.0, options: .CurveEaseInOut, animations: { [weak self] in
+    fileprivate func animateLayoutChanges() {
+        UIView.animate(withDuration: 0.25, delay: 0.0, options: .curveEaseInOut, animations: { [weak self] in
             self?.view.layoutIfNeeded()
             }, completion: nil)
     }
     
-    private func resetTextFieldPositioning() {
+    fileprivate func resetTextFieldPositioning() {
         self.stackViewTopLayoutConstraint?.constant = self.defaultTopConstraintConstant
         self.animateLayoutChanges()
     }

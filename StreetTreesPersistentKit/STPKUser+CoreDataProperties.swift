@@ -14,7 +14,7 @@ import CoreData
 
 public extension STPKUser {
 
-    @NSManaged var lastestUpdate: NSDate?
+    @NSManaged var lastestUpdate: Date?
     @NSManaged var firstName: String?
     @NSManaged var lastName: String?
     @NSManaged var streetNumber: NSNumber?

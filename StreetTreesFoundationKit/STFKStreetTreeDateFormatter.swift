@@ -27,15 +27,15 @@
 
 import Foundation
 
-public final class STFKStreetTreeDateFormatter: NSDateFormatter {
+public final class STFKStreetTreeDateFormatter: DateFormatter {
     
     public static let sharedInstance = STFKStreetTreeDateFormatter()
     
     override init() {
         super.init()
-        locale = NSLocale(localeIdentifier: "en_US_POSIX")
-        timeZone = NSTimeZone(forSecondsFromGMT: 0)
-        dateStyle = .MediumStyle
+        locale = Locale(identifier: "en_US_POSIX")
+        timeZone = TimeZone(secondsFromGMT: 0)
+        dateStyle = .medium
         dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSS"
     }
     

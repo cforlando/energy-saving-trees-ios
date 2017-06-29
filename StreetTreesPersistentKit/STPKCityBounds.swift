@@ -34,46 +34,46 @@ import StreetTreesTransportKit
 //**********************************************************************************************************************
 // MARK: - Constants
 
-private let STPKRefetchDuration: NSTimeInterval = 1209600 // 2 weeks
+private let STPKRefetchDuration: TimeInterval = 1209600 // 2 weeks
 
 //**********************************************************************************************************************
 // MARK: - Typealiases
 
-public typealias STPKFetchCityBoundsHandler = (cityBounds: STPKCityBounds?, error: NSError?) -> Void
+public typealias STPKFetchCityBoundsHandler = (_ cityBounds: STPKCityBounds?, _ error: NSError?) -> Void
 
 //**********************************************************************************************************************
 // MARK: - Class Implementation
 
 @objc(STPKCityBounds)
-public class STPKCityBounds: STPKManagedObject {
+open class STPKCityBounds: STPKManagedObject {
     
     //******************************************************************************************************************
     // MARK: - Class overrides
     
-    override public class func entityName() -> String {
+    override open class func entityName() -> String {
         return "STPKCityBounds"
     }
     
-    override public class func insert(context aContext: NSManagedObjectContext) -> STPKCityBounds {
+    override open class func insert(context aContext: NSManagedObjectContext) -> STPKCityBounds {
         let entityDescription = self.entityDescription(inManagedObjectContext: aContext)
-        let citybounds = STPKCityBounds(entity: entityDescription, insertIntoManagedObjectContext: aContext)
+        let citybounds = STPKCityBounds(entity: entityDescription, insertInto: aContext)
         return citybounds
     }
     
     //******************************************************************************************************************
     // MARK: - Internal Functions
     
-    class func fetch(context: NSManagedObjectContext, handler: STPKFetchCityBoundsHandler) {
+    class func fetch(_ context: NSManagedObjectContext, handler: @escaping STPKFetchCityBoundsHandler) {
     
         guard let citybounds = self.fetchCityBounds(context), let timestamp = citybounds.timestamp else {
             self.downloadCityBounds(context, handler: handler)
             return
         }
         
-        let notOutDated = NSDate().timeIntervalSinceDate(timestamp) < STPKRefetchDuration
+        let notOutDated = Date().timeIntervalSince(timestamp) < STPKRefetchDuration
         
         if notOutDated {
-            handler(cityBounds: citybounds, error: nil)
+            handler(citybounds, nil)
         } else {
             self.downloadCityBounds(context, handler: handler)
         }
@@ -82,17 +82,17 @@ public class STPKCityBounds: STPKManagedObject {
     //******************************************************************************************************************
     // MARK: - Public Functions
 
-    public func shapes() throws -> [MKPolygon] {
-        let json = try NSJSONSerialization.JSONObjectWithData(self.json ?? NSData(), options: []) as? [NSObject: AnyObject]
-        let shapes = try GeoJSONSerialization.shapesFromGeoJSONFeatureCollection(json) as? [MKPolygon]
+    open func shapes() throws -> [MKPolygon] {
+        let json = try JSONSerialization.jsonObject(with: self.json ?? Data(), options: []) as? [AnyHashable: Any]
+        let shapes = try GeoJSONSerialization.shapes(fromGeoJSONFeatureCollection: json) as? [MKPolygon]
         return shapes ?? []
     }
     
     //******************************************************************************************************************
     // MARK: - Private Class Functions
     
-    private class func downloadCityBounds(fetchContext: NSManagedObjectContext, handler: STPKFetchCityBoundsHandler) {
-        STTKDownloadManager.fetch() { (json: [NSObject:AnyObject]) in
+    fileprivate class func downloadCityBounds(_ fetchContext: NSManagedObjectContext, handler: @escaping STPKFetchCityBoundsHandler) {
+        STTKDownloadManager.fetch() { (json: [AnyHashable: Any]) in
             STPKCoreData.sharedInstance.insert(json, completion: { (anError) in
                 
                 if let safeError = anError {
@@ -109,11 +109,11 @@ public class STPKCityBounds: STPKManagedObject {
         }
     }
     
-    private class func fetchCityBounds(context: NSManagedObjectContext) -> STPKCityBounds? {
-        let fetchRequest = NSFetchRequest()
+    fileprivate class func fetchCityBounds(_ context: NSManagedObjectContext) -> STPKCityBounds? {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>()
         fetchRequest.entity = STPKCityBounds.entityDescription(inManagedObjectContext: context)
         do {
-            return try context.executeFetchRequest(fetchRequest).first as? STPKCityBounds
+            return try context.fetch(fetchRequest).first as? STPKCityBounds
         } catch {
             return nil
         }

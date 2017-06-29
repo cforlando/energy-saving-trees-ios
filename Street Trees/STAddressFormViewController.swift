@@ -48,7 +48,7 @@ private let STBorderWidth: CGFloat = 1.0
 private let STCornerRadius: CGFloat = 4.0
 private let STLocationAccuracy: CLLocationAccuracy = 5.0
 private let STLocationErrorTitle = "Location Error"
-private let STTimerInterval: NSTimeInterval = 60.0
+private let STTimerInterval: TimeInterval = 60.0
 private let STUnknownErrorTitle = "Unknown Error"
 private let STUnknownLocationErrorMessage = "An error occured while requesting your location. Please try again."
 private let STZipCodeCount = 5
@@ -70,13 +70,13 @@ private extension CLPlacemark {
 // MARK: - Protocols
 
 protocol STAddressFormViewControllerDelegate: NSObjectProtocol {
-    func addressFormViewController(form: STAddressFormViewController, didCompleteWithAddress anAddress: STTKStreetAddress)
+    func addressFormViewController(_ form: STAddressFormViewController, didCompleteWithAddress anAddress: STTKStreetAddress)
 }
 
 //**********************************************************************************************************************
 // MARK: - Typealias
 
-typealias STValidAddressHandler = (valid: Bool) -> Void
+typealias STValidAddressHandler = (_ valid: Bool) -> Void
 
 //**********************************************************************************************************************
 // MARK: - Class Impletementation
@@ -87,7 +87,7 @@ class STAddressFormViewController: STBaseOrderFormViewController, UITextFieldDel
     @IBOutlet weak var mapImageView: UIImageView! {
         didSet {
             mapImageView.layer.cornerRadius = STCornerRadius
-            mapImageView.layer.borderColor = UIColor.lightGrayColor().CGColor
+            mapImageView.layer.borderColor = UIColor.lightGray.cgColor
             mapImageView.layer.borderWidth = STBorderWidth
         }
     }
@@ -103,24 +103,24 @@ class STAddressFormViewController: STBaseOrderFormViewController, UITextFieldDel
     
     weak var delegate: STAddressFormViewControllerDelegate?
     
-    private var timer: NSTimer?
-    private var locationRequest: STFKLocationRequest?
-    private var postalAddress = CNMutablePostalAddress()
-    private var updatingAddress = CNPostalAddress()
+    fileprivate var timer: Timer?
+    fileprivate var locationRequest: STFKLocationRequest?
+    fileprivate var postalAddress = CNMutablePostalAddress()
+    fileprivate var updatingAddress = CNPostalAddress()
     
     //******************************************************************************************************************
     // MARK: - ViewController Overrides
     
-    override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         
         if !self.confirmAddress() {
             return false
         }
         
-        return super.shouldPerformSegueWithIdentifier(identifier, sender: sender)
+        return super.shouldPerformSegue(withIdentifier: identifier, sender: sender)
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         self.startLocationTimer()
@@ -131,7 +131,7 @@ class STAddressFormViewController: STBaseOrderFormViewController, UITextFieldDel
         self.postalAddress.state = "Florida"
     }
     
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
         self.timer?.invalidate()
@@ -142,14 +142,14 @@ class STAddressFormViewController: STBaseOrderFormViewController, UITextFieldDel
     //******************************************************************************************************************
     // MARK: - Actions
     
-    @IBAction func dismissKeyboard(sender: AnyObject) {
+    @IBAction func dismissKeyboard(_ sender: AnyObject) {
         
         self.streetAddressTextField.resignFirstResponder()
         self.streetAddressTwoTextField.resignFirstResponder()
         self.zipCodeTextField.resignFirstResponder()
     }
     
-    @IBAction func requestAddress(sender: UIButton) {
+    @IBAction func requestAddress(_ sender: UIButton) {
         
         self.streetAddressTextField.text = self.updatingAddress.street
         self.zipCodeTextField.text = self.updatingAddress.postalCode
@@ -160,15 +160,15 @@ class STAddressFormViewController: STBaseOrderFormViewController, UITextFieldDel
     //******************************************************************************************************************
     // MARK: - TextField Delegate
     
-    func textFieldDidBeginEditing(textField: UITextField) {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
         self.activeTextField = textField
     }
     
-    func textFieldDidEndEditing(textField: UITextField) {
+    func textFieldDidEndEditing(_ textField: UITextField) {
         self.activeTextField = nil
     }
     
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         switch textField {
         case self.streetAddressTextField:
             self.postalAddress.street = self.streetAddressTextField.text ?? ""
@@ -191,17 +191,17 @@ class STAddressFormViewController: STBaseOrderFormViewController, UITextFieldDel
     
     func confirmAddress() -> Bool {
         
-        guard let streetAddress = self.streetAddressTextField.text where streetAddress.isEmpty == false else {
+        guard let streetAddress = self.streetAddressTextField.text, streetAddress.isEmpty == false else {
             self.showAlert(STAddressWarningTitle, message: STAddressWarningMessage)
             return false
         }
         
-        guard let zipCodeString = self.zipCodeTextField.text where zipCodeString.isEmpty == false else {
+        guard let zipCodeString = self.zipCodeTextField.text, zipCodeString.isEmpty == false else {
             self.showAlert(STZipCodeWarningTitle, message: STZipCodeWarningMessage)
             return false
         }
         
-        guard let zipCode = UInt(zipCodeString) where zipCodeString.characters.count == STZipCodeCount else {
+        guard let zipCode = UInt(zipCodeString), zipCodeString.characters.count == STZipCodeCount else {
             self.showAlert(STZipCodeInvalidWarningTitle, message: STZipCodeInvalidWarningMessage)
             return false
         }
@@ -228,8 +228,8 @@ class STAddressFormViewController: STBaseOrderFormViewController, UITextFieldDel
             guard let mapImage = image, let strongSelf = self else {
                 return
             }
-            strongSelf.mapImageView.hidden = false
-            strongSelf.mapImageView.contentMode = .Center
+            strongSelf.mapImageView.isHidden = false
+            strongSelf.mapImageView.contentMode = .center
             strongSelf.mapImageView.image = mapImage
         }
         
@@ -238,7 +238,7 @@ class STAddressFormViewController: STBaseOrderFormViewController, UITextFieldDel
         self.requestGeolocation(aLocation)
     }
     
-    func requestGeolocation(location: CLLocation) {
+    func requestGeolocation(_ location: CLLocation) {
         CLGeocoder().reverseGeocodeLocation(location) { [unowned self] (placeMarks: [CLPlacemark]?, error: NSError?) in
             guard let placeMark = placeMarks?.last else {
                 self.showPlacemarkError(error)
@@ -249,7 +249,7 @@ class STAddressFormViewController: STBaseOrderFormViewController, UITextFieldDel
         }
     }
     
-    func showLocationError(error: NSError?) {
+    func showLocationError(_ error: NSError?) {
         let title: String
         let message: String
         
@@ -264,7 +264,7 @@ class STAddressFormViewController: STBaseOrderFormViewController, UITextFieldDel
         self.showAlert(title, message: message)
     }
     
-    func showPlacemarkError(error: NSError?) {
+    func showPlacemarkError(_ error: NSError?) {
         let title: String
         let message: String
         
@@ -280,14 +280,14 @@ class STAddressFormViewController: STBaseOrderFormViewController, UITextFieldDel
     }
     
     func startLocationTimer() {
-        self.timer = NSTimer.scheduledTimerWithTimeInterval(STTimerInterval,
+        self.timer = Timer.scheduledTimer(timeInterval: STTimerInterval,
                                                target: self,
                                                selector: #selector(self.updateLocation),
                                                userInfo: nil,
                                                repeats: true)
     }
     
-    func updateAddress(placeMark: CLPlacemark) {
+    func updateAddress(_ placeMark: CLPlacemark) {
         
         let postalAddress = CNMutablePostalAddress()
         postalAddress.city = placeMark.string(forKey: STAddressDictionaryCityKey)
@@ -295,12 +295,12 @@ class STAddressFormViewController: STBaseOrderFormViewController, UITextFieldDel
         postalAddress.state = placeMark.string(forKey: STAddressDictionaryStateKey)
         postalAddress.country = placeMark.string(forKey: STAddressDictionaryCountryKey)
         postalAddress.postalCode = placeMark.string(forKey: STAddressDictionaryPostalCodeKey)
-        postalAddress.ISOCountryCode = placeMark.string(forKey: STAddressDictionaryCountryCodeKey)
+        postalAddress.isoCountryCode = placeMark.string(forKey: STAddressDictionaryCountryCodeKey)
         
         self.updatingAddress = postalAddress
         
         let addressFormatter = CNPostalAddressFormatter()
-        self.currentLocationLabel.text = addressFormatter.stringFromPostalAddress(postalAddress)
+        self.currentLocationLabel.text = addressFormatter.string(from: postalAddress)
     }
     
     func updateLocation() {

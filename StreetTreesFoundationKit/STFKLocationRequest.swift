@@ -31,22 +31,22 @@ import UIKit
 //**********************************************************************************************************************
 // MARK: - Constants
 
-private let STFKMaximumLocationStagnationDuration: NSTimeInterval = 30.0 // 😈
+private let STFKMaximumLocationStagnationDuration: TimeInterval = 30.0 // 😈
 
 //**********************************************************************************************************************
 // MARK: - Typealias
 
-public typealias STFKLocationHandler = (location: CLLocation?, error: NSError?) -> Void
+public typealias STFKLocationHandler = (_ location: CLLocation?, _ error: NSError?) -> Void
 
 //**********************************************************************************************************************
 // MARK: - Class Implementation
 
-public class STFKLocationRequest: NSObject, CLLocationManagerDelegate {
-    private let accuracy: CLLocationAccuracy
-    private let handler: STFKLocationHandler
-    private var manager: CLLocationManager?
+open class STFKLocationRequest: NSObject, CLLocationManagerDelegate {
+    fileprivate let accuracy: CLLocationAccuracy
+    fileprivate let handler: STFKLocationHandler
+    fileprivate var manager: CLLocationManager?
     
-    public init(accuracy: CLLocationAccuracy, locationHandler: STFKLocationHandler) {
+    public init(accuracy: CLLocationAccuracy, locationHandler: @escaping STFKLocationHandler) {
         self.accuracy = accuracy
         self.handler = locationHandler
         super.init()
@@ -56,13 +56,13 @@ public class STFKLocationRequest: NSObject, CLLocationManagerDelegate {
     //******************************************************************************************************************
     // MARK: - CLLocationManager Delegate
     
-    public func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
+    open func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         self.stopUpdating()
-        self.handler(location: nil, error: error)
+        self.handler(nil, error as NSError)
     }
     
-    public func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let location = locations.last where location.horizontalAccuracy >= self.accuracy else {
+    open func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let location = locations.last, location.horizontalAccuracy >= self.accuracy else {
             return
         }
         
@@ -71,14 +71,14 @@ public class STFKLocationRequest: NSObject, CLLocationManagerDelegate {
         }
         
         self.stopUpdating()
-        self.handler(location: location, error: nil)
+        self.handler(location, nil)
     }
     
     //******************************************************************************************************************
     // MARK: - Public Functions
     
-    public func cancel() {
-        dispatch_async(dispatch_get_main_queue()) { [unowned self] in
+    open func cancel() {
+        DispatchQueue.main.async { [unowned self] in
             self.stopUpdating()
         }
     }
@@ -86,9 +86,9 @@ public class STFKLocationRequest: NSObject, CLLocationManagerDelegate {
     //******************************************************************************************************************
     // MARK: - Private Functions
     
-    private func execute() {
+    fileprivate func execute() {
         // All location activity must occur on the main thread
-        dispatch_async(dispatch_get_main_queue()) { [unowned self] in
+        DispatchQueue.main.async { [unowned self] in
             let manager = CLLocationManager()
             manager.desiredAccuracy = self.accuracy
             manager.delegate = self
@@ -97,11 +97,11 @@ public class STFKLocationRequest: NSObject, CLLocationManagerDelegate {
         }
     }
     
-    private func isLocationStale(location: CLLocation) -> Bool {
-        return abs(NSDate().timeIntervalSinceDate(location.timestamp)) > STFKMaximumLocationStagnationDuration
+    fileprivate func isLocationStale(_ location: CLLocation) -> Bool {
+        return abs(Date().timeIntervalSince(location.timestamp)) > STFKMaximumLocationStagnationDuration
     }
     
-    private func stopUpdating() {
+    fileprivate func stopUpdating() {
         self.manager?.stopUpdatingLocation()
         self.manager = nil
     }

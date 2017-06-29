@@ -31,16 +31,16 @@ import UIKit
 
 class STCenterCellFlowLayout: UICollectionViewFlowLayout {
     
-    override func targetContentOffsetForProposedContentOffset(proposedContentOffset: CGPoint, withScrollingVelocity velocity: CGPoint) -> CGPoint {
+    override func targetContentOffset(forProposedContentOffset proposedContentOffset: CGPoint, withScrollingVelocity velocity: CGPoint) -> CGPoint {
         
         guard let collectionView = self.collectionView else {
-            return super.targetContentOffsetForProposedContentOffset(proposedContentOffset)
+            return super.targetContentOffset(forProposedContentOffset: proposedContentOffset)
         }
         
         let bounds = collectionView.bounds
         
-        guard let attributesForVisibleCells = self.layoutAttributesForElementsInRect(bounds) else {
-            return super.targetContentOffsetForProposedContentOffset(proposedContentOffset)
+        guard let attributesForVisibleCells = self.layoutAttributesForElements(in: bounds) else {
+            return super.targetContentOffset(forProposedContentOffset: proposedContentOffset)
         }
         
         let halfCollectionViewWidth = bounds.width / 2.0;
@@ -51,7 +51,7 @@ class STCenterCellFlowLayout: UICollectionViewFlowLayout {
         for newAttributes in attributesForVisibleCells {
             
             // Skip comparison with non-cell items (headers and footers)
-            if newAttributes.representedElementCategory != UICollectionElementCategory.Cell {
+            if newAttributes.representedElementCategory != UICollectionElementCategory.cell {
                 continue
             }
             

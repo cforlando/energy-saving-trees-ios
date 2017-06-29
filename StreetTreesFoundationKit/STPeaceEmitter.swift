@@ -19,23 +19,23 @@ private let STPeaceHeight: CGFloat = 18.0
 //**********************************************************************************************************************
 // MARK: - Class Implementation
 
-public class STPeaceEmitter: SKScene {
+open class STPeaceEmitter: SKScene {
     
-    private(set) var playing = false
-    private var treeEmitter: SKEmitterNode?
+    fileprivate(set) var playing = false
+    fileprivate var treeEmitter: SKEmitterNode?
     
     //******************************************************************************************************************
     // MARK: - Class Overrides
     
-    override public func didMoveToView(view: SKView) {
-        self.scaleMode = .ResizeFill
-        self.backgroundColor = UIColor.clearColor()
+    override open func didMove(to view: SKView) {
+        self.scaleMode = .resizeFill
+        self.backgroundColor = UIColor.clear
     }
     
     //******************************************************************************************************************
     // MARK: - Public Functions
     
-    public func beginAnimation() {
+    open func beginAnimation() {
         
         if self.playing {
             return
@@ -51,7 +51,7 @@ public class STPeaceEmitter: SKScene {
             let x = floor(self.size.width / 2.0)
             let y = STPeaceHeight
             
-            emitter.position = CGPointMake(x, y)
+            emitter.position = CGPoint(x: x, y: y)
             
             emitter.name = STEmitterName
             emitter.targetNode = self
@@ -61,7 +61,7 @@ public class STPeaceEmitter: SKScene {
         }
     }
     
-    public func endAnimation() {
+    open func endAnimation() {
         self.playing = false
     }
 }
