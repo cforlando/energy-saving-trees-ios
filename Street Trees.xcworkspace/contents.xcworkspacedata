@@ -2,12 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:/Users/markfilter/Desktop/iOS 10 Frameworks/OPEN SOURCE PROJECTS/energy-saving-trees-ios/Street Trees.xcodeproj">
+      location = "group:Street Trees.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:Pods/Pods.xcodeproj">
-   </FileRef>
-   <FileRef
-      location = "group:Street Trees.xcodeproj">
    </FileRef>
 </Workspace>

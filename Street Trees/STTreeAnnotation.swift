@@ -27,23 +27,26 @@
 
 import UIKit
 import MapKit
-import FBAnnotationClusteringSwift
+import FBAnnotationClustering
 import StreetTreesPersistentKit
 
-open class STTreeAnnotation: FBAnnotation {
+open class STTreeAnnotation: NSObject, MKAnnotation {
     open let tree: STPKTree
     open let image: UIImage?
+    open var title: String?
+    open var coordinate: CLLocationCoordinate2D
     
     init(tree: STPKTree, image: UIImage?) {
         self.image = image
         self.tree = tree
-        super.init()
         self.title = tree.speciesName
         
         let latitude: CLLocationDegrees = tree.latitude?.doubleValue ?? 0.0
         let longitude: CLLocationDegrees = tree.longitude?.doubleValue ?? 0.0
         
         self.coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+        
+        super.init()
         
     }
 }

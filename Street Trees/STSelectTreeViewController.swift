@@ -69,7 +69,7 @@ class STSelectTreeViewController: STBaseOrderFormViewController, UICollectionVie
     
     
     lazy var datasource: [STPKTreeDescription] = {
-        return STPKTreeDescription.rightOfWayTrees().sort {$0.name < $1.name}
+        return STPKTreeDescription.rightOfWayTrees().sorted {$0.name! < $1.name!}
     }()
     
     weak var delegate: STSelectTreeViewControllerDelegate?
@@ -277,8 +277,8 @@ class STSelectTreeViewController: STBaseOrderFormViewController, UICollectionVie
     
     func resetAllCells() {
         for index in 0..<self.datasource.count {
-            let indexPath = NSIndexPath(forItem: index, inSection: 0)
-            if let cell = self.collectionView.cellForItemAtIndexPath(indexPath) {
+            let indexPath = IndexPath(item: index, section: 0)
+            if let cell = self.collectionView.cellForItem(at: indexPath) {
                 cell.layer.borderWidth = STUnselectedBorderWidth
             }
         }

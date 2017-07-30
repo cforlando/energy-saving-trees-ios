@@ -47,10 +47,10 @@ open class STPKTree: STPKManagedObject {
     // MARK: - Class Functions
     
     class func fetch(byOrderNumber anOrderNumber: Int, inContext aContext: NSManagedObjectContext) throws -> STPKTree? {
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName()) as? STPKTree
+        let fetchRequest = NSFetchRequest<STPKTree>(entityName: self.entityName())
         fetchRequest.predicate = NSPredicate(format: "SELF.order == %@", NSNumber(value: anOrderNumber))
         fetchRequest.fetchLimit = 1
         
-        return try aContext.fetch(fetchRequest).first as? STPKTree
+        return try aContext.fetch(fetchRequest).first
     }
 }

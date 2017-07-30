@@ -224,7 +224,7 @@ class STAddressFormViewController: STBaseOrderFormViewController, UITextFieldDel
     
     func createSnapshot(fromLocation aLocation: CLLocation) {
         
-        let snapshot = STFKMapSnapshot(coordinate: aLocation.coordinate) { [weak self] (image: UIImage?, error: NSError?) in
+        let snapshot = STFKMapSnapshot(coordinate: aLocation.coordinate) { [weak self] (image: UIImage?, error: Error?) in
             guard let mapImage = image, let strongSelf = self else {
                 return
             }
@@ -239,7 +239,7 @@ class STAddressFormViewController: STBaseOrderFormViewController, UITextFieldDel
     }
     
     func requestGeolocation(_ location: CLLocation) {
-        CLGeocoder().reverseGeocodeLocation(location) { [unowned self] (placeMarks: [CLPlacemark]?, error: NSError?) in
+        CLGeocoder().reverseGeocodeLocation(location) { [unowned self] (placeMarks: [CLPlacemark]?, error: Error?) in
             guard let placeMark = placeMarks?.last else {
                 self.showPlacemarkError(error)
                 return
@@ -249,7 +249,7 @@ class STAddressFormViewController: STBaseOrderFormViewController, UITextFieldDel
         }
     }
     
-    func showLocationError(_ error: NSError?) {
+    func showLocationError(_ error: Error?) {
         let title: String
         let message: String
         
@@ -264,7 +264,7 @@ class STAddressFormViewController: STBaseOrderFormViewController, UITextFieldDel
         self.showAlert(title, message: message)
     }
     
-    func showPlacemarkError(_ error: NSError?) {
+    func showPlacemarkError(_ error: Error?) {
         let title: String
         let message: String
         

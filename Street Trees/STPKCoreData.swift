@@ -53,12 +53,12 @@ open class STPKCoreData: NSObject {
         
         context.performAndWait {
             if self.fetchUser() == nil {
-                STPKUser.insert(context: context)
+                let _ = STPKUser.insert(context: context)
                 self.save(context) { error in
                     if let _ = error {
-                        completion(user: nil, anError: error)
+                        completion(nil, error)
                     }
-                    completion(user: self.fetchUser(), anError: error)
+                    completion(self.fetchUser(), error)
                 }
             } else {
                 let error = NSError(domain: "com.CodeForOrlando.StreeTrees.UserExists", code: 4, userInfo: nil)
@@ -67,7 +67,7 @@ open class STPKCoreData: NSObject {
         }
     }
     
-    open func fetchCityBounds(_ handler: STPKFetchCityBoundsHandler) {
+    open func fetchCityBounds(_ handler: @escaping STPKFetchCityBoundsHandler) {
         guard let context = self.coreDataStack?.mainQueueContext() else {
             let error = NSError(domain: "com.CodeForOrlando.StreeTrees.MainContext", code: 7, userInfo: nil)
             handler(nil, error)
@@ -186,16 +186,17 @@ open class STPKCoreData: NSObject {
                     let newDescription = STPKTreeDescription.insert(context: context)
                     newDescription.additional = descriptionItem.additional
                     newDescription.treeDescription = descriptionItem.description
-                    newDescription.fullSun = descriptionItem.fullSun
+          
+                    newDescription.fullSun = descriptionItem.fullSun as NSNumber
                     newDescription.leaf = descriptionItem.leaf
-                    newDescription.maxHeight = descriptionItem.maxHeight
-                    newDescription.maxWidth = descriptionItem.maxWidth
-                    newDescription.minHeight = descriptionItem.minHeight
-                    newDescription.minWidth = descriptionItem.minWidth
+                    newDescription.maxHeight = descriptionItem.maxHeight as NSNumber
+                    newDescription.maxWidth = descriptionItem.maxWidth as NSNumber
+                    newDescription.minHeight = descriptionItem.minHeight as NSNumber
+                    newDescription.minWidth = descriptionItem.minWidth as NSNumber
                     newDescription.moisture = descriptionItem.moisture
                     newDescription.name = descriptionItem.name
-                    newDescription.partialShade = descriptionItem.partialShade
-                    newDescription.partialSun = descriptionItem.partialSun
+                    newDescription.partialShade = descriptionItem.partialShade as NSNumber
+                    newDescription.partialSun = descriptionItem.partialSun as NSNumber
                     newDescription.shape  = descriptionItem.shape
                     newDescription.soil = descriptionItem.soil
                 }
@@ -215,22 +216,27 @@ open class STPKCoreData: NSObject {
         context.performAndWait { [unowned self] in
             
             for treeData in treesData {
+                
                 let containsTree = currentTrees.contains { (tree: STPKTree) -> Bool in
-                    tree.order == treeData.order
+                    guard let treeOrder = tree.order?.intValue else {
+                        return false
+                    }
+                    return treeOrder == treeData.order
+                    
                 }
                 
                 if !containsTree {
                     let newTree = STPKTree.insert(context: context)
-                    newTree.order = treeData.order
-                    newTree.carbon = treeData.carbon
-                    newTree.air = treeData.air
-                    newTree.kiloWattHours = treeData.kWh
+                    newTree.order = treeData.order as NSNumber
+                    newTree.carbon = treeData.carbon as NSNumber
+                    newTree.air = treeData.air as NSNumber
+                    newTree.kiloWattHours = treeData.kWh as NSNumber
                     newTree.savings = NSDecimalNumber(value: treeData.savings)
-                    newTree.stormWater = treeData.stormwater
-                    newTree.therms = treeData.therms
+                    newTree.stormWater = treeData.stormwater as NSNumber
+                    newTree.therms = treeData.therms as NSNumber
                     newTree.speciesName = treeData.name
-                    newTree.longitude = treeData.long
-                    newTree.latitude = treeData.lat
+                    newTree.longitude = treeData.long as NSNumber
+                    newTree.latitude = treeData.lat as NSNumber
                     newTree.date = treeData.date
                 }
             }
@@ -272,7 +278,7 @@ open class STPKCoreData: NSObject {
             self.insert(descriptions, completion: { (anError) in
                 
                 if anError != nil {
-                    completion(anError: anError)
+                    completion(anError)
                     return
                 }
                 
@@ -284,7 +290,7 @@ open class STPKCoreData: NSObject {
                         // join descriptions and trees
                         guard let context = self.coreDataStack?.mainQueueContext() else {
                             let error = NSError(domain: "com.CodeForOrlando.StreeTrees.FetchTreesMainQueueContext", code: 1, userInfo: nil)
-                            completion(anError: error)
+                            completion(error)
                             return
                         }
                         if let allTrees = try? STPKTree.fetch(context) as? [STPKTree] {
@@ -292,7 +298,7 @@ open class STPKCoreData: NSObject {
                                 self.updateDescriptionForTree(tree: tree)
                             }
                         }
-                        completion(anError: anError)
+                        completion(anError)
                     })
                 })
             })

@@ -38,7 +38,7 @@ private let STTKRequestTimeout: TimeInterval = 10.0
 
 //**********************************************************************************************************************
 // MARK: - Public Typealiases
-public typealias STTKRequestComplete = (_ error: NSError?) -> Void
+public typealias STTKRequestComplete = (_ error: Error?) -> Void
 
 //**********************************************************************************************************************
 // MARK: - Class Implementation
@@ -91,19 +91,23 @@ extension STTKWufooRequest {
         self.httpBody = form.data
         
         print("------------- Request Start --------------")
-        print("URL: \(self.url)")
+        print("URL: \(self.url?.path ?? "No URL")")
         print("Content: \(form.query)")
         print("-------------- Request End ---------------")
-
-        Alamofire.request(self).responseJSON { (response: Response<AnyObject, NSError>) in
+        
+        Alamofire.request(self.url?.path ?? "").responseJSON { (responseObject) in
             print("------------- Response Start --------------")
-            print("Status Code: \(response.response?.statusCode)")
-            print("Header Fields: \(response.response?.allHeaderFields)")
-            print("Full Response: \(response.result.value)")
-            print("Error: \(response.result.error)")
+            if let response = responseObject.response {
+                print("Status Code: \(response.statusCode)")
+                print("Header Fields: \(response.allHeaderFields)")
+            }
+            
+            print("Full Response: \(String(describing: responseObject.result.value))")
+            print("Error: \(String(describing: responseObject.result.error))")
+            
             print("-------------- Response End ---------------")
             
-            completion(error: response.result.error)
+            completion(responseObject.result.error)
         }
     }
 }

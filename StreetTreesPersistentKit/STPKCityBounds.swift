@@ -96,14 +96,14 @@ open class STPKCityBounds: STPKManagedObject {
             STPKCoreData.sharedInstance.insert(json, completion: { (anError) in
                 
                 if let safeError = anError {
-                    handler(cityBounds: nil, error: safeError)
+                    handler(nil, safeError)
                 }
                 
                 if let bounds = self.fetchCityBounds(fetchContext) {
-                    handler(cityBounds: bounds, error: nil)
+                    handler(bounds, nil)
                 } else {
                     let error = NSError(domain: "com.CodeForOrlando.StreeTrees.InsertCityBounds.NewFetch", code: 5, userInfo: nil)
-                    handler(cityBounds: nil, error: error)
+                    handler(nil, error)
                 }
             })
         }

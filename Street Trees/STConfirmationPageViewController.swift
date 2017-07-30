@@ -142,18 +142,18 @@ class STConfirmationPageViewController: STBaseOrderFormViewController {
             let wufooRequest = STTKWufooRequest()
             let wufooForm = STTKWufooForm(tree: treeName, forContact: safeContact)
             
-            wufooRequest.execute(wufooForm) { (error: NSError?) in
+            wufooRequest.execute(wufooForm) { (error: Error?) in
                 guard let safeSelf = self else { return }
                 
-                let okAction = UIAlertAction(title: STAlertDismissButtonTitle, style: .Default) { [weak self] _ in
-                    self?.performSegueWithIdentifier(STSegueIdentifierUnwindToMapView, sender: self)
+                let okAction = UIAlertAction(title: STAlertDismissButtonTitle, style: .default) { [weak self] _ in
+                    self?.performSegue(withIdentifier: STSegueIdentifierUnwindToMapView, sender: self)
                 }
                 
                 safeSelf.alertController?.addAction(okAction)
                 
                 if let safeError = error {
                     safeSelf.alertController?.title = STTreeErrorTitle
-                    safeSelf.alertController?.message = safeError.localizedFailureReason
+                    safeSelf.alertController?.message = safeError.localizedDescription
                     return
                 }
                 
@@ -166,15 +166,15 @@ class STConfirmationPageViewController: STBaseOrderFormViewController {
     func validAddress(_ handler: @escaping STValidAddressHandler) {
         
         let address = self.address?.flatAddress() ?? ""
-        self.geocoder.geocodeAddressString(address) { (placemarks:[CLPlacemark]?, error:NSError?) in
+        self.geocoder.geocodeAddressString(address) { (placemarks:[CLPlacemark]?, error:Error?) in
             if let _ = error {
-                handler(valid: false)
+                handler(false)
                 return
             }
             
             STPKCoreData.sharedInstance.fetchCityBounds({ (cityBounds, error) in
                 if let _ = error {
-                    handler(valid: true)
+                    handler(true)
                     return
                 }
                 
@@ -182,7 +182,7 @@ class STConfirmationPageViewController: STBaseOrderFormViewController {
                 do {
                     shapes = try cityBounds?.shapes() ?? []
                 } catch {
-                    handler(valid: true)
+                    handler(true)
                     return
                 }
                 
@@ -193,13 +193,13 @@ class STConfirmationPageViewController: STBaseOrderFormViewController {
                     
                     for shape in shapes {
                         if shape.coordinateInsidePolygon(coordinate) {
-                            handler(valid: true)
+                            handler(true)
                             return
                         }
                     }
                 }
                 
-                handler(valid: false)
+                handler(false)
             })
         }
     }

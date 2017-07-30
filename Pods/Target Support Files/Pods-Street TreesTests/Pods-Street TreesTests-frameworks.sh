@@ -91,13 +91,13 @@ strip_invalid_archs() {
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/Alamofire/Alamofire.framework"
   install_framework "$BUILT_PRODUCTS_DIR/BNRCoreDataStack/BNRCoreDataStack.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/FBAnnotationClusteringSwift/FBAnnotationClusteringSwift.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/FBAnnotationClustering/FBAnnotationClustering.framework"
   install_framework "$BUILT_PRODUCTS_DIR/GeoJSONSerialization/GeoJSONSerialization.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/Alamofire/Alamofire.framework"
   install_framework "$BUILT_PRODUCTS_DIR/BNRCoreDataStack/BNRCoreDataStack.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/FBAnnotationClusteringSwift/FBAnnotationClusteringSwift.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/FBAnnotationClustering/FBAnnotationClustering.framework"
   install_framework "$BUILT_PRODUCTS_DIR/GeoJSONSerialization/GeoJSONSerialization.framework"
 fi
 if [ "${COCOAPODS_PARALLEL_CODE_SIGN}" == "true" ]; then

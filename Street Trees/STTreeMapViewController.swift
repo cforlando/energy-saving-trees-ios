@@ -27,7 +27,7 @@
 
 import CoreData
 import CoreLocation
-import FBAnnotationClusteringSwift
+import FBAnnotationClustering
 import MapKit
 import SpriteKit
 import StreetTreesPersistentKit
@@ -59,14 +59,25 @@ class STTreeMapViewController: UIViewController, MKMapViewDelegate, CLLocationMa
 
     @IBOutlet weak var mapView: MKMapView!
     
-    let clusteringManager = FBClusteringManager()
+    lazy var clusteringManager: FBClusteringManager = {
+        var annotations = [MKAnnotation]()
+        for tree in self.fetchedResultsController.fetchedObjects ?? [] {
+            
+            let image = STPKTreeDescription.icon(treeName: tree.speciesName ?? "")
+            let pin = STTreeAnnotation(tree: tree, image: image)
+            
+            annotations.append(pin)
+        }
+        return FBClusteringManager(annotations: annotations)
+    }()
+    
     let locationManager = CLLocationManager()
     var foundUser = false
     let spriteView = SKView(frame: CGRect(origin: .zero, size: STSceneSize))
     var treeEmitter = STPeaceEmitter()
     
-    lazy var fetchedResultsController: NSFetchedResultsController = { _ in
-        let fetchRequest = NSFetchRequest(entityName: STPKTree.entityName())
+    lazy var fetchedResultsController: NSFetchedResultsController<STPKTree> = {
+        let fetchRequest = NSFetchRequest<STPKTree>(entityName: STPKTree.entityName())
         let sortDescriptor = NSSortDescriptor(key: "order", ascending: true)
         fetchRequest.sortDescriptors = [sortDescriptor]
         let context = STPKCoreData.sharedInstance.coreDataStack?.mainQueueContext()
@@ -82,7 +93,7 @@ class STTreeMapViewController: UIViewController, MKMapViewDelegate, CLLocationMa
     }()
     
     var isArborDay: Bool {
-        let dateComponents = (Calendar.autoupdatingCurrent).components([.month, .day], from: Date())
+        let dateComponents = Calendar.autoupdatingCurrent.dateComponents([.month, .day], from: Date())
         return dateComponents.month == STArborMonth && dateComponents.day == STArborDay
     }
     
@@ -108,7 +119,7 @@ class STTreeMapViewController: UIViewController, MKMapViewDelegate, CLLocationMa
     override func viewDidLoad() {
         super.viewDidLoad()
         self.mapView.delegate = self
-        self.loadPinsToMap()
+        
         self.spriteView.allowsTransparency = true
         self.spriteView.presentScene(self.treeEmitter)
     }
@@ -136,7 +147,7 @@ class STTreeMapViewController: UIViewController, MKMapViewDelegate, CLLocationMa
     // MARK: - FetchedResultsController Delegate
     
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        self.loadPinsToMap()
+        self.loadPins()
     }
     
     //******************************************************************************************************************
@@ -153,7 +164,7 @@ class STTreeMapViewController: UIViewController, MKMapViewDelegate, CLLocationMa
     func mapView(_ mapView: MKMapView, didAdd views: [MKAnnotationView]) {
         for view in views {
             
-            if view is FBAnnotationClusterView {
+            if view is STAnnotationView {
                 continue
             }
             
@@ -213,11 +224,13 @@ class STTreeMapViewController: UIViewController, MKMapViewDelegate, CLLocationMa
         
         if annotation.isKind(of: FBAnnotationCluster.self) {
             
-            let imageSize = FBAnnotationClusterViewOptions(smallClusterImage: STClusterSmallImageName,
-                                                           mediumClusterImage: STClusterMediumImageName,
-                                                           largeClusterImage: STClusterLargeImageName)
+            let imageSize = STAnnotationView.Images(
+                large: STClusterLargeImageName,
+                medium: STClusterMediumImageName,
+                small: STClusterSmallImageName
+            )
             
-            annotationView = FBAnnotationClusterView(annotation: annotation, reuseIdentifier: nil, options: imageSize)
+            annotationView = STAnnotationView(annotation: annotation, reuseIdentifier: nil, images: imageSize)
             
         } else {
             reuseId = STMapPinReuseIdentifier
@@ -244,17 +257,17 @@ class STTreeMapViewController: UIViewController, MKMapViewDelegate, CLLocationMa
             return
         }
         
-        self.backgroundQueue.addOperationWithBlock { [weak self] in
+        self.backgroundQueue.addOperation { [weak self] in
             STPKCoreData.sharedInstance.fetchCityBounds({ (cityBounds, error) in
                 guard let bounds = cityBounds else { return }
                 
                 defer {
-                    UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+                    UIApplication.shared.isNetworkActivityIndicatorVisible = false
                 }
                 
                 do {
                     let shapes = try bounds.shapes()
-                    NSOperationQueue.mainQueue().addOperationWithBlock({ [weak self] in
+                    OperationQueue.main.addOperation({ [weak self] in
                         self?.mapView.addOverlays(shapes)
                     })
 
@@ -314,31 +327,11 @@ class STTreeMapViewController: UIViewController, MKMapViewDelegate, CLLocationMa
             
             let scale:Double = mapBoundsWidth / mapRectWidth
             
-            let annotationArray = self.clusteringManager.clusteredAnnotationsWithinMapRect(self.mapView.visibleMapRect,
-                withZoomScale:scale)
+            let annotationArray = self.clusteringManager.clusteredAnnotations(within: self.mapView.visibleMapRect,
+                                                                              withZoomScale:scale)
             
-            self.clusteringManager.displayAnnotations(annotationArray, onMapView:self.mapView)
+            self.clusteringManager.displayAnnotations(annotationArray, on:self.mapView)
         }
-    }
-    
-    func loadPinsToMap() {
-        
-        if self.mapView.annotations.count > 0 {
-            self.mapView.removeAnnotations(self.mapView.annotations)
-            self.clusteringManager.setAnnotations([])
-        }
-        
-        var clusters:[FBAnnotation] = []
-        for tree in self.fetchedResultsController.fetchedObjects as? [STPKTree] ?? [] {
-            
-            let image = STPKTreeDescription.icon(treeName: tree.speciesName ?? "")
-            let pin = STTreeAnnotation(tree: tree, image: image)
-            
-            self.mapView.addAnnotation(pin)
-            clusters.append(pin)
-        }
-        self.clusteringManager.addAnnotations(clusters)
-        self.loadPins()
     }
     
     func setupLocation() {
@@ -352,3 +345,79 @@ class STTreeMapViewController: UIViewController, MKMapViewDelegate, CLLocationMa
         }
     }
 }
+
+
+
+class STAnnotationView: MKAnnotationView {
+    
+    struct Images {
+        let large: String
+        let medium: String
+        let small: String
+        
+        func image(for count: Int) -> UIImage? {
+            if count > 30 {
+                return UIImage(named: self.large)
+            } else if count > 10 {
+                return UIImage(named: self.medium)
+            } else {
+                return UIImage(named: self.small)
+            }
+        }
+    }
+    
+    private let countLabel: UILabel = {
+        let label = UILabel()
+        label.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        label.textAlignment = .center
+        label.backgroundColor = UIColor.clear
+        label.textColor = UIColor.white
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 2
+        label.numberOfLines = 1
+        label.baselineAdjustment = .alignCenters
+        return label
+    }()
+    
+    let images: Images
+    
+    init(annotation: MKAnnotation?, reuseIdentifier: String?, images: Images) {
+        self.images = images
+        super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
+        self.updateClusterSize()
+        self.updateView()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        self.images = Images(large: "", medium: "", small: "")
+        super.init(coder: aDecoder)
+        self.updateView()
+    }
+    
+    override public func layoutSubviews() {
+        super.layoutSubviews()
+        countLabel.frame = bounds
+        layer.cornerRadius = image == nil ? bounds.size.width / 2 : 0
+    }
+    
+    private func updateView() {
+        self.backgroundColor = UIColor.clear
+        self.layer.borderColor = UIColor.white.cgColor
+        self.addSubview(self.countLabel)
+    }
+    
+    private func updateClusterSize() {
+        if let cluster = self.annotation as? FBAnnotationCluster {
+            
+            if cluster.annotations != nil {
+                let count = cluster.annotations.count
+                self.image = self.images.image(for: count)
+                self.countLabel.text = "\(count)"
+            }
+            
+            setNeedsLayout()
+        }
+    }
+}
+
+

@@ -57,12 +57,14 @@ public final class STTKDownloadManager {
     // MARK: - Public Class Functions
     
     public class func fetch(cityGeoPoints completion: @escaping STTKTCityGeoPointsCompletion) {
-        Alamofire.request(.GET, STRequestBuilder.GeoData.URLPath()).responseJSON { (response) in
+        Alamofire.request(STRequestBuilder.GeoData.URLPath()).responseJSON { (response) in
             if let resultData = response.result.value as? [AnyHashable: Any] {
                 completion(resultData)
             } else {
                 completion([AnyHashable: Any]())
-                print("Not a [String: AnyObject] \(response.result.value)")
+                if let object = response.result.value {
+                    print("Not a [String: AnyObject] \(object)")
+                }
             }
         }
     }
@@ -86,7 +88,7 @@ public final class STTKDownloadManager {
      */
     
     public class func fetch(treeDescriptionsWithcompletion completion: @escaping STTKTreeDescriptionCompletion) {
-        Alamofire.request(.GET, STRequestBuilder.TreeDescriptions.URLPath(), parameters: self.parameters()).responseJSON {
+        Alamofire.request(STRequestBuilder.TreeDescriptions.URLPath(), parameters: self.parameters()).responseJSON {
             response in
             
             if response.result.isSuccess {
@@ -164,7 +166,7 @@ public final class STTKDownloadManager {
     // AnyObject? for now, will be changing into a collection of custom tree objects once that data model has been created
     public class func fetch(treesWithCompletion completion: @escaping STTKTreeCompletion) {
         
-        Alamofire.request(.GET, STRequestBuilder.Trees.URLPath(),
+        Alamofire.request(STRequestBuilder.Trees.URLPath(),
             parameters: self.parameters())
             .responseJSON { response in
                 
@@ -196,7 +198,7 @@ public final class STTKDownloadManager {
     // MARK: - Internal Class Functions
     
     class internal func parameters() -> [String: String] {
-        return ["$$app_token":appKey]
+        return ["app_token":appKey]
     }
   
 }

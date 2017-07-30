@@ -6,7 +6,7 @@ use_frameworks!
 def install_pods
     pod 'Alamofire'
     pod 'BNRCoreDataStack'
-    pod 'FBAnnotationClusteringSwift'
+    pod 'FBAnnotationClustering'
     pod 'GeoJSONSerialization'
 end
 

@@ -61,21 +61,24 @@ open class STPKCoreDataStack: NSObject {
         let modelName = "STPKModel"
         let bundle = Bundle.init(for: self)
         
-        let callback: CoreDataStackSetupCallback = {(aResult: CoreDataStack.SetupResult) in
+        let callback: SetupCallback = {(aResult: CoreDataStack.SetupResult) in
+        
             switch aResult {
             case .success(let aStack):
                 let upkStack = STPKCoreDataStack(coreDataStack: aStack)
-                aSuccessBlock(coreDataStack: upkStack)
+                aSuccessBlock(upkStack)
             case .failure(let anError as NSError):
-                aFailureBlock(error: anError)
+                aFailureBlock(anError)
             default:
                 print("Unhandled case")
             }
         }
         
-        CoreDataStack.constructSQLiteStack(withModelName: modelName,
-                                           inBundle: bundle,
-                                           withStoreURL: aURL,
+        CoreDataStack.constructSQLiteStack(modelName: modelName,
+                                           in: bundle,
+                                           at: aURL,
+                                           persistentStoreOptions: nil,
+                                           on: nil,
                                            callback: callback)
     }
     
@@ -86,24 +89,23 @@ open class STPKCoreDataStack: NSObject {
     
     
     open func newBackgroundWorkerMOC() -> NSManagedObjectContext {
-        return self.coreDataStack.newChildContext(concurrencyType: NSManagedObjectContextConcurrencyType.privateQueueConcurrencyType, name: "com.streettrees.context")
+        return self.coreDataStack.newChildContext(type: NSManagedObjectContextConcurrencyType.privateQueueConcurrencyType, name: "com.streettrees.context")
     }
     
     
     open func resetStore(successBlock aSuccessBlock: @escaping STPKCoreDataStackResetSuccessBlock,
                                         failureBlock aFailureBlock: @escaping STPKCoreDataStackResetFailureBlock) {
         
-        let callback: CoreDataStackStoreResetCallback = {(aResult: CoreDataStack.ResetResult) in
+        let callback: StoreResetCallback = {(aResult: CoreDataStack.ResetResult) in
             switch aResult {
             case .success():
                 aSuccessBlock()
             case .failure(let anError as NSError):
-                aFailureBlock(error: anError)
+                aFailureBlock(anError)
             default:
                 print("Unhandled case")
             }
         }
-        
-        self.coreDataStack.resetStore(resetCallback: callback)
+        self.coreDataStack.resetStore(callback: callback)
     }
 }
