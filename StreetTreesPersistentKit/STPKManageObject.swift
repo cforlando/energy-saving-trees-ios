@@ -38,8 +38,8 @@ open class STPKManagedObject: NSManagedObject {
     }
     
     open class func fetch(_ context: NSManagedObjectContext) throws -> [STPKManagedObject] {
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName()) as? STPKManagedObject
-        return try context.fetch(fetchRequest) as? [STPKManagedObject] ?? []
+        let fetchRequest = NSFetchRequest<STPKManagedObject>(entityName: self.entityName())
+        return try context.fetch(fetchRequest)
     }
     
     open class func insert(context: NSManagedObjectContext) -> STPKManagedObject {

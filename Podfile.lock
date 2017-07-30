@@ -1,21 +1,21 @@
 PODS:
-  - Alamofire (4.4.0)
-  - BNRCoreDataStack (2.1.0)
-  - FBAnnotationClusteringSwift (1.0.1)
+  - Alamofire (4.5.0)
+  - BNRCoreDataStack (2.2.1)
+  - FBAnnotationClustering (0.2.2)
   - GeoJSONSerialization (0.0.4)
 
 DEPENDENCIES:
   - Alamofire
   - BNRCoreDataStack
-  - FBAnnotationClusteringSwift
+  - FBAnnotationClustering
   - GeoJSONSerialization
 
 SPEC CHECKSUMS:
-  Alamofire: dc44b1600b800eb63da6a19039a0083d62a6a62d
-  BNRCoreDataStack: 4b7f6f89bbb715a21e334e626eadc62f6f9389eb
-  FBAnnotationClusteringSwift: a1f4c07f5472b13acd69de04c61e68e2d7daaad3
+  Alamofire: f28cdffd29de33a7bfa022cbd63ae95a27fae140
+  BNRCoreDataStack: 7919a8c27691681c6ca0650b2757292eeba6d14a
+  FBAnnotationClustering: 0fb150b264030ca72f7c182c94473dd769e9c43a
   GeoJSONSerialization: 55a3d24fe9af26508e3af76873114b39b13ba479
 
-PODFILE CHECKSUM: 758f0a8527094df571fa175f295ad7f406d08c83
+PODFILE CHECKSUM: 4e7c86a05f7933211b5a267b88d423628a2d22a8
 
-COCOAPODS: 1.2.0
+COCOAPODS: 1.2.1

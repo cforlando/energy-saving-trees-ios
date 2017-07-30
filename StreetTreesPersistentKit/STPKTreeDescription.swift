@@ -50,11 +50,11 @@ open class STPKTreeDescription: STPKManagedObject {
     }
     
     open class func fetch(descriptionForName name: String, context: NSManagedObjectContext) throws -> STPKTreeDescription? {
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName()) as?STPKTreeDescription
+        let fetchRequest = NSFetchRequest<STPKTreeDescription>(entityName: self.entityName())
         fetchRequest.predicate = NSPredicate(format: "SELF.name == %@", name)
         fetchRequest.fetchLimit = 1
         
-        return try context.fetch(fetchRequest).first as? STPKTreeDescription
+        return try context.fetch(fetchRequest).first
     }
     
     open class func icon(treeName aName: String) -> UIImage? {

@@ -40,7 +40,7 @@ private let STFKSnapshotPointMultiplier: CGFloat = 0.23
 //**********************************************************************************************************************
 // MARK: - Public Typealias
 
-public typealias STFKMapSnapshotHandler = (_ image: UIImage?, _ error: NSError?) -> Void
+public typealias STFKMapSnapshotHandler = (_ image: UIImage?, _ error: Error?) -> Void
 
 //**********************************************************************************************************************
 // MARK: - Class Implementation
@@ -89,7 +89,7 @@ open class STFKMapSnapshot: NSObject {
         let mapOptions = self.mapOptions()
         let snapshotter = MKMapSnapshotter(options: mapOptions)
         
-        snapshotter.start (completionHandler: { (snapshot: MKMapSnapshot?, error: NSError?) in
+        snapshotter.start(completionHandler: { (snapshot: MKMapSnapshot?, error: Error?) in
             
             guard let image = snapshot?.image else {
                 self.handler(nil, error)
@@ -120,7 +120,7 @@ open class STFKMapSnapshot: NSObject {
             UIGraphicsEndImageContext()
             
             self.handler(finalImage, error)
-        } as! MKMapSnapshotCompletionHandler)
+        })
     }
     
     //******************************************************************************************************************

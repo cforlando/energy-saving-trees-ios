@@ -191,7 +191,7 @@ class STTreeDetailsTableViewController: UITableViewController {
             subtitle = "Shape"
         case .soil:
             let soil = self.treeDescription?.soil
-            content = soil?.stringByReplacingOccurrencesOfString(";", withString: ", ") ?? "Soil information missing"
+            content = soil?.replacingOccurrences(of: ";", with: ", ") ?? "Soil information missing"
             subtitle = "Soil"
         case .moisture:
             content = self.treeDescription?.moisture ?? "Moisture information missing"
@@ -200,7 +200,7 @@ class STTreeDetailsTableViewController: UITableViewController {
             content = self.treeDescription?.additional ?? "Additional information missing"
         case .birthday:
             if let date = self.annotation?.tree.date {
-                let dateString = DateFormatter.localizedStringFromDate(date, dateStyle: .medium, timeStyle: .none)
+                let dateString = DateFormatter.localizedString(from: date, dateStyle: .medium, timeStyle: .none)
                 content = dateString
             } else {
                 content = "No Date Available"
@@ -291,8 +291,8 @@ class STTreeDetailsTableViewController: UITableViewController {
             let longitude = self.annotation?.tree.longitude as? CLLocationDegrees,
             let URL = URL(string: "http://maps.apple.com/maps?q=\(latitude),\(longitude)"){
             
-            if UIApplication.sharedApplication().canOpenURL(URL) {
-                UIApplication.sharedApplication().openURL(URL)
+            if UIApplication.shared.canOpenURL(URL) {
+                UIApplication.shared.openURL(URL)
             } else {
                 self.showAlert("Oops", message: "Street Trees was unable to open maps.")
             }
@@ -312,7 +312,6 @@ class STTreeDetailsTableViewController: UITableViewController {
     
     func setupMapView() {
         guard let annotation = self.annotation else { return }
-        
         let snapshot = STFKMapSnapshot(coordinate: annotation.coordinate) { (image, error) in
             self.mapImageView.image = image
         }

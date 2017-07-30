@@ -54,11 +54,11 @@ class STInitialViewController: UIViewController {
         // Do any additional setup after loading the view.
         STPKCoreData.sharedInstance.setupCoreData({ (coreDataStack) in
             STPKCoreData.sharedInstance.createUser({ (user, anError) in
-                UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+                UIApplication.shared.isNetworkActivityIndicatorVisible = true
                 STPKCoreData.sharedInstance.refreshAll { (anError) in
-                    NSOperationQueue.mainQueue().addOperationWithBlock({
+                    OperationQueue.main.addOperation({
                         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                        UIApplication.sharedApplication().keyWindow?.rootViewController = storyboard.instantiateInitialViewController()
+                        UIApplication.shared.keyWindow?.rootViewController = storyboard.instantiateInitialViewController()
                     })
                 }
             })

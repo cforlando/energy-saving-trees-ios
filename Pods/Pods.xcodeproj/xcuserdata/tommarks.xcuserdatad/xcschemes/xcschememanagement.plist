@@ -14,7 +14,7 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>FBAnnotationClusteringSwift.xcscheme</key>
+		<key>FBAnnotationClustering.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -52,47 +52,47 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>16A187ABBC0FA5C4F9AE95DE7947358E</key>
+		<key>013499F9EFBDF4C49BCC0BB4E0CF5CC7</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>366C9858F94BE184943D3EDCCBDC6F0D</key>
+		<key>64D18BFD612D3DAF09E8FB95F1D1C99D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>40C7EC83A3DD673978281F3D4B7BEBDB</key>
+		<key>667A704BA92B274354FE9B41E16200A3</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>423C10F04A172BB11C7A3702F8F09B90</key>
+		<key>77D3D392A02D59C774012A9186D6764E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>45702BE4C42BB5C7FCFDF2279A80EA8B</key>
+		<key>88E9EC28B8B46C3631E6B242B50F4442</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>698733C4D35F57BFBAEEEF66B2C06C7F</key>
+		<key>8A446BF232EDCCDAB8EE0D3439AF2111</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>79C040AFDDCE1BCBF6D8B5EB0B85887F</key>
+		<key>A9833BD2BB93087B51B5BA7B93A7C44D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>D703542347393D5E49C4788EF88E0948</key>
+		<key>FA76DBED36CDAADD20692BE95C6C6DF2</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>DA94BF33E6AA4E224B082CA15C68635F</key>
+		<key>FDFEC5B4B188B8B236E966A3955C3379</key>
 		<dict>
 			<key>primary</key>
 			<true/>
